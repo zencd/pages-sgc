@@ -160,7 +160,7 @@ function recalcTime(timeText) {
 
 function updateUrl(timeText) {
 	const b64 = encode(timeText);
-	const urlNew = document.location.protocol + '//' + document.location.pathname + '?t=' + b64;
+	const urlNew = document.location.protocol + '//' + document.location.host + document.location.pathname + '?t=' + b64;
 	$dbg.innerHTML = '<a href="'+urlNew+'">' + urlNew + '</a>';
 }
 
