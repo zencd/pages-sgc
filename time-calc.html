@@ -106,16 +106,14 @@ function decode(b64) {
 
 function hmsToSeconds(hms) {
 	const words = hms.split(/:/);
-	//log('words:', words);
 	var totalSeconds = 0;
 	for (i in words) {
 		const word = words[i];
 		const mul = Math.pow(60, words.length - i - 1);
 		const n = parseInt(word, 10);
-		//log(mul, '*', n);
 		totalSeconds += (n * mul);
 	}
-	return totalSeconds;
+	return isNaN(totalSeconds) ? 0 : totalSeconds;
 }
 
 var toHHMMSS = (secs) => {
@@ -143,7 +141,7 @@ function recalcTime(timeText) {
 	for (i in lines) {
 		var line = lines[i];
 		line = line.trim();
-		//log('line:', line);
+		// log('line:', line);
 		const m = line.match(/^\s*([0-9][0-9:]*)(\s+(.+))?/);
 		if(m) {
 			const timeHms = m[1];
@@ -153,6 +151,7 @@ function recalcTime(timeText) {
 			totalSeconds += lineSec;
 		}
 	}
+	// log('totalSeconds:', totalSeconds);
 	// log('totalSeconds:', toHHMMSS(totalSeconds));
 	// log('$dbg2:', $dbg2);
 	$dbg2.innerHTML = 'Total time: ' + toHHMMSS(totalSeconds);
@@ -160,8 +159,8 @@ function recalcTime(timeText) {
 
 function updateUrl(timeText) {
 	const b64 = encode(timeText);
-	const urlNew = document.location.protocol + '//' + document.location.host + document.location.pathname + '?t=' + b64;
-	$dbg.innerHTML = '<a href="'+urlNew+'">' + urlNew + '</a>';
+	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '?t=' + b64;
+	$dbg.innerHTML = '<a href="'+url+'">' + url + '</a>';
 }
 
 function on_load() {
@@ -188,7 +187,4 @@ function on_load() {
     	// https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript
 	}
 }
-
-// on_load();
-
 </script>
