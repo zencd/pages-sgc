@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segment Time Calculator</title>
+<style type="text/css">
+@media (prefers-color-scheme: dark) {
+	body {
+		background: #444;
+	}
+	h1 {
+		/*font-family: sans-serif;*/
+	}
+	h1, div, p {
+		color: #ccc;
+	}
+	textarea {
+		background: #555;
+		color: #ccc;
+	}
+	a {
+		color: #ccc;
+	}
+	a:hover {
+		color:  white;
+	}
+}
+#dbg {
+	word-wrap: break-word;
+}
+#dbg a {
+	text-decoration: none;
+}
+#dbg2 {
+	font-size: 1.4em;
+}
+#wrapper {
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+}
+textarea {
+	font-size: 1.1em;
+	width: 100%;
+}
+@media screen and (min-width: 600px) {
+	#wrapper {
+		width: 600px;
+		xoutline: 5px solid red;
+	}
+}
+</style>
+</head>
+<body onload="on_load()">
+
+<div id="wrapper">
+<h1>Segment Time Calculator</h1>
+<textarea id="time-edit" cols="80" rows="30" placeholder="Use text like this:
+1:43 Paris
+2:01 Sapienza"></textarea>
+<br>
+<br>
+<div id="dbg2"></div>
+<br>
+<div id="dbg"></div>
+<br>
+<div>Written by <a href="https://www.speedrun.com/user/zencd" target="_blank">zencd</a>, 2022</div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+const log = console.log;
+const $dbg = document.getElementById('dbg');
+const $dbg2 = document.getElementById('dbg2');
+const $timeEdit = document.getElementById('time-edit');
+
+function encode_ascii85(a) {
+  var b, c, d, e, f, g, h, i, j, k;
+  for (!/[^\x00-\xFF]/.test(a), b = "\x00\x00\x00\x00".slice(a.length % 4 || 4), a += b, 
+  c = [], d = 0, e = a.length; e > d; d += 4) f = (a.charCodeAt(d) << 24) + (a.charCodeAt(d + 1) << 16) + (a.charCodeAt(d + 2) << 8) + a.charCodeAt(d + 3), 
+  0 !== f ? (k = f % 85, f = (f - k) / 85, j = f % 85, f = (f - j) / 85, i = f % 85, 
+  f = (f - i) / 85, h = f % 85, f = (f - h) / 85, g = f % 85, c.push(g + 33, h + 33, i + 33, j + 33, k + 33)) :c.push(122);
+  return function(a, b) {
+    for (var c = b; c > 0; c--) a.pop();
+  }(c, b.length), "<~" + String.fromCharCode.apply(String, c) + "~>";
+}
+
+function decode_ascii85(a) {
+  var c, d, e, f, g, h = String, l = "length", w = 255, x = "charCodeAt", y = "slice", z = "replace";
+  for ("<~" === a[y](0, 2) && "~>" === a[y](-2), a = a[y](2, -2)[z](/\s/g, "")[z]("z", "!!!!!"), 
+  c = "uuuuu"[y](a[l] % 5 || 5), a += c, e = [], f = 0, g = a[l]; g > f; f += 5) d = 52200625 * (a[x](f) - 33) + 614125 * (a[x](f + 1) - 33) + 7225 * (a[x](f + 2) - 33) + 85 * (a[x](f + 3) - 33) + (a[x](f + 4) - 33), 
+  e.push(w & d >> 24, w & d >> 16, w & d >> 8, w & d);
+  return function(a, b) {
+    for (var c = b; c > 0; c--) a.pop();
+  }(e, c[l]), h.fromCharCode.apply(h, e);
+}
+
+function encode(unicode) {
+	return btoa(unescape(encodeURIComponent(unicode)));
+}
+
+function decode(b64) {
+	return decodeURIComponent(escape(window.atob(b64)));
+}
+
+function hmsToSeconds(hms) {
+	const words = hms.split(/:/);
+	//log('words:', words);
+	var totalSeconds = 0;
+	for (i in words) {
+		const word = words[i];
+		const mul = Math.pow(60, words.length - i - 1);
+		const n = parseInt(word, 10);
+		//log(mul, '*', n);
+		totalSeconds += (n * mul);
+	}
+	return totalSeconds;
+}
+
+var toHHMMSS = (secs) => {
+	if (secs <= 0) {
+		return '0';
+	}
+	var parts = [];
+	while (secs > 0) {
+		var ostatok = secs % 60;
+		secs = Math.floor(secs / 60);
+		parts.push(ostatok);
+	}
+	parts.reverse();
+    return parts
+        .map(v => v < 10 ? "0" + v : v)
+        .filter((v,i) => v !== "00" || i > 0)
+        .join(":")
+}
+
+function recalcTime(timeText) {
+	// log('timeText:', timeText);
+	const lines = timeText.match(/[^\r\n]+/g);
+	//log('lines:', lines);
+	var totalSeconds = 0;
+	for (i in lines) {
+		var line = lines[i];
+		line = line.trim();
+		//log('line:', line);
+		const m = line.match(/^\s*([0-9][0-9:]*)(\s+(.+))?/);
+		if(m) {
+			const timeHms = m[1];
+			const lineLabel = m[3];
+			const lineSec = hmsToSeconds(timeHms);
+			//log('line:', timeHms, lineLabel, lineSec);
+			totalSeconds += lineSec;
+		}
+	}
+	// log('totalSeconds:', toHHMMSS(totalSeconds));
+	// log('$dbg2:', $dbg2);
+	$dbg2.innerHTML = 'Total time: ' + toHHMMSS(totalSeconds);
+}
+
+function updateUrl(timeText) {
+	const b64 = encode(timeText);
+	const urlNew = document.location.protocol + '//' + document.location.pathname + '?t=' + b64;
+	$dbg.innerHTML = '<a href="'+urlNew+'">' + urlNew + '</a>';
+}
+
+function on_load() {
+	const urlParams = new URLSearchParams(window.location.search);
+	const t = urlParams.get('t');
+	//log('t:', t);
+	//log(atob);
+	$timeEdit.focus();
+	if (t) {
+		const textPlain = decode(t);
+		$timeEdit.value = textPlain;
+	}
+	//log($timeEdit.value);
+	recalcTime($timeEdit.value);
+	updateUrl($timeEdit.value);
+
+	$timeEdit.addEventListener('input', function(e) {
+		const timeText = $timeEdit.value;
+		recalcTime(timeText);
+		updateUrl(timeText);
+	}, false);
+
+	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    	// https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript
+	}
+}
+
+// on_load();
+
+</script>
