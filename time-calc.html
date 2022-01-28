@@ -24,6 +24,9 @@
 		color:  white;
 	}
 }
+#grun-link {
+	word-wrap: break-word;
+}
 #dbg {
 	word-wrap: break-word;
 }
@@ -45,7 +48,6 @@ textarea {
 @media screen and (min-width: 600px) {
 	#wrapper {
 		width: 600px;
-		xoutline: 5px solid red;
 	}
 }
 </style>
@@ -63,6 +65,8 @@ textarea {
 <br>
 <div id="dbg"></div>
 <br>
+<div id="grun-link"></div>
+<br>
 <div>Written by <a href="https://www.speedrun.com/user/zencd" target="_blank">zencd</a>, 2022</div>
 </div>
 
@@ -73,6 +77,7 @@ textarea {
 const log = console.log;
 const $dbg = document.getElementById('dbg');
 const $dbg2 = document.getElementById('dbg2');
+const $grunLink = document.getElementById('grun-link');
 const $timeEdit = document.getElementById('time-edit');
 
 function encode_ascii85(a) {
@@ -133,11 +138,30 @@ var toHHMMSS = (secs) => {
         .join(":")
 }
 
+function makeGrunUrl(timeAndLabel) {
+	if (timeAndLabel.length == 0) {
+		return null;
+	}
+	var query = '';
+	for (var i = 0; i < timeAndLabel.length; i++) {
+		if (i > 0) {
+			query += '&';
+		}
+		const secStr = toHHMMSS(timeAndLabel[i][0]);
+		const label = timeAndLabel[i][1];
+		query += 't' + (i+1) + '=' + secStr;
+		query += '&c' + (i+1) + '=' + encodeURIComponent(label);
+	}
+	return 'http://www.grun1.com/utils/timeCalc.html?' + query;
+}
+
 function recalcTime(timeText) {
 	// log('timeText:', timeText);
 	const lines = timeText.match(/[^\r\n]+/g);
 	//log('lines:', lines);
 	var totalSeconds = 0;
+	//var grunUrl = 'http://www.grun1.com/utils/timeCalc.html?';
+	const timeAndLabel = [];
 	for (i in lines) {
 		var line = lines[i];
 		line = line.trim();
@@ -145,22 +169,27 @@ function recalcTime(timeText) {
 		const m = line.match(/^\s*([0-9][0-9:]*)(\s+(.+))?/);
 		if(m) {
 			const timeHms = m[1];
-			const lineLabel = m[3];
+			const lineLabel = (m[3] !== undefined) ? m[3].trim() : '';
 			const lineSec = hmsToSeconds(timeHms);
 			//log('line:', timeHms, lineLabel, lineSec);
 			totalSeconds += lineSec;
+			timeAndLabel.push([lineSec, lineLabel]);
 		}
 	}
+	// log('timeAndLabel:', timeAndLabel);
+	const grunUrl = makeGrunUrl(timeAndLabel);
+	// log('grunUrl:', grunUrl);
 	// log('totalSeconds:', totalSeconds);
 	// log('totalSeconds:', toHHMMSS(totalSeconds));
 	// log('$dbg2:', $dbg2);
 	$dbg2.innerHTML = 'Total time: ' + toHHMMSS(totalSeconds);
+	$grunLink.innerHTML = 'Grun1 link:<br><a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>';
 }
 
 function updateUrl(timeText) {
 	const b64 = encode(timeText);
 	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '?t=' + b64;
-	$dbg.innerHTML = '<a href="'+url+'">' + url + '</a>';
+	$dbg.innerHTML = 'Permanent link:<br><a href="'+url+'">' + url + '</a>';
 }
 
 function on_load() {
