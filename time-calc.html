@@ -44,6 +44,7 @@
 textarea {
 	font-size: 1.1em;
 	width: 100%;
+	height: auto;
 }
 @media screen and (min-width: 600px) {
 	#wrapper {
@@ -56,7 +57,7 @@ textarea {
 
 <div id="wrapper">
 <h1>Segment Time Calculator</h1>
-<textarea id="time-edit" cols="80" rows="30" placeholder="Use text like this:
+<textarea id="time-edit" cols="80" rows="3" placeholder="Use text like this:
 1:43 Paris
 2:01 Sapienza"></textarea>
 <br>
@@ -183,13 +184,20 @@ function recalcTime(timeText) {
 	// log('totalSeconds:', toHHMMSS(totalSeconds));
 	// log('$dbg2:', $dbg2);
 	$dbg2.innerHTML = 'Total time: ' + toHHMMSS(totalSeconds);
-	$grunLink.innerHTML = 'Grun1 link:<br><a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>';
+	
+	const grunAnchor = grunUrl ? '<a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>' : '-';
+	$grunLink.innerHTML = 'Grun1 link:<br>' + grunAnchor;
 }
 
 function updateUrl(timeText) {
 	const b64 = encode(timeText);
 	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '?t=' + b64;
 	$dbg.innerHTML = 'Permanent link:<br><a href="'+url+'">' + url + '</a>';
+}
+
+function onTimeEditChanged() {
+  $timeEdit.style.height = "auto";
+  $timeEdit.style.height = ($timeEdit.scrollHeight) + "px";
 }
 
 function on_load() {
@@ -205,11 +213,13 @@ function on_load() {
 	//log($timeEdit.value);
 	recalcTime($timeEdit.value);
 	updateUrl($timeEdit.value);
+	onTimeEditChanged();
 
 	$timeEdit.addEventListener('input', function(e) {
 		const timeText = $timeEdit.value;
 		recalcTime(timeText);
 		updateUrl(timeText);
+		onTimeEditChanged();
 	}, false);
 
 	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
