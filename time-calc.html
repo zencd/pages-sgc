@@ -6,6 +6,11 @@
 body {
 	color: #333;
 }
+#wrapper {
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+}
 h1 {
 	font-weight: normal;
 	/*font-style: italic;*/
@@ -26,19 +31,17 @@ a:hover {
 #dbg2 {
 	font-size: 1.4em;
 }
-#wrapper {
-	margin: 0 auto;
-	padding: 0;
-	width: 100%;
+.links {
+	font-size: 1.4em;
 }
 textarea {
-	font-size: 1.1em;
+	font-size: 1.2em;
 	width: 100%;
 	height: auto;
 }
 .internal-link {
-	text-decoration: none;
-	border-bottom: 1px dashed #ccc;
+	/*text-decoration: none;*/
+	/*border-bottom: 1px dashed #ccc;*/
 }
 .madeby {
 	transform-origin: 0 1;
@@ -84,12 +87,14 @@ textarea {
 2:01 Sapienza"></textarea>
 <br>
 <br>
-<div id="dbg2"></div>
+<div id="dbg2">
+	Total time: <span id="total-time">0</span>
+</div>
 <br>
-<div>
-	<a href="javascript:copyPermanentUrl()" class="internal-link">Copy URL</a>
+<div class="links">
+	🔗 <a href="" class="internal-link" id="perm-link">Perm. link</a>
 	&nbsp;&nbsp;
-	<a href="javascript:copyGrunUrl()" class="internal-link">Grun1 URL</a>
+	🔗 <a href="" class="internal-link" id="grun-link" target="_blank">Grun1 link</a>
 	&nbsp;&nbsp;
 	<a href="https://www.speedrun.com/user/zencd" target="_blank">@zencd</a>
 </div>
@@ -98,7 +103,7 @@ textarea {
 <br>
 <div id="dbg"></div>
 <br>
-<div id="grun-link"></div>
+<div id="grun-link-xxx"></div>
 </div>
 
 <!-- <br>
@@ -113,8 +118,10 @@ textarea {
 const log = console.log;
 const $dbg = document.getElementById('dbg');
 const $dbg2 = document.getElementById('dbg2');
-const $grunLink = document.getElementById('grun-link');
 const $timeEdit = document.getElementById('time-edit');
+const $totalTime = document.getElementById('total-time');
+const $grunLink = document.getElementById('grun-link');
+const $permLink = document.getElementById('perm-link');
 var g_permUrl = '';
 var g_grunUrl = '';
 
@@ -176,6 +183,13 @@ var toHHMMSS = (secs) => {
         .join(":")
 }
 
+function animateUpdate($elem) {
+	$elem.animate({ opacity: [0.3, 1.0] }, { duration: 2000, iterations: 1, easing: "ease-out" })
+	.onfinish = (e) => {
+		e.target.effect.target.style.opacity = 1;
+	};
+}
+
 function makeGrunUrl(timeAndLabel) {
 	if (timeAndLabel.length == 0) {
 		return null;
@@ -220,24 +234,35 @@ function recalcTime(timeText) {
 	// log('totalSeconds:', totalSeconds);
 	// log('totalSeconds:', toHHMMSS(totalSeconds));
 	// log('$dbg2:', $dbg2);
-	$dbg2.innerHTML = 'Total time: ' + toHHMMSS(totalSeconds);
+	// $dbg2.innerHTML = 'Total time: ' + toHHMMSS(totalSeconds);
+	$totalTime.innerHTML = toHHMMSS(totalSeconds);
 	
 	g_grunUrl = grunUrl;
 	const grunAnchor = grunUrl ? '<a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>' : '-';
-	$grunLink.innerHTML = 'Grun1 link:<br>' + grunAnchor;
+	// $grunLink.innerHTML = 'Grun1 link:<br>' + grunAnchor;
+	$grunLink.setAttribute('href', grunUrl);
+	animateUpdate($grunLink);
 }
 
 function updateUrl(timeText) {
 	const b64 = encode(timeText);
 	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '#' + b64;
 	g_permUrl = url;
-	$dbg.innerHTML = 'Permanent link:<br><a href="'+url+'">' + url + '</a>';
+	// $dbg.innerHTML = 'Permanent link:<br><a href="'+url+'">' + url + '</a>';
+	$permLink.setAttribute('href', url);
 	window.history.replaceState({} , 'Split Time Calculator', url);
+	animateUpdate($permLink);
 }
 
 function changeTimeEditSize() {
   $timeEdit.style.height = "auto";
   $timeEdit.style.height = $timeEdit.scrollHeight + "px";
+}
+
+function readTimeTextFromUrl() {
+	var val = document.location.hash;
+	val = val ? val.substring(1) : '';
+	return val ? decode(val) : val;
 }
 
 function copyPermanentUrl() {}
@@ -251,16 +276,11 @@ function onLoad() {
 	//log(atob);
 	$timeEdit.focus();
 
-	var t = document.location.hash;
-	t = t ? t.substring(1) : '';
-	if (t) {
-		const textPlain = decode(t);
-		$timeEdit.value = textPlain;
-	}
-	//log($timeEdit.value);
-	recalcTime($timeEdit.value);
-	if ($timeEdit.value) {
-		updateUrl($timeEdit.value);
+	var textPlain = readTimeTextFromUrl();
+	$timeEdit.value = textPlain;
+	recalcTime(textPlain);
+	if (textPlain) {
+		updateUrl(textPlain);
 	}
 	changeTimeEditSize();
 
