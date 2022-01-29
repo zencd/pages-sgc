@@ -36,6 +36,14 @@ textarea {
 	width: 100%;
 	height: auto;
 }
+.internal-link {
+	text-decoration: none;
+	border-bottom: 1px dashed #ccc;
+}
+.madeby {
+	transform-origin: 0 1;
+	transform: rotate(-90deg);
+}
 @media (prefers-color-scheme: dark) {
 	body {
 		background: #444;
@@ -68,6 +76,9 @@ textarea {
 
 <div id="wrapper">
 <h1>Split Time Calculator</h1>
+<!-- <div class="madeby">
+	zencd
+</div> -->
 <textarea id="time-edit" cols="80" rows="10" placeholder="Use text like this:
 1:43 Paris
 2:01 Sapienza"></textarea>
@@ -75,11 +86,24 @@ textarea {
 <br>
 <div id="dbg2"></div>
 <br>
+<div>
+	<a href="javascript:var x=1" class="internal-link">Copy URL</a>
+	&nbsp;&nbsp;
+	<a href="javascript:var x=1" class="internal-link">Grun1 URL</a>
+	&nbsp;&nbsp;
+	<a href="https://www.speedrun.com/user/zencd" target="_blank">@zencd</a>
+</div>
+
+<div style="display: none;">
+<br>
 <div id="dbg"></div>
 <br>
 <div id="grun-link"></div>
-<br>
+</div>
+
+<!-- <br>
 <div>Written by <a href="https://www.speedrun.com/user/zencd" target="_blank">zencd</a>, 2022</div>
+ -->
 </div>
 
 </body>
@@ -91,6 +115,7 @@ const $dbg = document.getElementById('dbg');
 const $dbg2 = document.getElementById('dbg2');
 const $grunLink = document.getElementById('grun-link');
 const $timeEdit = document.getElementById('time-edit');
+var doReplaceHistory = false;
 
 function encode_ascii85(a) {
   var b, c, d, e, f, g, h, i, j, k;
@@ -204,11 +229,18 @@ function updateUrl(timeText) {
 	const b64 = encode(timeText);
 	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '?t=' + b64;
 	$dbg.innerHTML = 'Permanent link:<br><a href="'+url+'">' + url + '</a>';
+	window.history.replaceState({} , 'Split Time Calculator', url);
+	// if (doReplaceHistory) {
+	// 	window.history.replaceState({} , 'title', url);
+	// } else {
+	// 	window.history.pushState({} , 'title', url);
+	// }
+	// doReplaceHistory = true;
 }
 
-function onTimeEditChanged() {
+function changeTimeEditDim() {
   $timeEdit.style.height = "auto";
-  $timeEdit.style.height = ($timeEdit.scrollHeight) + "px";
+  $timeEdit.style.height = $timeEdit.scrollHeight + "px";
 }
 
 function on_load() {
@@ -224,17 +256,13 @@ function on_load() {
 	//log($timeEdit.value);
 	recalcTime($timeEdit.value);
 	updateUrl($timeEdit.value);
-	onTimeEditChanged();
+	changeTimeEditDim();
 
 	$timeEdit.addEventListener('input', function(e) {
 		const timeText = $timeEdit.value;
 		recalcTime(timeText);
 		updateUrl(timeText);
-		onTimeEditChanged();
+		changeTimeEditDim();
 	}, false);
-
-	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    	// https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript
-	}
 }
 </script>
