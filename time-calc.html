@@ -72,7 +72,7 @@ textarea {
 }
 </style>
 </head>
-<body onload="on_load()">
+<body onload="onLoad()">
 
 <div id="wrapper">
 <h1>Split Time Calculator</h1>
@@ -87,9 +87,9 @@ textarea {
 <div id="dbg2"></div>
 <br>
 <div>
-	<a href="javascript:var x=1" class="internal-link">Copy URL</a>
+	<a href="javascript:copyPermanentUrl()" class="internal-link">Copy URL</a>
 	&nbsp;&nbsp;
-	<a href="javascript:var x=1" class="internal-link">Grun1 URL</a>
+	<a href="javascript:copyGrunUrl()" class="internal-link">Grun1 URL</a>
 	&nbsp;&nbsp;
 	<a href="https://www.speedrun.com/user/zencd" target="_blank">@zencd</a>
 </div>
@@ -115,7 +115,8 @@ const $dbg = document.getElementById('dbg');
 const $dbg2 = document.getElementById('dbg2');
 const $grunLink = document.getElementById('grun-link');
 const $timeEdit = document.getElementById('time-edit');
-var doReplaceHistory = false;
+var g_permUrl = '';
+var g_grunUrl = '';
 
 function encode_ascii85(a) {
   var b, c, d, e, f, g, h, i, j, k;
@@ -221,48 +222,53 @@ function recalcTime(timeText) {
 	// log('$dbg2:', $dbg2);
 	$dbg2.innerHTML = 'Total time: ' + toHHMMSS(totalSeconds);
 	
+	g_grunUrl = grunUrl;
 	const grunAnchor = grunUrl ? '<a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>' : '-';
 	$grunLink.innerHTML = 'Grun1 link:<br>' + grunAnchor;
 }
 
 function updateUrl(timeText) {
 	const b64 = encode(timeText);
-	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '?t=' + b64;
+	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '#' + b64;
+	g_permUrl = url;
 	$dbg.innerHTML = 'Permanent link:<br><a href="'+url+'">' + url + '</a>';
 	window.history.replaceState({} , 'Split Time Calculator', url);
-	// if (doReplaceHistory) {
-	// 	window.history.replaceState({} , 'title', url);
-	// } else {
-	// 	window.history.pushState({} , 'title', url);
-	// }
-	// doReplaceHistory = true;
 }
 
-function changeTimeEditDim() {
+function changeTimeEditSize() {
   $timeEdit.style.height = "auto";
   $timeEdit.style.height = $timeEdit.scrollHeight + "px";
 }
 
-function on_load() {
+function copyPermanentUrl() {}
+
+function copyGrunUrl() {}
+
+function onLoad() {
 	const urlParams = new URLSearchParams(window.location.search);
-	const t = urlParams.get('t');
+	// const t = urlParams.get('t');
 	//log('t:', t);
 	//log(atob);
 	$timeEdit.focus();
+
+	var t = document.location.hash;
+	t = t ? t.substring(1) : '';
 	if (t) {
 		const textPlain = decode(t);
 		$timeEdit.value = textPlain;
 	}
 	//log($timeEdit.value);
 	recalcTime($timeEdit.value);
-	updateUrl($timeEdit.value);
-	changeTimeEditDim();
+	if ($timeEdit.value) {
+		updateUrl($timeEdit.value);
+	}
+	changeTimeEditSize();
 
 	$timeEdit.addEventListener('input', function(e) {
 		const timeText = $timeEdit.value;
 		recalcTime(timeText);
 		updateUrl(timeText);
-		changeTimeEditDim();
+		changeTimeEditSize();
 	}, false);
 }
 </script>
