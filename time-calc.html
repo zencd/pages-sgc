@@ -35,7 +35,7 @@ a:hover {
 	/*font-size: 1.4em;*/
 }
 textarea {
-	font-size: 1.2em;
+	font-size: 1.1em;
 	width: 100%;
 	height: auto;
 }
@@ -184,7 +184,7 @@ var toHHMMSS = (secs) => {
 }
 
 function animateUpdate($elem) {
-	$elem.animate({ opacity: [0.3, 1.0] }, { duration: 2000, iterations: 1, easing: "ease-out" })
+	$elem.animate({ opacity: [0.5, 1.0] }, { duration: 2000, iterations: 1, easing: "ease-out" })
 	.onfinish = (e) => {
 		e.target.effect.target.style.opacity = 1;
 	};
@@ -207,7 +207,7 @@ function makeGrunUrl(timeAndLabel) {
 	return 'http://www.grun1.com/utils/timeCalc.html?' + query;
 }
 
-function recalcTime(timeText) {
+function recalcTime(timeText, isOnLoad) {
 	// log('timeText:', timeText);
 	const lines = timeText.match(/[^\r\n]+/g);
 	//log('lines:', lines);
@@ -241,17 +241,21 @@ function recalcTime(timeText) {
 	const grunAnchor = grunUrl ? '<a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>' : '-';
 	// $grunLink.innerHTML = 'Grun1 link:<br>' + grunAnchor;
 	$grunLink.setAttribute('href', grunUrl);
-	animateUpdate($grunLink);
+	if (!isOnLoad) {
+		animateUpdate($grunLink);
+	}
 }
 
-function updateUrl(timeText) {
+function updateUrl(timeText, isOnLoad) {
 	const b64 = encode(timeText);
 	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '#' + b64;
 	g_permUrl = url;
 	// $dbg.innerHTML = 'Permanent link:<br><a href="'+url+'">' + url + '</a>';
 	$permLink.setAttribute('href', url);
 	window.history.replaceState({} , 'Split Time Calculator', url);
-	animateUpdate($permLink);
+	if (!isOnLoad) {
+		animateUpdate($permLink);
+	}
 }
 
 function changeTimeEditSize() {
@@ -278,16 +282,16 @@ function onLoad() {
 
 	var textPlain = readTimeTextFromUrl();
 	$timeEdit.value = textPlain;
-	recalcTime(textPlain);
+	recalcTime(textPlain, true);
 	if (textPlain) {
-		updateUrl(textPlain);
+		updateUrl(textPlain, true);
 	}
 	changeTimeEditSize();
 
 	$timeEdit.addEventListener('input', function(e) {
 		const timeText = $timeEdit.value;
-		recalcTime(timeText);
-		updateUrl(timeText);
+		recalcTime(timeText, false);
+		updateUrl(timeText, false);
 		changeTimeEditSize();
 	}, false);
 }
