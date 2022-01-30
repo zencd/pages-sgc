@@ -51,6 +51,15 @@ textarea {
 	transform-origin: 0 1;
 	transform: rotate(-90deg);
 }
+#link-1,
+#link-2 {
+	display: inline-block;
+	transition: all 0.5s;
+}
+.rotate {
+  transition: 0.4s;
+  transform:rotate(360deg);
+}
 @media (prefers-color-scheme: dark) {
 	body {
 		background: #444;
@@ -96,11 +105,11 @@ textarea {
 </div>
 <br>
 <div class="links">
-	🔗 <a href="" class="internal-link" id="perm-link">Perm. link</a>
+	<span id="link-1">🔗</span> <a href="" class="internal-link" id="perm-link">Perm. link</a>
 	&nbsp;&nbsp;
-	🔗 <a href="" class="internal-link" id="grun-link" target="_blank">Grun1 link</a>
+	<span id="link-2">🔗</i> <a href="" class="internal-link" id="grun-link" target="_blank">Grun1 link</a>
 	&nbsp;&nbsp;
-	<span id="update-notif">← The links has been updated</span>
+	<span id="update-notif">← Updated</span>
 	<!-- <a href="https://www.speedrun.com/user/zencd" target="_blank">@zencd</a> -->
 </div>
 
@@ -128,6 +137,8 @@ const $totalTime = document.getElementById('total-time');
 const $grunLink = document.getElementById('grun-link');
 const $permLink = document.getElementById('perm-link');
 const $updateNotif = document.getElementById('update-notif');
+const $link1 = document.getElementById('link-1');
+const $link2 = document.getElementById('link-2');
 var g_permUrl = '';
 var g_grunUrl = '';
 
@@ -252,6 +263,13 @@ function recalcTime(timeText, isOnLoad) {
 	// }
 }
 
+function animateRotate($elem) {
+	var rot = $elem.getAttribute('data-rotate');
+	rot = rot ? parseInt(rot) : 360;
+	$elem.style = 'transform: rotate(' + rot + 'deg)';
+  $elem.setAttribute('data-rotate', rot + 360);
+}
+
 function updateUrl(timeText, isOnLoad) {
 	const b64 = encode(timeText);
 	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '#' + b64;
@@ -260,8 +278,10 @@ function updateUrl(timeText, isOnLoad) {
 	$permLink.setAttribute('href', url);
 	window.history.replaceState({} , 'Split Time Calculator', url);
 	if (!isOnLoad) {
+		// animateRotate($link1);
 		// animateUpdate($permLink);
 		animateUpdate($updateNotif);
+		// $link1.classList.toggle('rotate');
 	}
 }
 
