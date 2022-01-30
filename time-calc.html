@@ -43,6 +43,10 @@ textarea {
 	/*text-decoration: none;*/
 	/*border-bottom: 1px dashed #ccc;*/
 }
+#update-notif {
+	opacity: 0;
+	font-style: italic;
+}
 .madeby {
 	transform-origin: 0 1;
 	transform: rotate(-90deg);
@@ -96,7 +100,8 @@ textarea {
 	&nbsp;&nbsp;
 	🔗 <a href="" class="internal-link" id="grun-link" target="_blank">Grun1 link</a>
 	&nbsp;&nbsp;
-	<a href="https://www.speedrun.com/user/zencd" target="_blank">@zencd</a>
+	<span id="update-notif">← The links has been updated</span>
+	<!-- <a href="https://www.speedrun.com/user/zencd" target="_blank">@zencd</a> -->
 </div>
 
 <div style="display: none;">
@@ -122,6 +127,7 @@ const $timeEdit = document.getElementById('time-edit');
 const $totalTime = document.getElementById('total-time');
 const $grunLink = document.getElementById('grun-link');
 const $permLink = document.getElementById('perm-link');
+const $updateNotif = document.getElementById('update-notif');
 var g_permUrl = '';
 var g_grunUrl = '';
 
@@ -184,9 +190,9 @@ var toHHMMSS = (secs) => {
 }
 
 function animateUpdate($elem) {
-	$elem.animate({ opacity: [0.5, 1.0] }, { duration: 2000, iterations: 1, easing: "ease-out" })
+	$elem.animate({ opacity: [0, 0.7, 0] }, { duration: 1500, iterations: 1, easing: "ease-out" })
 	.onfinish = (e) => {
-		e.target.effect.target.style.opacity = 1;
+		e.target.effect.target.style.opacity = 0;
 	};
 }
 
@@ -241,9 +247,9 @@ function recalcTime(timeText, isOnLoad) {
 	const grunAnchor = grunUrl ? '<a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>' : '-';
 	// $grunLink.innerHTML = 'Grun1 link:<br>' + grunAnchor;
 	$grunLink.setAttribute('href', grunUrl);
-	if (!isOnLoad) {
-		animateUpdate($grunLink);
-	}
+	// if (!isOnLoad) {
+	// 	animateUpdate($grunLink);
+	// }
 }
 
 function updateUrl(timeText, isOnLoad) {
@@ -254,7 +260,8 @@ function updateUrl(timeText, isOnLoad) {
 	$permLink.setAttribute('href', url);
 	window.history.replaceState({} , 'Split Time Calculator', url);
 	if (!isOnLoad) {
-		animateUpdate($permLink);
+		// animateUpdate($permLink);
+		animateUpdate($updateNotif);
 	}
 }
 
