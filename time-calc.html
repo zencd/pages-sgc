@@ -97,9 +97,9 @@ textarea {
 	zencd
 </div> -->
 <div class="links">
-	<span id="link-1">🔗</span> <a href="" class="internal-link" id="perm-link">Perm. link</a>
+	<span id="link-1">🔗</span>&nbsp;<a href="" class="internal-link" id="perm-link">Perm. link</a>
 	&nbsp;&nbsp;
-	<span id="link-2">🔗</i> <a href="" class="internal-link" id="grun-link" target="_blank">Grun1</a>
+	<span id="link-2">🔗</span>&nbsp;<a href="" class="internal-link" id="grun-link" target="_blank">Grun1</a>
 	&nbsp;&nbsp;
 	<span id="update-notif">← Updated</span>
 	<!-- <a href="https://www.speedrun.com/user/zencd" target="_blank">@zencd</a> -->
@@ -256,6 +256,11 @@ function recalcTime(timeText, isOnLoad) {
 		var line = lines[i];
 		line = line.trim();
 		//log('line:', line);
+		if (!line && segmentTotal > 0) {
+			segmentTimes.push(segmentTotal);
+			segmentTotal = 0;
+			continue;
+		}
 		const m = line.match(/^\s*([0-9][0-9:]*)(\s+(.+))?/);
 		if(m) {
 			const timeHms = m[1];
@@ -265,12 +270,6 @@ function recalcTime(timeText, isOnLoad) {
 			totalSeconds += lineSec;
 			segmentTotal += lineSec;
 			timeAndLabel.push([lineSec, lineLabel]);
-		} else {
-			// log('!m');
-			if (segmentTotal > 0) {
-				segmentTimes.push(segmentTotal);
-				segmentTotal = 0;
-			}
 		}
 	}
 	if (segmentTotal > 0) {
