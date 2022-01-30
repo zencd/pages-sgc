@@ -91,6 +91,7 @@ textarea {
 <body onload="onLoad()">
 
 <div id="wrapper">
+<!-- <h1><a href="">Split Time Calculator</a></h1> -->
 <h1>Split Time Calculator</h1>
 <!-- <div class="madeby">
 	zencd
@@ -111,6 +112,9 @@ textarea {
 <br>
 <div id="dbg2">
 	Total time: <span id="total-time">0</span>
+</div>
+<div id="segmented-times">
+	&nbsp;
 </div>
 <div style="display: none;">
 <br>
@@ -138,6 +142,7 @@ const $permLink = document.getElementById('perm-link');
 const $updateNotif = document.getElementById('update-notif');
 const $link1 = document.getElementById('link-1');
 const $link2 = document.getElementById('link-2');
+const $segmentedTimes = document.getElementById('segmented-times');
 var g_permUrl = '';
 var g_grunUrl = '';
 
@@ -193,10 +198,10 @@ var toHHMMSS = (secs) => {
 		parts.push(ostatok);
 	}
 	parts.reverse();
-    return parts
-        .map(v => v < 10 ? "0" + v : v)
-        .filter((v,i) => v !== "00" || i > 0)
-        .join(":")
+  return parts
+      .map(v => v < 10 ? "0" + v : v)
+      .filter((v,i) => v !== "00" || i > 0)
+      .join(":")
 }
 
 function animateUpdateImpl($elem) {
@@ -216,7 +221,7 @@ function animateUpdate($elem) {
 	}
 	updTimeoutHandle = setTimeout(function() {
 		animateUpdateImpl($elem);
-	}, 1500);
+	}, 1200);
 }
 
 function makeGrunUrl(timeAndLabel) {
@@ -238,15 +243,18 @@ function makeGrunUrl(timeAndLabel) {
 
 function recalcTime(timeText, isOnLoad) {
 	// log('timeText:', timeText);
-	const lines = timeText.match(/[^\r\n]+/g);
+	// const lines = timeText.match(/[^\r\n]+/g);
+	const lines = timeText.split(/\r?\n/);
 	//log('lines:', lines);
 	var totalSeconds = 0;
+	var segmentTotal = 0;
 	//var grunUrl = 'http://www.grun1.com/utils/timeCalc.html?';
 	const timeAndLabel = [];
+	const segmentTimes = [];
 	for (i in lines) {
 		var line = lines[i];
 		line = line.trim();
-		// log('line:', line);
+		//log('line:', line);
 		const m = line.match(/^\s*([0-9][0-9:]*)(\s+(.+))?/);
 		if(m) {
 			const timeHms = m[1];
@@ -254,9 +262,29 @@ function recalcTime(timeText, isOnLoad) {
 			const lineSec = hmsToSeconds(timeHms);
 			//log('line:', timeHms, lineLabel, lineSec);
 			totalSeconds += lineSec;
+			segmentTotal += lineSec;
 			timeAndLabel.push([lineSec, lineLabel]);
+		} else {
+			// log('!m');
+			if (segmentTotal > 0) {
+				segmentTimes.push(segmentTotal);
+				segmentTotal = 0;
+			}
 		}
 	}
+	if (segmentTotal > 0) {
+		segmentTimes.push(segmentTotal);
+		segmentTotal = 0;
+	}
+
+	// log('segmentTimes:', segmentTimes);
+	if (segmentTimes.length > 1) {
+		const text = segmentTimes.map(t => toHHMMSS(t)).join(" + ");
+		$segmentedTimes.innerHTML = 'Segments: ' + text;
+	} else {
+		$segmentedTimes.innerHTML = '';
+	}
+
 	// log('timeAndLabel:', timeAndLabel);
 	const grunUrl = makeGrunUrl(timeAndLabel);
 	// log('grunUrl:', grunUrl);
@@ -267,9 +295,9 @@ function recalcTime(timeText, isOnLoad) {
 	$totalTime.innerHTML = toHHMMSS(totalSeconds);
 	
 	g_grunUrl = grunUrl;
-	const grunAnchor = grunUrl ? '<a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>' : '-';
+	// const grunAnchor = grunUrl ? '<a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>' : '-';
 	// $grunLink.innerHTML = 'Grun1 link:<br>' + grunAnchor;
-	$grunLink.setAttribute('href', grunUrl);
+	$grunLink.setAttribute('href', grunUrl ? grunUrl : '');
 	// if (!isOnLoad) {
 	// 	animateUpdate($grunLink);
 	// }
