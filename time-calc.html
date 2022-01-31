@@ -1,3 +1,11 @@
+<!--
+- put some text into the title
+- disallow url ending with '#'
+- use prefix like 't:'
+- force unix line ending?
+- use pixels not em
+-->
+
 <!DOCTYPE html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,19 +37,24 @@ a:hover {
 	word-wrap: break-word;
 }
 #dbg2 {
-	font-size: 1.4em;
+	/*font-size: 1.4em;*/
+	font-size: 22px;
+	font-family: monospace;
+	font-size: 15px;
 }
 .links {
 	/*font-size: 1.4em;*/
 }
 textarea {
-	font-size: 1.1em;
+	font-family: monospace;
+	font-size: 15px;
 	width: 100%;
 	height: auto;
 }
 .internal-link {
 	/*text-decoration: none;*/
 	/*border-bottom: 1px dashed #ccc;*/
+	font-size: 22px;
 }
 #update-notif {
 	opacity: 0;
@@ -55,6 +68,18 @@ textarea {
 #link-2 {
 	display: inline-block;
 	transition: all 0.5s;
+}
+#total-time {
+	font-weight: bold;
+	padding: 0 4px;
+	color: black;
+	background: #999;
+}
+#segmented-times {
+	/*font-size: 1.4em;*/
+	font-size: 22px;
+	font-family: monospace;
+	font-size: 15px;
 }
 .rotate {
   transition: 0.4s;
@@ -105,18 +130,24 @@ textarea {
 	<!-- <a href="https://www.speedrun.com/user/zencd" target="_blank">@zencd</a> -->
 </div>
 <br>
-<textarea id="time-edit" cols="80" rows="10" placeholder="Use text like this:
-1:43 Paris
-2:01 Sapienza"></textarea>
+<textarea id="time-edit" xcols="80" rows="10" placeholder="Type in text like this:
+
+1:11 Paris
+1:56 Sapienza
+
+0:34 Dubai
+1:55 Dartmoor"></textarea>
 <br>
 <br>
 <div id="dbg2">
-	Total time: <span id="total-time">0</span>
+	Total <span id="total-time">0</span>
+	<span id="segmented-times"></span>
 </div>
 <!-- <br> -->
-<div id="segmented-times" style="margin-top: 10px;">
+<!-- <div id="segmented-times" style="margin-top: 10px;"> -->
 	&nbsp;
 </div>
+
 <div style="display: none;">
 <br>
 <div id="dbg"></div>
@@ -280,7 +311,7 @@ function recalcTime(timeText, isOnLoad) {
 	// log('segmentTimes:', segmentTimes);
 	if (segmentTimes.length > 1) {
 		const text = segmentTimes.map(t => toHHMMSS(t)).join(" + ");
-		$segmentedTimes.innerHTML = 'Segments: ' + text;
+		$segmentedTimes.innerHTML = '= ' + text;
 	} else {
 		$segmentedTimes.innerHTML = '';
 	}
