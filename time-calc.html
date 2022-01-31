@@ -283,6 +283,7 @@ function recalcTime(timeText, isOnLoad) {
 	//var grunUrl = 'http://www.grun1.com/utils/timeCalc.html?';
 	const timeAndLabel = [];
 	const segmentTimes = [];
+	var pageTitle = '';
 	for (i in lines) {
 		var line = lines[i];
 		line = line.trim();
@@ -301,6 +302,9 @@ function recalcTime(timeText, isOnLoad) {
 			totalSeconds += lineSec;
 			segmentTotal += lineSec;
 			timeAndLabel.push([lineSec, lineLabel]);
+			if (lineLabel && !pageTitle) {
+				pageTitle = lineLabel;
+			}
 		}
 	}
 	if (segmentTotal > 0) {
@@ -323,7 +327,8 @@ function recalcTime(timeText, isOnLoad) {
 	// log('totalSeconds:', toHHMMSS(totalSeconds));
 	// log('$dbg2:', $dbg2);
 	// $dbg2.innerHTML = 'Total time: ' + toHHMMSS(totalSeconds);
-	$totalTime.innerHTML = toHHMMSS(totalSeconds);
+	const totalHms = toHHMMSS(totalSeconds);
+	$totalTime.innerHTML = totalHms;
 	
 	g_grunUrl = grunUrl;
 	// const grunAnchor = grunUrl ? '<a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>' : '-';
@@ -332,6 +337,16 @@ function recalcTime(timeText, isOnLoad) {
 	// if (!isOnLoad) {
 	// 	animateUpdate($grunLink);
 	// }
+
+	if (pageTitle) {
+		pageTitle += ', ' + totalHms;
+		if (segmentTimes.length > 1) {
+			pageTitle += ', ' + segmentTimes.length + ' segm'
+		}
+		pageTitle += ' - ';
+	}
+	pageTitle += 'Time Calculator'
+	document.title = pageTitle;
 }
 
 function animateRotate($elem) {
