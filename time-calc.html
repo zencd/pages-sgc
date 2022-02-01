@@ -9,6 +9,7 @@
 - pageTitle: strip punctuation
 - allow millis?
 - '1111111111111111111111111111' => '3.0864197530864196e+23:10:40'
++ "11366" => "03:9:26"
 + favicon
 + '02' is meaningless 02:10:00:09
 + no 'paris' in title when text is '111Paris'
@@ -308,14 +309,14 @@ var toHHMMSS = (secs) => {
 	var div = Math.floor(secs / 3600);
 	var rem = secs % 3600;
 	if (div > 0) {
-		s += (div < 9) ? ('0'+div) : intToStr(div);
+		s += (div < 10) ? ('0'+div) : intToStr(div);
 		force = true;
 	}
 
 	rem = Math.floor(rem / 60);
 	if (rem > 0 || force) {
 		if (s.length > 0) s += ':';
-		s += (rem < 9) ? ('0'+rem) : rem;
+		s += (rem < 10) ? ('0'+rem) : rem;
 		force = true;
 	}
 	
@@ -376,6 +377,7 @@ function recalcTime(timeText, isOnLoad) {
 	const timeAndLabel = [];
 	const segmentTimes = [];
 	var pageTitle = '';
+	var numSplits = 0;
 	for (i in lines) {
 		var line = lines[i];
 		line = line.trim();
@@ -394,6 +396,7 @@ function recalcTime(timeText, isOnLoad) {
 			// log('timeHms:', timeHms, 'lineLabel:', lineLabel, 'lineSec:', lineSec);
 			totalSeconds += lineSec;
 			segmentTotal += lineSec;
+			numSplits += 1;
 			timeAndLabel.push([lineSec, lineLabel]);
 			if (lineLabel && !pageTitle) {
 				pageTitle = lineLabel;
@@ -434,10 +437,10 @@ function recalcTime(timeText, isOnLoad) {
 	// }
 
 	if (pageTitle) {
-		pageTitle += ', ' + totalHms;
-		if (segmentTimes.length > 1) {
-			pageTitle += ', ' + segmentTimes.length + ' seg'
+		if (numSplits > 1) {
+			pageTitle += ' + ' + (numSplits-1) + ' more'
 		}
+		pageTitle += ', ' + totalHms;
 		pageTitle += ' - ';
 	}
 	pageTitle += 'Time Calculator'
