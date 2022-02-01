@@ -292,6 +292,12 @@ var toHHMMSS = (secs) => {
 }
 */
 
+function intToStr(n) {
+	// avoid scientific notation
+	return BigInt(n).toString();
+	// return n.toLocaleString('fullwide', {useGrouping: false});
+}
+
 var toHHMMSS = (secs) => {
 	if (secs <= 0) {
 		return '0';
@@ -302,7 +308,7 @@ var toHHMMSS = (secs) => {
 	var div = Math.floor(secs / 3600);
 	var rem = secs % 3600;
 	if (div > 0) {
-		s += (div < 9) ? ('0'+div) : div;
+		s += (div < 9) ? ('0'+div) : intToStr(div);
 		force = true;
 	}
 
@@ -310,10 +316,11 @@ var toHHMMSS = (secs) => {
 	if (rem > 0 || force) {
 		if (s.length > 0) s += ':';
 		s += (rem < 9) ? ('0'+rem) : rem;
+		force = true;
 	}
 	
 	rem = secs % 60;
-	if (rem > 0) {
+	if (rem > 0 || force) {
 		if (s.length > 0) s += ':';
 		s += (rem < 9) ? ('0'+rem) : rem;
 	}
