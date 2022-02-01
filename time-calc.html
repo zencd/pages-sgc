@@ -3,13 +3,23 @@
 - disallow url ending with '#'
 - use prefix like 't:'
 - force unix line ending?
-- use pixels not em
++ use pixels everywhere, not em
+- bug: "sapienza" in title when text is '111. Paris\n222 Sapienza'
+- go base85 ?
+- total-time: adjust the light theme
+- monospace everywhere?
+- handle Ctrl/Cmd+S ?
+- pageTitle: limit length
+- pageTitle: strip punctuation
+- favicon
++ textarea takes 606px
 -->
 
 <!DOCTYPE html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Split Time Calculator</title>
+<title>Time Calculator</title>
+<link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAQK0lEQVRYCQEgEN/vAf39/f8AAAAAAAAAAAAAAAD///8AAAAAAAEBAQAAAAAAAAAAAP///wAAAAAAAQEBAAAAAAAAAAAA////AAAAAAABAQEAAAAAAAAAAAD///8AAAAAAAEBAQAAAAAAAAAAAP///wAAAAAAAQEBAAAAAAAAAAAA////AAAAAAABAQEAAf39/f////8AAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAABAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAANzc3ACenp4A+/v7AAAAAAAAAAAAAQEBAAQEBABkZGQAIiIiAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAABAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AMjIyADOzs4AAQEBAP///wABAQEAAAAAAAAAAADGxsYAIiIiAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAAAAAAAAv///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAQEBAABAQEA////AAEBAQD///8AAAAAAP///wAEBAQA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEABAAAAAAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAElJSQABAQEA+fn5AKqqqgAAAAAAVlZWAAcHBwBHR0cAAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAf39/f////8AAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8A////ANTU1AAAAAAALCwsAAEBAQABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAABAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAA////AN3d3QDPz88A3t7eAO7u7gABAQEAERERACIiIgAyMjIAIiIiAAEBAQD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAAAf39/f/+/v4AAQEBAAAAAAAAAAAAAAAAALa2tgDf398AZGRkAAYGBgDHx8cApqamANzc3AAAAAAAAQEBAAAAAAAAAAAAAAAAAP///wAAAAAAJCQkAFtbWwA4ODgA+vr6AJycnAAiIiIASEhIAAEBAQAAAAAAAAAAAAAAAAAAAAAABP///wABAQEAAAAAAAAAAAAAAAAA5ubmAJOTkwAvLy8A9PT0AJeXlwDExMQAAAAAABAQEAA6OjoAKSkpABISEgAAAAAA7e3tANjY2ADGxsYA3NzcAIGBgQA9PT0AaGhoAOTk5AC0tLQALy8vABoaGgAAAAAAAAAAAP///wACAgIAAPz8/P/8/Pz//Pz8//z8/P/7+/v/+Pj4/5ubm//m5ub/ZmZm/0RERP9PT0//ra2t//b29v/8/Pz/+/v7//z8/P/8/Pz//Pz8//z8/P/29vb/ra2t/09PT/9FRUX/ZmZm/+Xl5f+cnJz/+Pj4//z8/P/8/Pz/+/v7//z8/P/9/f3/Af39/f////8AAAAAAP///wABAQEAAAAAAPv7+wB3d3cA19fXABwcHACCgoIAGRkZAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wDj4+MAHh4eAObm5gB/f38A5OTkACkpKQCJiYkABQUFAAAAAAD///8AAQEBAAAAAAAAAAAAAgAAAAAAAAAA////AAEBAQAAAAAAAAAAAKampgDX19cAFhYWAImJiQAZGRkAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////ANHR0QCFhYUAAAAAABoaGgCIiIgAFRUVANfX1wCnp6cAAAAAAP///wABAQEAAAAAAAAAAAAAAAAAAgAAAAD///8AAQEBAAAAAAAAAAAA6+vrAK6urgABAQEAdXV1ABISEgAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8A////AJ6engBbW1sAAAAAAP///wATExMAdXV1AAEBAQCtra0A7OzsAAEBAQAAAAAAAAAAAAAAAAAAAAAAAv///wABAQEAAAAAAAAAAAAAAAAAt7e3APr6+gA7OzsALCwsAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAxcXFAP///wA8PDwA////AAEBAQAAAAAALS0tADs7OwD6+voAtra2AAAAAAAAAAAAAAAAAP///wABAQEAAgAAAAAAAAAAAAAAAAAAAAD///8AxMTEAP///wBMTEwAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQD8/PwAoaGhAGFhYQABAQEAAQEBAAAAAAAAAAAAAAAAAEtLSwD///8AxMTEAP///wAAAAAA////AAEBAQAAAAAAAgEBAQAAAAAAAAAAAP///wD09PQA4+PjAAkJCQArKysA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAC5ubkAFhYWADExMQABAQEAAAAAAAAAAAAAAAAA////ACwsLAAJCQkA4+PjAPT09AD///8AAQEBAAAAAAAAAAAAAgAAAAAAAAAA////AAEBAQDo6OgA////ABoaGgADAwMAAQEBAAAAAAAAAAAAAAAAAP///wABAQEA7+/vAHh4eACbm5sAUFBQAAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAQEBAAaGhoA////AOjo6AABAQEAAAAAAAAAAAD///8AAgAAAAD///8AAQEBAAAAAAD5+fkAAQEBAAsLCwABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAv7+/ANHR0QD5+fkA29vbAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAKCgoAAQEBAPj4+AAAAAAAAAAAAAAAAAAAAAAABP///wABAQEAAAAAAAAAAAAGBgYA////APX19QAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAALi4uAAkJCQD+/v4AMTExAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD29vYA////AAgICAAAAAAAAAAAAP///wACAgIABAAAAAAAAAAAAAAAAAAAAAAZGRkAAQEBAObm5gD8/PwABAQEAP///wABAQEAAAAAAAAAAAAAAAAAIyMjAKSkpAAAAAAACgoKAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAPv7+wDm5uYAAQEBABkZGQAAAAAA////AAEBAQAAAAAAAgEBAQAAAAAAAAAAAP///wAMDAwAHR0dAPf39wDU1NQA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAoKCgAKCgoAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////ANXV1QD39/cAHR0dAAsLCwD///8AAQEBAAAAAAAAAAAAAgAAAAAAAAAA////AAEBAQABAQEAPDw8AAEBAQC1tbUAAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBALW1tQABAQEAPDw8AAAAAAABAQEAAAAAAAAAAAD///8AAgAAAAD///8AAQEBAAAAAAAAAAAASkpKAAUFBQDFxcUA09PTAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEA1NTUAMXFxQAGBgYASUlJAAEBAQAAAAAAAAAAAAAAAAAAAAAAAv///wABAQEAAAAAAAAAAAAAAAAAExMTAFRUVAD///8Ai4uLAO3t7QD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQDu7u4AioqKAP///wBTU1MAFRUVAAAAAAAAAAAAAAAAAP///wABAQEAAgAAAAAAAAAAAAAAAAAAAAD///8AAQEBAFlZWQApKSkA6urqAHh4eADo6OgAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAOfn5wB3d3cA6+vrACkpKQBZWVkAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAf39/f////8AAAAAAP///wABAQEAAAAAAAAAAADx8fEAeXl5AN/f3wAKCgoAXl5eAElJSQAFBQUAAQEBAAAAAAAAAAAAAAAAAP///wD7+/sAt7e3AKKiogD29vYAIiIiAIaGhgAPDw8AAAAAAAAAAAD///8AAQEBAAAAAAABAQEAAf39/f////8A////AAEBAQAAAAAAAAAAAAAAAAD///8A9vb2AJCQkADDw8MAAAAAABAQEAA5OTkAKioqABMTEwAAAAAA7OzsANfX1wDHx8cA8PDwAAAAAAA9PT0AcHBwAAsLCwAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAAAf39/f/+/v4AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAP///wDIyMgApaWlANzc3AABAQEAAAAAAAAAAAAAAAAA////AAEBAQD///8AJSUlAFpaWgA4ODgAAQEBAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAAAAAAAAfz8/P8AAAAAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAAAAAN7e3gDNzc0A4ODgAO/v7wAAAAAAERERACAgIAA0NDQAISEhAAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wACAgIAAfz8/P8AAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQAAAAAAAAAAAAAAAAD///8AAQEBAAAAAAAAAAAAAAAAAP///wABAQEAAAAAAAAAAAAAAAAA////AAEBAQABAQEAAf39/f////8AAAAAAAAAAAABAQEAAAAAAP///wAAAAAAAAAAAAEBAQAAAAAA////AAAAAAAAAAAAAQEBAAAAAAAAAAAA////AAAAAAABAQEAAAAAAAAAAAD///8AAAAAAAEBAQAAAAAAAAAAAP///wAAAAAAAQEBAAAAAAAAAAAAEC7fjCA/SokAAAAASUVORK5CYII=" />
 <style type="text/css">
 body {
 	color: #333;
@@ -20,8 +30,12 @@ body {
 	width: 100%;
 }
 h1 {
-	font-weight: normal;
-	margin-bottom: 0.1em;
+	font-family: Georgia, serif;
+	font-weight: bold;
+	margin-bottom: 4px;
+
+	font-family: monospace;
+	font-size: 15px;
 }
 a {
 	text-decoration: none;
@@ -37,37 +51,47 @@ a:hover {
 	word-wrap: break-word;
 }
 #dbg2 {
-	/*font-size: 1.4em;*/
 	font-size: 22px;
 	font-family: monospace;
 	font-size: 15px;
-}
-.links {
-	/*font-size: 1.4em;*/
 }
 textarea {
 	font-family: monospace;
 	font-size: 15px;
 	width: 100%;
+	/*max-width: 100%;*/
 	height: auto;
+
+	/*border: none;*/
+	/*padding: 3px;*/
+	/*margin: 0;*/
+	/*box-sizing: content-box;*/
+	box-sizing: border-box;
 }
 .internal-link {
 	/*text-decoration: none;*/
 	/*border-bottom: 1px dashed #ccc;*/
-	font-size: 22px;
+	/*font-size: 22px;*/
 }
 #update-notif {
 	opacity: 0;
-	font-style: italic;
+	/*font-style: italic;*/
 }
 .madeby {
 	transform-origin: 0 1;
 	transform: rotate(-90deg);
 }
+.links {
+	font-size: 20px;
+	font-family: Georgia, serif;
+
+	font-family: monospace;
+	font-size: 15px;
+}
 #link-1,
 #link-2 {
-	display: inline-block;
-	transition: all 0.5s;
+	/*display: inline-block;*/
+	/*transition: all 0.5s;*/
 }
 #total-time {
 	font-weight: bold;
@@ -76,7 +100,6 @@ textarea {
 	background: #999;
 }
 #segmented-times {
-	/*font-size: 1.4em;*/
 	font-size: 22px;
 	font-family: monospace;
 	font-size: 15px;
@@ -84,6 +107,11 @@ textarea {
 .rotate {
   transition: 0.4s;
   transform:rotate(360deg);
+}
+input[type="button"] {
+	background: #999;
+	font-family: monospace;
+	font-size: 15px;
 }
 @media (prefers-color-scheme: dark) {
 	body {
@@ -111,26 +139,36 @@ textarea {
 		width: 600px;
 	}
 }
+
+.right-left {
+	display: flex;
+}
+.left {
+	/*float: left;*/
+	flex-grow: 1;
+}
+.right {
+	/*width: 80px;*/
+	/*float: right;*/
+}
 </style>
 </head>
 <body onload="onLoad()">
 
 <div id="wrapper">
-<!-- <h1><a href="">Split Time Calculator</a></h1> -->
 <h1>Split Time Calculator</h1>
-<!-- <div class="madeby">
-	zencd
-</div> -->
+
+<div style="display: none">
 <div class="links">
-	<span id="link-1">🔗</span>&nbsp;<a href="" class="internal-link" id="perm-link">Perm. link</a>
-	&nbsp;&nbsp;
-	<span id="link-2">🔗</span>&nbsp;<a href="" class="internal-link" id="grun-link" target="_blank">Grun1</a>
-	&nbsp;&nbsp;
+	<span id="link-1">🔗</span><a href="" class="internal-link" id="perm-link">Permanent link</a>
+	&nbsp;
+	<span id="link-2">🔗</span><a href="" class="internal-link" id="grun-link" target="_blank">Grun1</a>
 	<span id="update-notif">← Updated</span>
-	<!-- <a href="https://www.speedrun.com/user/zencd" target="_blank">@zencd</a> -->
 </div>
+</div>
+
 <br>
-<textarea id="time-edit" xcols="80" rows="10" placeholder="Type in text like this:
+<textarea id="time-edit" rows="10" placeholder="Type in text like this:
 
 1:11 Paris
 1:56 Sapienza
@@ -139,9 +177,21 @@ textarea {
 1:55 Dartmoor"></textarea>
 <br>
 <br>
-<div id="dbg2">
-	Total <span id="total-time">0</span>
-	<span id="segmented-times"></span>
+<div class="right-left">
+	<div class="left">
+
+		<div id="dbg2">
+			<span id="total-time">0</span>
+			<span id="segmented-times"></span>
+		</div>
+
+	</div>
+	<div class="right" style="font-family: monospace; font-size: 15px;">
+		<!-- <input type="button" name="" value="Save"> -->
+		<!-- <a href="" style="background: #333;">[grun1]</a> -->
+		<a href="">&nbsp;grun1&nbsp;</a>
+		<a href="" style="background: #333;">&nbsp;Save&nbsp;</a>
+	</div>
 </div>
 <!-- <br> -->
 <!-- <div id="segmented-times" style="margin-top: 10px;"> -->
@@ -317,7 +367,7 @@ function recalcTime(timeText, isOnLoad) {
 		const text = segmentTimes.map(t => toHHMMSS(t)).join(" + ");
 		$segmentedTimes.innerHTML = '= ' + text;
 	} else {
-		$segmentedTimes.innerHTML = '';
+		$segmentedTimes.innerHTML = 'total';
 	}
 
 	// log('timeAndLabel:', timeAndLabel);
@@ -341,7 +391,7 @@ function recalcTime(timeText, isOnLoad) {
 	if (pageTitle) {
 		pageTitle += ', ' + totalHms;
 		if (segmentTimes.length > 1) {
-			pageTitle += ', ' + segmentTimes.length + ' segm'
+			pageTitle += ', ' + segmentTimes.length + ' seg'
 		}
 		pageTitle += ' - ';
 	}
@@ -362,7 +412,7 @@ function updateUrl(timeText, isOnLoad) {
 	g_permUrl = url;
 	// $dbg.innerHTML = 'Permanent link:<br><a href="'+url+'">' + url + '</a>';
 	$permLink.setAttribute('href', url);
-	window.history.replaceState({} , 'Split Time Calculator', url);
+	window.history.replaceState({} , 'Time Calculator', url);
 	if (!isOnLoad) {
 		// animateRotate($link1);
 		// animateUpdate($permLink);
@@ -406,6 +456,13 @@ function onLoad() {
 		recalcTime(timeText, false);
 		updateUrl(timeText, false);
 		changeTimeEditSize();
+	}, false);
+
+	document.addEventListener("keydown", function(e) {
+	  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
+	    e.preventDefault();
+	    log('Ctrl+S');
+	  }
 	}, false);
 }
 </script>
