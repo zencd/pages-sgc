@@ -1,18 +1,21 @@
 <!--
-- put some text into the title
 - disallow url ending with '#'
-- use prefix like 't:'
+- use prefix like 't:' or ':'
 - force unix line ending?
-+ use pixels everywhere, not em
-- bug: "sapienza" in title when text is '111. Paris\n222 Sapienza'
 - go base85 ?
 - total-time: adjust the light theme
-- monospace everywhere?
 - handle Ctrl/Cmd+S ?
 - pageTitle: limit length
 - pageTitle: strip punctuation
 - favicon
+- '02' is meaningless 02:10:00:09
+- allow millis?
++ no 'paris' in title when text is '111Paris'
++ 'sapienza' in title when text is '111. Paris\n222 Sapienza'
++ put some text into the title
++ monospace everywhere
 + textarea takes 606px
++ use pixels everywhere, not em
 -->
 
 <!DOCTYPE html>
@@ -343,12 +346,13 @@ function recalcTime(timeText, isOnLoad) {
 			segmentTotal = 0;
 			continue;
 		}
-		const m = line.match(/^\s*([0-9][0-9:]*)(\s+(.+))?/);
+		const m = line.match(/^\s*([0-9][0-9:]*)(\s*(.+))?$/);
 		if(m) {
+			// log('m:', m);
 			const timeHms = m[1];
 			const lineLabel = (m[3] !== undefined) ? m[3].trim() : '';
 			const lineSec = hmsToSeconds(timeHms);
-			//log('line:', timeHms, lineLabel, lineSec);
+			// log('timeHms:', timeHms, 'lineLabel:', lineLabel, 'lineSec:', lineSec);
 			totalSeconds += lineSec;
 			segmentTotal += lineSec;
 			timeAndLabel.push([lineSec, lineLabel]);
@@ -363,6 +367,8 @@ function recalcTime(timeText, isOnLoad) {
 	}
 
 	// log('segmentTimes:', segmentTimes);
+	// log('pageTitle: [' + pageTitle + ']');
+
 	if (segmentTimes.length > 1) {
 		const text = segmentTimes.map(t => toHHMMSS(t)).join(" + ");
 		$segmentedTimes.innerHTML = '= ' + text;
