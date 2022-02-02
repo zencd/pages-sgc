@@ -1,30 +1,34 @@
 <!--
-- disallow url ending with '#'
-- use prefix like 't:' or ':'
-- force unix line ending?
-- go base85 ?
-- total-time: adjust the light theme
-- handle Ctrl/Cmd+S ?
-- pageTitle: limit length
-- pageTitle: strip punctuation
-- allow millis?
-- '1111111111111111111111111111' => '3.0864197530864196e+23:10:40'
-+ "11366" => "03:9:26"
-+ favicon
-+ '02' is meaningless 02:10:00:09
-+ no 'paris' in title when text is '111Paris'
-+ 'sapienza' in title when text is '111. Paris\n222 Sapienza'
-+ put some text into the title
-+ monospace everywhere
-+ textarea takes 606px
-+ use pixels everywhere, not em
+	- MSIE: "onLoad" не определено
+	- remove animations
+	- enable scroll-by-touch on the textarea cause there is no y-scroll
+	- use prefix like 't:' or ':'
+	- force unix line ending?
+	- go base85 ?
+	- total-time: adjust the light theme
+	- handle Ctrl/Cmd+S ?
+	- pageTitle: limit length
+	- pageTitle: strip punctuation
+	- allow millis?
+	+ 12:09 => 12:9
+	+ disallow url ending with '#'
+	+ '1111111111111111111111111111' => '3.0864197530864196e+23:10:40'
+	+ "11366" => "03:9:26"
+	+ favicon
+	+ '02' is meaningless 02:10:00:09
+	+ no 'paris' in title when text is '111Paris'
+	+ 'sapienza' in title when text is '111. Paris\n222 Sapienza'
+	+ put some text into the title
+	+ monospace everywhere
+	+ textarea takes 606px
+	+ use pixels everywhere, not em
 -->
 
 <!DOCTYPE html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Time Calculator</title>
-<link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,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" />
+<link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAABCgAwAEAAAAAQAAABAAAAAAx28c8QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KGV7hBwAAAw5JREFUOBF1U01IVFEUvve+meeb6c0bJUUiIskWCS1EKbDSaCE0FAXFbGyhGY2jMf6gk0rQIiqtlNEGf6tFiYsaaicStQkkqDAQCTcVtXClZfNm3rxx5r17O2cmI4TO5tx7fr577jnno36/XyLbJBaL2Wjyd3W5XBnFbcrpVCwSMdEWCAScqDc2NjhqigBra2u0rKzMYRgGhzOvqKw5Db6LlJAqQYmXChIXhHwUQjyZHB18jok+n69AVVWLIiKgUXg1gw6U1s7+bzuLS/b+/LFOICnBGPOoqodkLYuYqdScnVq/MD09HcdceCQvwY6+84zRm4LbvVCYKig9wIV4aLNMUiYFhZyTkxKl11XNW5rQ4+/XVz/XwqOWI9jec5Ax+ZlDdlY4nTIxDaN7fOT28S3g1o6+CUHoytTowP1LV7rnhK7PezTvYUL234KYMBNCgiaKT9lsJpM2TUIZrQuEwuXgxOoYpayBUrIHAR+NDX+3xGZjykgSsLUGAp272FT0zhInYsztVmUu+FvO7SVGWTXEi5b2cLlTljU4ryJAc3Oz58Ho8AfbtuZVVdshuZRjDB0gtbJcQAgX8xMjg5UWTb9BI5McR1xuNxFE6HhXFAWGASLooiQ54MD25QCgzix0G+xCQb8Vj8dRE0usWtksYYSdwWsi4c4D4AUEM3IA3OZfoSz8dBU6DKOI+kKhgono4Gv4b6+qaWfb2q+emJkZMtBPqKi2cvHiSw4gw8WCkdANKMt3uaP7UCwWMVXbdjY1NSnjIwN3E/qvp4JKRzG3pbOnBuMw3jbTCzQEL0Wj0U1Ynnswnp6Erq+ItFk/ORnJNQ6TtiQY7NpNFdcrj6ZVwC4MTYwMhB3Ly8u49wwW4xrMtg5nnCRisaWj7wYs1cssSesyVQolKtXD7GCRtNKkHn+Xj4cx/yGThKsMq+mV3MWz0PlTToeDJJMJwjnftsrJOd02GmajUT23yltkKikpYVt8aOvsPwftbsSmgvaCzpEJ9GPoyQv80l8y/UvnoqKiXFOBKFkMytM5A3SW/0vn3xA8duspEnNgAAAAAElFTkSuQmCC" />
 <style type="text/css">
 body {
 	color: #333;
@@ -210,9 +214,6 @@ input[type="button"] {
 <div id="grun-link-xxx"></div>
 </div>
 
-<!-- <br>
-<div>Written by <a href="https://www.speedrun.com/user/zencd" target="_blank">zencd</a>, 2022</div>
- -->
 </div>
 
 </body>
@@ -230,8 +231,9 @@ const $updateNotif = document.getElementById('update-notif');
 const $link1 = document.getElementById('link-1');
 const $link2 = document.getElementById('link-2');
 const $segmentedTimes = document.getElementById('segmented-times');
-var g_permUrl = '';
-var g_grunUrl = '';
+var gPermUrl = '';
+var gGrunUrl = '';
+const gSiteTitle = 'Time Calculator';
 
 function encode_ascii85(a) {
   var b, c, d, e, f, g, h, i, j, k;
@@ -295,8 +297,8 @@ var toHHMMSS = (secs) => {
 
 function intToStr(n) {
 	// avoid scientific notation
-	return BigInt(n).toString();
 	// return n.toLocaleString('fullwide', {useGrouping: false});
+	return BigInt(n).toString();
 }
 
 var toHHMMSS = (secs) => {
@@ -323,30 +325,27 @@ var toHHMMSS = (secs) => {
 	rem = secs % 60;
 	if (rem > 0 || force) {
 		if (s.length > 0) s += ':';
-		s += (rem < 9) ? ('0'+rem) : rem;
+		s += (rem < 10) ? ('0'+rem) : rem;
 	}
 	
 	return s;
 }
 
-function animateUpdateImpl($elem) {
-	$elem.animate({ opacity: [0, 1.0, 0] }, { duration: 3000, iterations: 1, easing: "ease-out" })
-	.onfinish = (e) => {
-		e.target.effect.target.style.opacity = 0;
-	};
-}
-
 var updTimeoutHandle = null;
 
 function animateUpdate($elem) {
-	// log('animateUpdate: updTimeoutHandle:', updTimeoutHandle);
+	function animateImpl() {
+		$elem.animate({ opacity: [0, 1.0, 0] }, { duration: 3000, iterations: 1, easing: "ease-out" })
+		.onfinish = (e) => {
+			e.target.effect.target.style.opacity = 0;
+		};
+	}
+
 	if (updTimeoutHandle) {
 		clearTimeout(updTimeoutHandle);
 		updTimeoutHandle = null;
 	}
-	updTimeoutHandle = setTimeout(function() {
-		animateUpdateImpl($elem);
-	}, 1200);
+	updTimeoutHandle = setTimeout(animateImpl, 1200);
 }
 
 function makeGrunUrl(timeAndLabel) {
@@ -367,13 +366,9 @@ function makeGrunUrl(timeAndLabel) {
 }
 
 function recalcTime(timeText, isOnLoad) {
-	// log('timeText:', timeText);
-	// const lines = timeText.match(/[^\r\n]+/g);
 	const lines = timeText.split(/\r?\n/);
-	//log('lines:', lines);
 	var totalSeconds = 0;
 	var segmentTotal = 0;
-	//var grunUrl = 'http://www.grun1.com/utils/timeCalc.html?';
 	const timeAndLabel = [];
 	const segmentTimes = [];
 	var pageTitle = '';
@@ -381,7 +376,6 @@ function recalcTime(timeText, isOnLoad) {
 	for (i in lines) {
 		var line = lines[i];
 		line = line.trim();
-		//log('line:', line);
 		if (!line && segmentTotal > 0) {
 			segmentTimes.push(segmentTotal);
 			segmentTotal = 0;
@@ -389,11 +383,9 @@ function recalcTime(timeText, isOnLoad) {
 		}
 		const m = line.match(/^\s*([0-9][0-9:]*)(\s*(.+))?$/);
 		if(m) {
-			// log('m:', m);
 			const timeHms = m[1];
 			const lineLabel = (m[3] !== undefined) ? m[3].trim() : '';
 			const lineSec = hmsToSeconds(timeHms);
-			// log('timeHms:', timeHms, 'lineLabel:', lineLabel, 'lineSec:', lineSec);
 			totalSeconds += lineSec;
 			segmentTotal += lineSec;
 			numSplits += 1;
@@ -408,9 +400,6 @@ function recalcTime(timeText, isOnLoad) {
 		segmentTotal = 0;
 	}
 
-	// log('segmentTimes:', segmentTimes);
-	// log('pageTitle: [' + pageTitle + ']');
-
 	if (segmentTimes.length > 1) {
 		const text = segmentTimes.map(t => toHHMMSS(t)).join(" + ");
 		$segmentedTimes.innerHTML = '= ' + text;
@@ -418,32 +407,21 @@ function recalcTime(timeText, isOnLoad) {
 		$segmentedTimes.innerHTML = 'total';
 	}
 
-	// log('timeAndLabel:', timeAndLabel);
 	const grunUrl = makeGrunUrl(timeAndLabel);
-	// log('grunUrl:', grunUrl);
-	// log('totalSeconds:', totalSeconds);
-	// log('totalSeconds:', toHHMMSS(totalSeconds));
-	// log('$dbg2:', $dbg2);
-	// $dbg2.innerHTML = 'Total time: ' + toHHMMSS(totalSeconds);
 	const totalHms = toHHMMSS(totalSeconds);
 	$totalTime.innerHTML = totalHms;
 	
-	g_grunUrl = grunUrl;
-	// const grunAnchor = grunUrl ? '<a href="'+grunUrl+'" target="_blank">' + grunUrl + '</a>' : '-';
-	// $grunLink.innerHTML = 'Grun1 link:<br>' + grunAnchor;
+	gGrunUrl = grunUrl;
 	$grunLink.setAttribute('href', grunUrl ? grunUrl : '');
-	// if (!isOnLoad) {
-	// 	animateUpdate($grunLink);
-	// }
 
 	if (pageTitle) {
 		if (numSplits > 1) {
-			pageTitle += ' + ' + (numSplits-1) + ' more'
+			pageTitle += ' + ' + (numSplits-1);
 		}
 		pageTitle += ', ' + totalHms;
 		pageTitle += ' - ';
 	}
-	pageTitle += 'Time Calculator'
+	pageTitle += gSiteTitle;
 	document.title = pageTitle;
 }
 
@@ -456,16 +434,13 @@ function animateRotate($elem) {
 
 function updateUrl(timeText, isOnLoad) {
 	const b64 = encode(timeText);
-	const url = document.location.protocol + '//' + document.location.host + document.location.pathname + '#' + b64;
-	g_permUrl = url;
-	// $dbg.innerHTML = 'Permanent link:<br><a href="'+url+'">' + url + '</a>';
+	const url = document.location.protocol + '//' + document.location.host +
+	            document.location.pathname + (b64 ? '#' + b64 : '');
+	gPermUrl = url;
 	$permLink.setAttribute('href', url);
-	window.history.replaceState({} , 'Time Calculator', url);
+	window.history.replaceState({} , gSiteTitle, url);
 	if (!isOnLoad) {
-		// animateRotate($link1);
-		// animateUpdate($permLink);
 		animateUpdate($updateNotif);
-		// $link1.classList.toggle('rotate');
 	}
 }
 
@@ -486,9 +461,6 @@ function copyGrunUrl() {}
 
 function onLoad() {
 	const urlParams = new URLSearchParams(window.location.search);
-	// const t = urlParams.get('t');
-	//log('t:', t);
-	//log(atob);
 	$timeEdit.focus();
 
 	var textPlain = readTimeTextFromUrl();
