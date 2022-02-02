@@ -1,5 +1,7 @@
 <!--
+	- chrome win: y scroll appears
 	- MSIE: "onLoad" не определено
+	- MSIE: force utf8
 	- remove animations
 	- enable scroll-by-touch on the textarea cause there is no y-scroll
 	- use prefix like 't:' or ':'
@@ -26,6 +28,7 @@
 
 <!DOCTYPE html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Time Calculator</title>
 <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAABCgAwAEAAAAAQAAABAAAAAAx28c8QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KGV7hBwAAAw5JREFUOBF1U01IVFEUvve+meeb6c0bJUUiIskWCS1EKbDSaCE0FAXFbGyhGY2jMf6gk0rQIiqtlNEGf6tFiYsaaicStQkkqDAQCTcVtXClZfNm3rxx5r17O2cmI4TO5tx7fr577jnno36/XyLbJBaL2Wjyd3W5XBnFbcrpVCwSMdEWCAScqDc2NjhqigBra2u0rKzMYRgGhzOvqKw5Db6LlJAqQYmXChIXhHwUQjyZHB18jok+n69AVVWLIiKgUXg1gw6U1s7+bzuLS/b+/LFOICnBGPOoqodkLYuYqdScnVq/MD09HcdceCQvwY6+84zRm4LbvVCYKig9wIV4aLNMUiYFhZyTkxKl11XNW5rQ4+/XVz/XwqOWI9jec5Ax+ZlDdlY4nTIxDaN7fOT28S3g1o6+CUHoytTowP1LV7rnhK7PezTvYUL234KYMBNCgiaKT9lsJpM2TUIZrQuEwuXgxOoYpayBUrIHAR+NDX+3xGZjykgSsLUGAp272FT0zhInYsztVmUu+FvO7SVGWTXEi5b2cLlTljU4ryJAc3Oz58Ho8AfbtuZVVdshuZRjDB0gtbJcQAgX8xMjg5UWTb9BI5McR1xuNxFE6HhXFAWGASLooiQ54MD25QCgzix0G+xCQb8Vj8dRE0usWtksYYSdwWsi4c4D4AUEM3IA3OZfoSz8dBU6DKOI+kKhgono4Gv4b6+qaWfb2q+emJkZMtBPqKi2cvHiSw4gw8WCkdANKMt3uaP7UCwWMVXbdjY1NSnjIwN3E/qvp4JKRzG3pbOnBuMw3jbTCzQEL0Wj0U1Ynnswnp6Erq+ItFk/ORnJNQ6TtiQY7NpNFdcrj6ZVwC4MTYwMhB3Ly8u49wwW4xrMtg5nnCRisaWj7wYs1cssSesyVQolKtXD7GCRtNKkHn+Xj4cx/yGThKsMq+mV3MWz0PlTToeDJJMJwjnftsrJOd02GmajUT23yltkKikpYVt8aOvsPwftbsSmgvaCzpEJ9GPoyQv80l8y/UvnoqKiXFOBKFkMytM5A3SW/0vn3xA8duspEnNgAAAAAElFTkSuQmCC" />
@@ -161,7 +164,15 @@ input[type="button"] {
 	/*float: right;*/
 }
 </style>
+
+<script type="text/javascript">
+function onLoad() {
+	window._onLoad(); // for MSIE
+}	
+</script>
+
 </head>
+
 <body onload="onLoad()">
 
 <div id="wrapper">
@@ -451,7 +462,7 @@ function changeTimeEditSize() {
 
 function readTimeTextFromUrl() {
 	var val = document.location.hash;
-	val = val ? val.substring(1) : '';
+	val = (val && val.startsWith('#')) ? val.substring(1) : '';
 	return val ? decode(val) : val;
 }
 
@@ -459,11 +470,11 @@ function copyPermanentUrl() {}
 
 function copyGrunUrl() {}
 
-function onLoad() {
-	const urlParams = new URLSearchParams(window.location.search);
+window._onLoad = function() {
+	//const urlParams = new URLSearchParams(window.location.search);
 	$timeEdit.focus();
 
-	var textPlain = readTimeTextFromUrl();
+	const textPlain = readTimeTextFromUrl();
 	$timeEdit.value = textPlain;
 	recalcTime(textPlain, true);
 	if (textPlain) {
