@@ -461,6 +461,7 @@ function updateUrl(timeText, isOnLoad) {
 	            document.location.pathname + (b64 ? '#' + b64 : '');
 	gPermUrl = url;
 	$permLink.setAttribute('href', url);
+	$saveBtn.setAttribute('href', url);
 	window.history.replaceState({} , gSiteTitle, url);
 	if (!isOnLoad) {
 		animateUpdate($updateNotif);
@@ -502,10 +503,8 @@ window._onLoad = function() {
 	}, false);
 
 	$saveBtn.addEventListener("click", function(e) {
-		log('save');
 		e.preventDefault();
 		$copyInput.value = gPermUrl;
-		// $copyInput.focus();
 		$copyInput.select();
 		document.execCommand('copy');
 		$timeEdit.focus();
