@@ -1,5 +1,4 @@
 <!--
-	- placeholder text blinks on frequent reload
 	- chrome win: y scroll appears
 	- MSIE: "onLoad" не определено
 	- remove animations
@@ -12,6 +11,7 @@
 	- pageTitle: limit length
 	- pageTitle: strip punctuation
 	- allow millis?
+	+ placeholder text blinks on frequent reload
 	+ force utf8 by meta
 	+ 12:09 => 12:9
 	+ disallow url ending with '#'
@@ -144,10 +144,25 @@ input[type="button"] {
 	border: none;
 }
 #save-btn {
-	background: #999;
 	display: inline-block;
 	padding: 0 9px;
 }
+#save-btn:hover {
+}
+
+.right-left {
+	display: flex;
+	margin-top: 12px;
+}
+.left {
+	/*float: left;*/
+	flex-grow: 1;
+}
+.right {
+	/*width: 80px;*/
+	/*float: right;*/
+}
+
 @media (prefers-color-scheme: dark) {
 	body {
 		background: #444;
@@ -187,20 +202,9 @@ input[type="button"] {
 		width: 600px;
 	}
 }
-
-.right-left {
-	display: flex;
-	margin-top: 12px;
-}
-.left {
-	/*float: left;*/
-	flex-grow: 1;
-}
-.right {
-	/*width: 80px;*/
-	/*float: right;*/
-}
 </style>
+
+<!--<script type="text/javascript" src="decimal.min.js"></script>-->
 
 <script type="text/javascript">
 function onLoad() {
