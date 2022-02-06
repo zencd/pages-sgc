@@ -224,13 +224,7 @@ function onLoad() {
 </div>
 </div>
 
-<textarea id="time-edit" rows="10" placeholder="Type in text like this:
-
-1:11 Paris
-1:56 Sapienza
-
-0:34 Dubai
-1:55 Dartmoor"></textarea>
+<textarea id="time-edit" rows="10" placeholder=""></textarea>
 
 <div class="right-left">
 	<div class="left">
@@ -284,6 +278,16 @@ const $grunLink2 = document.getElementById('grun-link-2');
 var gPermUrl = '';
 var gGrunUrl = '';
 const gSiteTitle = 'Time Calculator';
+
+// const placeholder = "Type in text like this:\n\n" +
+// "1:11 Paris\n" +
+// "1:56 Sapienza\n\n" +
+// "0:34 Dubai\n" +
+// "1:55 Dartmoor\n";
+
+const placeholder = "Example:\n\n" +
+"1:11 Paris\n" +
+"1:56 Sapienza";
 
 function encode_ascii85(a) {
   var b, c, d, e, f, g, h, i, j, k;
@@ -539,6 +543,10 @@ window._onLoad = function() {
 	}, false);
 
 	$saveBtn.addEventListener("click", function(e) {
+		const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey;
+		if (anyMod) {
+			return;
+		}
 		e.preventDefault();
 		$copyInput.value = gPermUrl;
 		$copyInput.select();
@@ -554,5 +562,7 @@ window._onLoad = function() {
 	}, false);
 
 	// setInterval(function() {document.location.reload();}, 1000);
+
+	$timeEdit.setAttribute('placeholder', placeholder);
 }
 </script>
