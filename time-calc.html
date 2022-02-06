@@ -502,6 +502,8 @@ function onSaveButton(e) {
 }
 
 window._onLoad = function() {
+	Decimal.set({precision: 128});
+
 	//const urlParams = new URLSearchParams(window.location.search);
 	$timeEdit.focus();
 
