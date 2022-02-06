@@ -6,11 +6,11 @@
 	- use prefix like 't:' or ':'
 	- force unix line ending?
 	- go base85 ?
-	- total-time: adjust the light theme
 	- handle Ctrl/Cmd+S ?
 	- pageTitle: limit length
 	- pageTitle: strip punctuation
-	- allow millis?
+	+ total-time: adjust the light theme
+	+ allow millis
 	+ placeholder text blinks on frequent reload
 	+ force utf8 by meta
 	+ 12:09 => 12:9
@@ -204,7 +204,7 @@ input[type="button"] {
 }
 </style>
 
-<!--<script type="text/javascript" src="decimal.min.js"></script>-->
+<script type="text/javascript" src="decimal.min.js"></script>
 
 <script type="text/javascript">
 function onLoad() {
@@ -330,7 +330,15 @@ function decode85(b64) {
 	return decodeURIComponent(escape(decode_ascii85(b64)));
 }
 
-function hmsToSeconds(hms) {
+function hmsToSeconds(hmsMillis) {
+	var hms = hmsMillis;
+	var dot = hms.indexOf('.');
+	var decimalMillis = new Decimal('0');
+	if (dot >= 0) {
+		hms = hmsMillis.substring(0, dot);
+		decimalMillis = new Decimal('0' + hmsMillis.substring(dot));
+	}
+
 	const words = hms.split(/:/);
 	var totalSeconds = 0;
 	for (i in words) {
@@ -339,7 +347,8 @@ function hmsToSeconds(hms) {
 		const n = parseInt(word, 10);
 		totalSeconds += (n * mul);
 	}
-	return isNaN(totalSeconds) ? 0 : totalSeconds;
+	let intPart = isNaN(totalSeconds) ? 0 : totalSeconds;
+	return new Decimal(intPart).add(decimalMillis);
 }
 
 /*
@@ -367,7 +376,7 @@ function intToStr(n) {
 	return BigInt(n).toString();
 }
 
-var toHHMMSS = (secs) => {
+var toHmsInt = (secs) => {
 	if (secs <= 0) {
 		return '0';
 	}
@@ -397,7 +406,18 @@ var toHHMMSS = (secs) => {
 	return s;
 }
 
-var updTimeoutHandle = null;
+const toHms = (secs) => {
+	// log('toHms', secs.toString(), typeof secs);
+	const integer = secs.toInteger().toNumber();
+	const s = secs.toString();
+	const dot = s.indexOf('.');
+	const floatPart = dot >= 0 ? s.substring(dot+1) : '';
+	let res = toHmsInt(integer);
+	res += floatPart ? ('.' + floatPart) : '';
+	return res;
+}
+
+let updTimeoutHandle = null;
 
 function animateUpdate($elem) {
 	function animateImpl() {
@@ -415,7 +435,7 @@ function animateUpdate($elem) {
 }
 
 function makeGrunUrl(timeAndLabel) {
-	if (timeAndLabel.length == 0) {
+	if (timeAndLabel.length === 0) {
 		return null;
 	}
 	var query = '';
@@ -423,7 +443,7 @@ function makeGrunUrl(timeAndLabel) {
 		if (i > 0) {
 			query += '&';
 		}
-		const secStr = toHHMMSS(timeAndLabel[i][0]);
+		const secStr = toHms(timeAndLabel[i][0]);
 		const label = timeAndLabel[i][1];
 		query += 't' + (i+1) + '=' + secStr;
 		query += '&c' + (i+1) + '=' + encodeURIComponent(label);
@@ -433,8 +453,8 @@ function makeGrunUrl(timeAndLabel) {
 
 function recalcTime(timeText, isOnLoad) {
 	const lines = timeText.split(/\r?\n/);
-	var totalSeconds = 0;
-	var segmentTotal = 0;
+	var totalSeconds = new Decimal('0');
+	var segmentTotal = new Decimal('0');
 	const timeAndLabel = [];
 	const segmentTimes = [];
 	var pageTitle = '';
@@ -447,13 +467,13 @@ function recalcTime(timeText, isOnLoad) {
 			segmentTotal = 0;
 			continue;
 		}
-		const m = line.match(/^\s*([0-9][0-9:]*)(\s*(.+))?$/);
+		const m = line.match(/^\s*([0-9][0-9:]*(\.[0-9]+)?)(\s*(.+))?$/);
 		if(m) {
 			const timeHms = m[1];
 			const lineLabel = (m[3] !== undefined) ? m[3].trim() : '';
 			const lineSec = hmsToSeconds(timeHms);
-			totalSeconds += lineSec;
-			segmentTotal += lineSec;
+			totalSeconds = totalSeconds.add(lineSec);
+			segmentTotal = segmentTotal.add(lineSec);
 			numSplits += 1;
 			timeAndLabel.push([lineSec, lineLabel]);
 			if (lineLabel && !pageTitle) {
@@ -463,18 +483,20 @@ function recalcTime(timeText, isOnLoad) {
 	}
 	if (segmentTotal > 0) {
 		segmentTimes.push(segmentTotal);
-		segmentTotal = 0;
+		// segmentTotal = 0;
 	}
 
 	if (segmentTimes.length > 1) {
-		const text = segmentTimes.map(t => toHHMMSS(t)).join(" + ");
+		const text = segmentTimes.map(t => toHms(t)).join(" + ");
 		$segmentedTimes.innerHTML = '= ' + text;
 	} else {
 		$segmentedTimes.innerHTML = 'total';
 	}
 
+	// log('totalSeconds', totalSeconds.toString());
+
 	const grunUrl = makeGrunUrl(timeAndLabel);
-	const totalHms = toHHMMSS(totalSeconds);
+	const totalHms = toHms(totalSeconds);
 	$totalTime.innerHTML = totalHms;
 	
 	gGrunUrl = grunUrl;
