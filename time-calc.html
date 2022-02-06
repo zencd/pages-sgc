@@ -35,7 +35,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAABCgAwAEAAAAAQAAABAAAAAAx28c8QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KGV7hBwAAAw5JREFUOBF1U01IVFEUvve+meeb6c0bJUUiIskWCS1EKbDSaCE0FAXFbGyhGY2jMf6gk0rQIiqtlNEGf6tFiYsaaicStQkkqDAQCTcVtXClZfNm3rxx5r17O2cmI4TO5tx7fr577jnno36/XyLbJBaL2Wjyd3W5XBnFbcrpVCwSMdEWCAScqDc2NjhqigBra2u0rKzMYRgGhzOvqKw5Db6LlJAqQYmXChIXhHwUQjyZHB18jok+n69AVVWLIiKgUXg1gw6U1s7+bzuLS/b+/LFOICnBGPOoqodkLYuYqdScnVq/MD09HcdceCQvwY6+84zRm4LbvVCYKig9wIV4aLNMUiYFhZyTkxKl11XNW5rQ4+/XVz/XwqOWI9jec5Ax+ZlDdlY4nTIxDaN7fOT28S3g1o6+CUHoytTowP1LV7rnhK7PezTvYUL234KYMBNCgiaKT9lsJpM2TUIZrQuEwuXgxOoYpayBUrIHAR+NDX+3xGZjykgSsLUGAp272FT0zhInYsztVmUu+FvO7SVGWTXEi5b2cLlTljU4ryJAc3Oz58Ho8AfbtuZVVdshuZRjDB0gtbJcQAgX8xMjg5UWTb9BI5McR1xuNxFE6HhXFAWGASLooiQ54MD25QCgzix0G+xCQb8Vj8dRE0usWtksYYSdwWsi4c4D4AUEM3IA3OZfoSz8dBU6DKOI+kKhgono4Gv4b6+qaWfb2q+emJkZMtBPqKi2cvHiSw4gw8WCkdANKMt3uaP7UCwWMVXbdjY1NSnjIwN3E/qvp4JKRzG3pbOnBuMw3jbTCzQEL0Wj0U1Ynnswnp6Erq+ItFk/ORnJNQ6TtiQY7NpNFdcrj6ZVwC4MTYwMhB3Ly8u49wwW4xrMtg5nnCRisaWj7wYs1cssSesyVQolKtXD7GCRtNKkHn+Xj4cx/yGThKsMq+mV3MWz0PlTToeDJJMJwjnftsrJOd02GmajUT23yltkKikpYVt8aOvsPwftbsSmgvaCzpEJ9GPoyQv80l8y/UvnoqKiXFOBKFkMytM5A3SW/0vn3xA8duspEnNgAAAAAElFTkSuQmCC" />
 <style type="text/css">
 
-/*minify*/
+/* css reset */
 a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
 
 body {
@@ -283,15 +283,9 @@ var gPermUrl = '';
 var gGrunUrl = '';
 const gSiteTitle = 'Time Calculator';
 
-// const placeholder = "Type in text like this:\n\n" +
-// "1:11 Paris\n" +
-// "1:56 Sapienza\n\n" +
-// "0:34 Dubai\n" +
-// "1:55 Dartmoor\n";
-
 const placeholder = "Example:\n\n" +
 "1:11 Paris\n" +
-"1:56 Sapienza";
+"1:56.999 Sapienza";
 
 function encode_ascii85(a) {
   var b, c, d, e, f, g, h, i, j, k;
@@ -322,14 +316,6 @@ function decode(b64) {
 	return decodeURIComponent(escape(window.atob(b64)));
 }
 
-function encode85(unicode) {
-	return encode_ascii85(unescape(encodeURIComponent(unicode)));
-}
-
-function decode85(b64) {
-	return decodeURIComponent(escape(decode_ascii85(b64)));
-}
-
 function hmsToSeconds(hmsMillis) {
 	var hms = hmsMillis;
 	var dot = hms.indexOf('.');
@@ -350,25 +336,6 @@ function hmsToSeconds(hmsMillis) {
 	let intPart = isNaN(totalSeconds) ? 0 : totalSeconds;
 	return new Decimal(intPart).add(decimalMillis);
 }
-
-/*
-var toHHMMSS = (secs) => {
-	if (secs <= 0) {
-		return '0';
-	}
-	var parts = [];
-	while (secs > 0) {
-		var ostatok = secs % 60;
-		secs = Math.floor(secs / 60);
-		parts.push(ostatok);
-	}
-	parts.reverse();
-  return parts
-      .map(v => v < 10 ? "0" + v : v)
-      .filter((v,i) => v !== "00" || i > 0)
-      .join(":")
-}
-*/
 
 function intToStr(n) {
 	// avoid scientific notation
@@ -406,32 +373,17 @@ var toHmsInt = (secs) => {
 	return s;
 }
 
-const toHms = (secs) => {
-	// log('toHms', secs.toString(), typeof secs);
-	const integer = secs.toInteger().toNumber();
+function toHms(secs) {
+	const jsInt = Math.floor(secs.toNumber());
+	// const integer = secs.truncated();
 	const s = secs.toString();
 	const dot = s.indexOf('.');
 	const floatPart = dot >= 0 ? s.substring(dot+1) : '';
-	let res = toHmsInt(integer);
+	let res = toHmsInt(jsInt);
 	res += floatPart ? ('.' + floatPart) : '';
+	// log('toHms', secs.toString(), '=>', res.toString());
+	// log('integer', integer);
 	return res;
-}
-
-let updTimeoutHandle = null;
-
-function animateUpdate($elem) {
-	function animateImpl() {
-		$elem.animate({ opacity: [0, 1.0, 0] }, { duration: 3000, iterations: 1, easing: "ease-out" })
-		.onfinish = (e) => {
-			e.target.effect.target.style.opacity = 0;
-		};
-	}
-
-	if (updTimeoutHandle) {
-		clearTimeout(updTimeoutHandle);
-		updTimeoutHandle = null;
-	}
-	updTimeoutHandle = setTimeout(animateImpl, 1200);
 }
 
 function makeGrunUrl(timeAndLabel) {
@@ -464,7 +416,7 @@ function recalcTime(timeText, isOnLoad) {
 		line = line.trim();
 		if (!line && segmentTotal > 0) {
 			segmentTimes.push(segmentTotal);
-			segmentTotal = 0;
+			segmentTotal = new Decimal('0');
 			continue;
 		}
 		const m = line.match(/^\s*([0-9][0-9:]*(\.[0-9]+)?)(\s*(.+))?$/);
@@ -472,7 +424,9 @@ function recalcTime(timeText, isOnLoad) {
 			const timeHms = m[1];
 			const lineLabel = (m[3] !== undefined) ? m[3].trim() : '';
 			const lineSec = hmsToSeconds(timeHms);
-			totalSeconds = totalSeconds.add(lineSec);
+			const neu = totalSeconds.add(lineSec);
+			// log(totalSeconds.toString(), '+', lineSec.toString(), '=', neu.toString());
+			totalSeconds = neu;
 			segmentTotal = segmentTotal.add(lineSec);
 			numSplits += 1;
 			timeAndLabel.push([lineSec, lineLabel]);
@@ -514,13 +468,6 @@ function recalcTime(timeText, isOnLoad) {
 	document.title = pageTitle;
 }
 
-function animateRotate($elem) {
-	var rot = $elem.getAttribute('data-rotate');
-	rot = rot ? parseInt(rot) : 360;
-	$elem.style = 'transform: rotate(' + rot + 'deg)';
-  $elem.setAttribute('data-rotate', rot + 360);
-}
-
 function updateUrl(timeText, isOnLoad) {
 	const b64 = encode(timeText);
 	const url = document.location.protocol + '//' + document.location.host +
@@ -529,9 +476,6 @@ function updateUrl(timeText, isOnLoad) {
 	$permLink.setAttribute('href', url);
 	$saveBtn.setAttribute('href', url);
 	window.history.replaceState({} , gSiteTitle, url);
-	if (!isOnLoad) {
-		animateUpdate($updateNotif);
-	}
 }
 
 function changeTimeEditSize() {
@@ -545,9 +489,17 @@ function readTimeTextFromUrl() {
 	return val ? decode(val) : val;
 }
 
-function copyPermanentUrl() {}
-
-function copyGrunUrl() {}
+function onSaveButton(e) {
+	const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey;
+	if (anyMod) {
+		return;
+	}
+	e.preventDefault();
+	$copyInput.value = gPermUrl;
+	$copyInput.select();
+	document.execCommand('copy');
+	$timeEdit.focus();
+}
 
 window._onLoad = function() {
 	//const urlParams = new URLSearchParams(window.location.search);
@@ -568,17 +520,7 @@ window._onLoad = function() {
 		changeTimeEditSize();
 	}, false);
 
-	$saveBtn.addEventListener("click", function(e) {
-		const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey;
-		if (anyMod) {
-			return;
-		}
-		e.preventDefault();
-		$copyInput.value = gPermUrl;
-		$copyInput.select();
-		document.execCommand('copy');
-		$timeEdit.focus();
-	}, false);
+	$saveBtn.addEventListener("click", onSaveButton, false);
 
 	document.addEventListener("keydown", function(e) {
 	  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
@@ -586,8 +528,6 @@ window._onLoad = function() {
 	    log('Ctrl+S');
 	  }
 	}, false);
-
-	// setInterval(function() {document.location.reload();}, 1000);
 
 	$timeEdit.setAttribute('placeholder', placeholder);
 }
