@@ -56,7 +56,7 @@ h1 {
 	font-family: monospace;
 	font-size: 15px;
 
-	padding: 0 3px;
+	padding: 0 5px;
 }
 a {
 	text-decoration: none;
@@ -89,6 +89,8 @@ textarea {
 	/*margin: 0;*/
 	/*box-sizing: content-box;*/
 	box-sizing: border-box;
+
+	padding: 4px;
 }
 .internal-link {
 	/*text-decoration: none;*/
@@ -117,9 +119,9 @@ textarea {
 }
 #total-time {
 	font-weight: bold;
-	padding: 0 3px;
+	padding: 0 5px;
 	color: black;
-	background: #999;
+	background: #ddd;
 }
 #segmented-times {
 	font-size: 22px;
@@ -135,6 +137,17 @@ input[type="button"] {
 	font-family: monospace;
 	font-size: 15px;
 }
+#copy-input {
+	width: 1px;
+	height:  1px;
+	background: #fff;
+	border: none;
+}
+#save-btn {
+	background: #999;
+	display: inline-block;
+	padding: 0 9px;
+}
 @media (prefers-color-scheme: dark) {
 	body {
 		background: #444;
@@ -146,7 +159,8 @@ input[type="button"] {
 		color: #ccc;
 	}
 	textarea {
-		background: #555;
+		/*background: #555;*/
+		background: #444;
 		color: #ccc;
 	}
 	a {
@@ -154,6 +168,18 @@ input[type="button"] {
 	}
 	a:hover {
 		color: #ccc;
+	}
+	#total-time {
+		color: black;
+		background: #999;
+	}
+	#copy-input {
+		width: 1px;
+		background: #444;
+		border: none;
+	}
+	#save-btn {
+		background: #333;
 	}
 }
 @media screen and (min-width: 600px) {
@@ -218,13 +244,13 @@ function onLoad() {
 	<div class="right" style="font-family: monospace; font-size: 15px;">
 		<!-- <input type="button" name="" value="Save"> -->
 		<!-- <a href="" style="background: #333;">[grun1]</a> -->
-		<a href="" target="_blank">grun1</a>
-		<a href="" id="save-btn" style="background: #333; display: inline-block; padding: 0 9px;">Save</a>
+		<a href="" target="_blank" id="grun-link-2">grun1</a>
+		<a href="" id="save-btn" style="">Save</a>
 	</div>
 </div>
 
 <br>
-<input type="text" name="" id="copy-input" value="" style="width: 1px; background: #444; border: none;">
+<input type="text" name="" id="copy-input" value="" style="">
 
 </div>
 
@@ -254,6 +280,7 @@ const $link2 = document.getElementById('link-2');
 const $segmentedTimes = document.getElementById('segmented-times');
 const $saveBtn = document.getElementById('save-btn');
 const $copyInput = document.getElementById('copy-input');
+const $grunLink2 = document.getElementById('grun-link-2');
 var gPermUrl = '';
 var gGrunUrl = '';
 const gSiteTitle = 'Time Calculator';
@@ -285,6 +312,14 @@ function encode(unicode) {
 
 function decode(b64) {
 	return decodeURIComponent(escape(window.atob(b64)));
+}
+
+function encode85(unicode) {
+	return encode_ascii85(unescape(encodeURIComponent(unicode)));
+}
+
+function decode85(b64) {
+	return decodeURIComponent(escape(decode_ascii85(b64)));
 }
 
 function hmsToSeconds(hms) {
@@ -436,10 +471,11 @@ function recalcTime(timeText, isOnLoad) {
 	
 	gGrunUrl = grunUrl;
 	$grunLink.setAttribute('href', grunUrl ? grunUrl : '');
+	$grunLink2.setAttribute('href', grunUrl ? grunUrl : '');
 
 	if (pageTitle) {
 		if (numSplits > 1) {
-			pageTitle += ' + ' + (numSplits-1);
+			pageTitle += ' +' + (numSplits-1);
 		}
 		pageTitle += ', ' + totalHms;
 		pageTitle += ' - ';
