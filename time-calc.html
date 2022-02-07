@@ -1,30 +1,34 @@
 <!--
-	- chrome win: y scroll appears
-	- MSIE: "onLoad" не определено
-	- remove animations
-	- enable scroll-by-touch on the textarea cause there is no y-scroll
-	- use prefix like 't:' or ':'
-	- force unix line ending?
-	- go base85 ?
-	- handle Ctrl/Cmd+S ?
-	- pageTitle: limit length
-	- pageTitle: strip punctuation
-	+ total-time: adjust the light theme
-	+ allow millis
-	+ placeholder text blinks on frequent reload
-	+ force utf8 by meta
-	+ 12:09 => 12:9
-	+ disallow url ending with '#'
-	+ '1111111111111111111111111111' => '3.0864197530864196e+23:10:40'
-	+ "11366" => "03:9:26"
-	+ favicon
-	+ '02' is meaningless 02:10:00:09
-	+ no 'paris' in title when text is '111Paris'
-	+ 'sapienza' in title when text is '111. Paris\n222 Sapienza'
-	+ put some text into the title
-	+ monospace everywhere
-	+ textarea takes 606px
-	+ use pixels everywhere, not em
+- add notification "your url copied to clipboard"
+- input "1:2:3:4" now allowed but meaningless
+- "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
+- button "Save" - no vertical padding as it is on the total time
+- chrome win: y scroll appears
+- MSIE: "onLoad" не определено
+- remove animations
+- enable scroll-by-touch on the textarea cause there is no y-scroll
+- use prefix like 't:' or ':'
+- force unix line ending?
+- go base85 ?
+- handle Ctrl/Cmd+S ?
+- pageTitle: limit length
+- pageTitle: strip punctuation
++ total-time: adjust the light theme
++ allow millis
++ placeholder text blinks on frequent reload
++ force utf8 by meta
++ 12:09 => 12:9
++ disallow url ending with '#'
++ '1111111111111111111111111111' => '3.0864197530864196e+23:10:40'
++ "11366" => "03:9:26"
++ favicon
++ '02' is meaningless 02:10:00:09
++ no 'paris' in title when text is '111Paris'
++ 'sapienza' in title when text is '111. Paris\n222 Sapienza'
++ put some text into the title
++ monospace everywhere
++ textarea takes 606px
++ use pixels everywhere, not em
 -->
 
 <!DOCTYPE html>
@@ -242,12 +246,14 @@ function onLoad() {
 	<div class="right" style="font-family: monospace; font-size: 15px;">
 		<!-- <input type="button" name="" value="Save"> -->
 		<!-- <a href="" style="background: #333;">[grun1]</a> -->
-		<a href="" target="_blank" id="grun-link-2">grun1</a>
+
 		<a href="" id="save-btn" style="">Save</a>
 	</div>
 </div>
 
 <br>
+Bug reports to <a href="mailto:zeencd@gmail.com?subject=Time+Calculator">zencd</a> / Need <a href="" target="_blank" id="grun-link-2">grun</a>?
+
 <input type="text" name="" id="copy-input" value="" style="">
 
 </div>
@@ -285,7 +291,7 @@ const gSiteTitle = 'Time Calculator';
 
 const placeholder = "Example:\n\n" +
 "1:11 Paris\n" +
-"1:56.999 Sapienza";
+"1234:59:59.999 Sapienza";
 
 function encode_ascii85(a) {
   var b, c, d, e, f, g, h, i, j, k;
