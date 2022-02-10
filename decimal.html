@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+    <style>
+        body {
+            background: #444;
+        }
+    </style>
+<script>
+
+const _addWholeMy = function (a, b) {
+    const len1 = a.length;
+    const len2 = b.length;
+    const max = Math.max(len1, len2);
+    let over = 0;
+    let strSum = '';
+    for (let i = max - 1; i >= 0; i--) {
+        const dig1 = i < len1 ? parseInt(a.charAt(i)) : 0;
+        const dig2 = i < len2 ? parseInt(b.charAt(i)) : 0;
+        const digSum = dig1 + dig2 + over;
+        // log('i', i, 'over', over, 'dig1', dig1, 'dig2', dig2, 'digSum', digSum);
+        if (digSum < 10) {
+            strSum = '' + digSum + strSum;
+            over = 0;
+        } else {
+            const diff = digSum - 10;
+            strSum = '' + diff + strSum;
+            over = diff;
+        }
+    }
+    // log('over', over);
+    if (over > 0) {
+        strSum = '' + over + strSum;
+    }
+    return strSum;
+}
+
+function padZeroRight(s, maxLen) {
+    while (s.length < maxLen) s += '0';
+    return s;
+}
+
+function addStringsSO(str1, str2, doPad, carry) {
+    // https://stackoverflow.com/a/48155887/207352
+    // if (doPad === undefined) {
+    //     doPad = false;
+    // }
+    const longer = Math.max(str1.length, str2.length);
+    if (doPad) {
+        str1 = padZeroRight(str1, longer);
+        str2 = padZeroRight(str2, longer);
+    }
+    const str1a = str1.split('').reverse();
+    const str2a = str2.split('').reverse();
+    let output = '';
+    //let carry = false;
+    for (let i = 0; i < longer; i++) {
+        let result;
+        if (str1a[i] && str2a[i]) {
+            result = parseInt(str1a[i]) + parseInt(str2a[i]);
+        } else if (str1a[i] && !str2a[i]) {
+            result = parseInt(str1a[i]);
+        } else if (!str1a[i] && str2a[i]) {
+            result = parseInt(str2a[i]);
+        }
+
+        if (carry) {
+            result += 1;
+            carry = false;
+        }
+        if (result >= 10) {
+            carry = true;
+            output += result.toString()[1];
+        } else {
+            output += result.toString();
+        }
+    }
+    output = output.split('').reverse().join('');
+
+    if (carry) {
+        if (!doPad) {
+            output = '1' + output;
+        }
+    }
+
+    return [output, carry];
+}
+
+// const _addWhole = _addWholeMy;
+const _addWhole = addStringsSO;
+
+function longDivision(strNum, intDivisor) {
+    const zeroCode = 48; // ('0').charCodeAt(0)
+
+    // As result can be very large store it in string but since we need to modify it very often so using string builder
+    let ans = "";
+
+    // We will be iterating the dividend so converting it to char array
+
+    // Initially the carry would be zero
+    let idx = 0;
+    let temp = strNum[idx] - '0';
+    while (temp < intDivisor) {
+        temp = (temp * 10 + (strNum[idx + 1]).charCodeAt(0) - zeroCode);
+        idx += 1;
+    }
+    idx += 1;
+
+    while (strNum.length > idx) {
+        // Store result in answer i.e. temp / divisor
+        ans += String.fromCharCode(Math.floor(temp / intDivisor) + zeroCode);
+        // Take next digit of number
+        temp = ((temp % intDivisor) * 10 + (strNum[idx]).charCodeAt(0) - zeroCode);
+        idx += 1;
+    }
+
+    ans += String.fromCharCode(Math.floor(temp / intDivisor) + zeroCode);
+    const rem = temp % intDivisor;
+    // log('temp', temp, 'divisor', intDivisor, 'rem', rem);
+
+    //If divisor is greater than number
+    if (ans.length === 0)
+        return "0";
+    //else return ans
+    return [ans, rem];
+}
+
+function DecimalNative() {
+    return this;
+}
+
+function DecimalString(input) {
+    if (Array.isArray(input)) {
+        this.whole = input[0];
+        this.part = input[1];
+        return this;
+    }
+
+    const dot = input.indexOf('.');
+    if (dot >= 0) {
+        this.whole = input.substring(0, dot);
+        this.part = input.substring(dot + 1);
+        return this;
+    }
+
+    this.whole = input;
+    this.part = '0';
+    return this;
+}
+DecimalString.prototype.add = function (other) {
+    const [newPart, partCarry] = addStringsSO(this.part, other.part, true, false);
+    const [newWhole, wholeCarry] = addStringsSO(this.whole, other.whole, false, partCarry);
+    return new DecimalString([newWhole, newPart]);
+}
+DecimalString.prototype.toString = function () {
+    let s = this.whole;
+    s += (this.part !== "0" ? ("." + this.part) : "");
+    return s;
+}
+
+function testAdd(a, b, expected) {
+    a = new DecimalString(a);
+    b = new DecimalString(b);
+    expected = new DecimalString(expected);
+    const actual = a.add(b);
+    if (actual.toString() !== expected.toString()) {
+        console.error(a.toString(), '+', b.toString(), '==', actual.toString(), 'not', expected.toString());
+    }
+}
+
+let a = new DecimalString('100.001');
+let b = new DecimalString('3.03');
+const log = console.log;
+log('a', a.toString());
+log('b', b.toString());
+let c = a.add(b);
+log('c', c.toString());
+
+log('longDivision', longDivision(a.whole, 77));
+
+// log('zero', new Deci().toString());
+
+testAdd('1', '2', '3');
+testAdd('1.0', '2.0', '3');
+testAdd('108.001', '3.03', '111.031');
+testAdd('1.999', '2.002', '4.001');
+
+</script>
+</head>
+<body>
+hey
+</body>
+</html>

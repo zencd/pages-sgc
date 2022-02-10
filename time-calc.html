@@ -1,4 +1,6 @@
 <!--
+- safari: placeholder is joined into one line (can't be changed)
+- smartphone: hard to position cursor to the beginnig of a line
 - add notification "your url copied to clipboard"
 - input "1:2:3:4" now allowed but meaningless
 - "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
@@ -13,6 +15,7 @@
 - handle Ctrl/Cmd+S ?
 - pageTitle: limit length
 - pageTitle: strip punctuation
++ safari: placeholder is too bright (dark mode)
 + total-time: adjust the light theme
 + allow millis
 + placeholder text blinks on frequent reload
@@ -41,6 +44,11 @@
 
 /* css reset */
 a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+
+::-webkit-input-placeholder {color: #777;}
+::-moz-placeholder {color: pink;}
+:-ms-input-placeholder {color: pink;}
+:-moz-placeholder {color: pink;}
 
 body {
 	color: #333;
@@ -167,6 +175,15 @@ input[type="button"] {
 	/*float: right;*/
 }
 
+.footer {
+	margin-top: 20px;
+	color: #777;
+}
+.footer a {
+	color: #777;
+	text-decoration: none;
+}
+
 @media (prefers-color-scheme: dark) {
 	body {
 		background: #444;
@@ -232,7 +249,7 @@ function onLoad() {
 </div>
 </div>
 
-<textarea id="time-edit" rows="10" placeholder=""></textarea>
+<textarea id="time-edit" rows="10" placeholder="aaa&#10;bbb" wrap="off"></textarea>
 
 <div class="right-left">
 	<div class="left">
@@ -251,8 +268,10 @@ function onLoad() {
 	</div>
 </div>
 
-<br>
-Bug reports to <a href="mailto:zeencd@gmail.com?subject=Time+Calculator">zencd</a> / Need <a href="" target="_blank" id="grun-link-2">grun</a>?
+
+<div class="footer">
+Bug reports to <a href="mailto:zeencd@gmail.com?subject=Time+Calculator">@zencd</a> / Need <a href="" target="_blank" id="grun-link-2">grun</a>?
+</div>
 
 <input type="text" name="" id="copy-input" value="" style="">
 
@@ -349,7 +368,9 @@ function intToStr(n) {
 	return BigInt(n).toString();
 }
 
-var toHmsInt = (secs) => {
+function toHmsInt(secs) {
+	log('toHmsInt', secs, typeof secs);
+
 	if (secs <= 0) {
 		return '0';
 	}
@@ -380,6 +401,7 @@ var toHmsInt = (secs) => {
 }
 
 function toHms(secs) {
+	log('toHms', secs, typeof secs);
 	const jsInt = Math.floor(secs.toNumber());
 	// const integer = secs.truncated();
 	const s = secs.toString();
@@ -508,7 +530,11 @@ function onSaveButton(e) {
 }
 
 window._onLoad = function() {
-	Decimal.set({precision: 128});
+	// Decimal.set({precision: 128});
+	Decimal.set({ defaults: true });
+	log(new Decimal('111111111111111111111').toString());
+	log(new Decimal('1111111111111111111111').toString());
+	log(new Decimal('1111111111111111111111').toFixed(0));
 
 	//const urlParams = new URLSearchParams(window.location.search);
 	$timeEdit.focus();
