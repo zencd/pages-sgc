@@ -1,4 +1,5 @@
 <!--
+- "OK" markers on the left of the textarea
 - safari: placeholder is joined into one line (can't be changed)
 - smartphone: hard to position cursor to the beginnig of a line
 - add notification "your url copied to clipboard"
@@ -15,6 +16,7 @@
 - handle Ctrl/Cmd+S ?
 - pageTitle: limit length
 - pageTitle: strip punctuation
++ if input only has numbers, the page title stays 'Time Calculator'
 + safari: placeholder is too bright (dark mode)
 + total-time: adjust the light theme
 + allow millis
@@ -113,10 +115,6 @@ textarea {
 	opacity: 0;
 	/*font-style: italic;*/
 }
-.madeby {
-	transform-origin: 0 1;
-	transform: rotate(-90deg);
-}
 .links {
 	font-size: 20px;
 	font-family: Georgia, serif;
@@ -139,10 +137,6 @@ textarea {
 	font-size: 22px;
 	font-family: monospace;
 	font-size: 15px;
-}
-.rotate {
-  transition: 0.4s;
-  transform:rotate(360deg);
 }
 input[type="button"] {
 	background: #999;
@@ -249,7 +243,7 @@ function onLoad() {
 </div>
 </div>
 
-<textarea id="time-edit" rows="10" placeholder="aaa&#10;bbb" wrap="off"></textarea>
+<textarea id="time-edit" rows="10" placeholder="" wrap="off"></textarea>
 
 <div class="right-left">
 	<div class="left">
@@ -309,8 +303,10 @@ var gGrunUrl = '';
 const gSiteTitle = 'Time Calculator';
 
 const placeholder = "Example:\n\n" +
-"1:11 Paris\n" +
+"1:59 Paris\n" +
 "1234:59:59.999 Sapienza";
+
+const placeholderSafari = "01:59 Example";
 
 function encode_ascii85(a) {
   var b, c, d, e, f, g, h, i, j, k;
@@ -339,6 +335,10 @@ function encode(unicode) {
 
 function decode(b64) {
 	return decodeURIComponent(escape(window.atob(b64)));
+}
+
+function pluralize(noun, count) {
+	return count === 1 ? noun : noun + 's';
 }
 
 function hmsToSeconds(hmsMillis) {
@@ -431,13 +431,30 @@ function makeGrunUrl(timeAndLabel) {
 	return 'http://www.grun1.com/utils/timeCalc.html?' + query;
 }
 
+function makeTitle(firstValidTitle, numSplits, totalHms) {
+	let pageTitle = '';
+	if (numSplits > 0) {
+		if (firstValidTitle) {
+			if (numSplits > 1) {
+				pageTitle = firstValidTitle + ' +' + (numSplits - 1);
+			}
+		} else {
+			pageTitle = numSplits + pluralize(' split', numSplits);
+		}
+		pageTitle += ', ' + totalHms;
+		pageTitle += ' - ';
+	}
+	pageTitle += gSiteTitle;
+	return pageTitle;
+}
+
 function recalcTime(timeText, isOnLoad) {
 	const lines = timeText.split(/\r?\n/);
 	var totalSeconds = new Decimal('0');
 	var segmentTotal = new Decimal('0');
 	const timeAndLabel = [];
 	const segmentTimes = [];
-	var pageTitle = '';
+	let firstValidTitle = '';
 	var numSplits = 0;
 	for (i in lines) {
 		var line = lines[i];
@@ -458,8 +475,8 @@ function recalcTime(timeText, isOnLoad) {
 			segmentTotal = segmentTotal.add(lineSec);
 			numSplits += 1;
 			timeAndLabel.push([lineSec, lineLabel]);
-			if (lineLabel && !pageTitle) {
-				pageTitle = lineLabel;
+			if (lineLabel && !firstValidTitle) {
+				firstValidTitle = lineLabel;
 			}
 		}
 	}
@@ -485,15 +502,7 @@ function recalcTime(timeText, isOnLoad) {
 	$grunLink.setAttribute('href', grunUrl ? grunUrl : '');
 	$grunLink2.setAttribute('href', grunUrl ? grunUrl : '');
 
-	if (pageTitle) {
-		if (numSplits > 1) {
-			pageTitle += ' +' + (numSplits-1);
-		}
-		pageTitle += ', ' + totalHms;
-		pageTitle += ' - ';
-	}
-	pageTitle += gSiteTitle;
-	document.title = pageTitle;
+	document.title = makeTitle(firstValidTitle, numSplits, totalHms);
 }
 
 function updateUrl(timeText, isOnLoad) {
@@ -563,6 +572,7 @@ window._onLoad = function() {
 	  }
 	}, false);
 
-	$timeEdit.setAttribute('placeholder', placeholder);
+	const ph = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ? placeholderSafari : placeholder;
+	$timeEdit.setAttribute('placeholder', ph);
 }
 </script>
