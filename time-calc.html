@@ -1,7 +1,7 @@
 <!--
 - "OK" markers on the left of the textarea
 - safari: placeholder is joined into one line (can't be changed)
-- smartphone: hard to position cursor to the beginnig of a line
+- smartphone: hard to position cursor to the beginning of a line
 - add notification "your url copied to clipboard"
 - input "1:2:3:4" now allowed but meaningless
 - "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
@@ -302,11 +302,17 @@ var gPermUrl = '';
 var gGrunUrl = '';
 const gSiteTitle = 'Time Calculator';
 
-const placeholder = "Example:\n\n" +
+const placeholderMultiLine = "Example:\n\n" +
 "1:59 Paris\n" +
 "1234:59:59.999 Sapienza";
 
 const placeholderSafari = "01:59 Example";
+
+const placeholder = isSafari() ? placeholderSafari : placeholderMultiLine;
+
+function isSafari() {
+	return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+}
 
 function encode_ascii85(a) {
   var b, c, d, e, f, g, h, i, j, k;
@@ -541,9 +547,10 @@ function onSaveButton(e) {
 window._onLoad = function() {
 	// Decimal.set({precision: 128});
 	Decimal.set({ defaults: true });
-	log(new Decimal('111111111111111111111').toString());
-	log(new Decimal('1111111111111111111111').toString());
-	log(new Decimal('1111111111111111111111').toFixed(0));
+
+	const long = new Decimal('1111111111111111111111');
+	log('toString()', long.toString());
+	log('toFixed(0)', long.toFixed(0));
 
 	//const urlParams = new URLSearchParams(window.location.search);
 	$timeEdit.focus();
@@ -566,13 +573,12 @@ window._onLoad = function() {
 	$saveBtn.addEventListener("click", onSaveButton, false);
 
 	document.addEventListener("keydown", function(e) {
-	  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
+	  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode === 83) {
 	    e.preventDefault();
 	    log('Ctrl+S');
 	  }
 	}, false);
 
-	const ph = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ? placeholderSafari : placeholder;
-	$timeEdit.setAttribute('placeholder', ph);
+	$timeEdit.setAttribute('placeholder', placeholder);
 }
 </script>
