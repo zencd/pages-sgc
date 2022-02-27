@@ -47,11 +47,6 @@ function testDiv(aStr, bInt, wholeExp, remExpInt) {
     if (!eq(resActDec.toString(), wholeExp) || !eq(remActInt, remExpInt)) {
         console.error(aStr, '/', bInt, '==', resActDec, ';', remActInt, ', not', wholeExp, ';', remExpInt);
     }
-
-    // const [wholeAct, remAct] = longDivision(a, b);
-    // if (!eq(wholeAct, wholeExp) || !eq(remAct, remExpInt)) {
-    //     console.error(aStr, '/', b, '==', wholeAct, ';', remAct, ', not', wholeExp, ';', remExpInt);
-    // }
 }
 
 function testMul(a, b, expStr) {
@@ -77,6 +72,7 @@ testAdd('1.0', '2.0', '3');
 testAdd('108.001', '3.03', '111.031');
 testAdd('1.999', '2.002', '4.001');
 
+testDiv('0', 60, '0', 0);
 testDiv('3', 60, '0', 3);
 testDiv('64', 60, '1', 4);
 testDiv('64.012', 60, '1.012', 4);

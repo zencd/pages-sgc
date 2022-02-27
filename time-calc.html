@@ -219,7 +219,7 @@ input[type="button"] {
 }
 </style>
 
-<script type="text/javascript" src="decimal.min.js"></script>
+<!--<script type="text/javascript" src="decimal.min.js"></script>-->
 <script type="text/javascript" src="dec.js"></script>
 
 <script type="text/javascript">
@@ -353,22 +353,26 @@ function pluralize(noun, count) {
 function hmsToSeconds(hmsMillis) {
 	var hms = hmsMillis;
 	var dot = hms.indexOf('.');
-	var decimalMillis = new Decimal('0');
+	var decimalMillis = dec('0');
 	if (dot >= 0) {
 		hms = hmsMillis.substring(0, dot);
-		decimalMillis = new Decimal('0' + hmsMillis.substring(dot));
+		decimalMillis = dec('0' + hmsMillis.substring(dot));
 	}
 
 	const words = hms.split(/:/);
-	var totalSeconds = 0;
+	let totalSeconds = 0;
+	let totalSecDec = dec('0');
 	for (i in words) {
 		const word = words[i];
-		const mul = Math.pow(60, words.length - i - 1);
+		const mulInt = Math.pow(60, words.length - i - 1);
 		const n = parseInt(word, 10);
-		totalSeconds += (n * mul);
+		totalSeconds += (n * mulInt);
+		const additionDec = dec((n * mulInt).toString());
+		totalSecDec = totalSecDec.add(additionDec);
 	}
-	let intPart = isNaN(totalSeconds) ? 0 : totalSeconds;
-	return new Decimal(intPart).add(decimalMillis);
+	// let intPart = isNaN(totalSeconds) ? 0 : totalSeconds;
+	totalSecDec = totalSecDec.add(decimalMillis);
+	return totalSecDec;
 }
 
 function intToStr(n) {
@@ -377,12 +381,12 @@ function intToStr(n) {
 	return BigInt(n).toString();
 }
 
-function toHmsInt(secs) {
-	log('toHmsInt', secs, typeof secs);
+function decToHms(secs) {
+	log('decToHms', secs, typeof secs);
 
-	if (secs <= 0) {
-		return '0';
-	}
+	// if (secs <= 0) {
+	// 	return '0';
+	// }
 
 	var s = '';
 	var force = false;
@@ -427,7 +431,7 @@ function toHms(secs) {
 	const s = secs.toString();
 	const dot = s.indexOf('.');
 	const floatPart = dot >= 0 ? s.substring(dot+1) : '';
-	let res = toHmsInt(jsInt);
+	let res = decToHms(jsInt);
 	res += floatPart ? ('.' + floatPart) : '';
 	// log('toHms', secs.toString(), '=>', res.toString());
 	// log('integer', integer);
@@ -482,7 +486,7 @@ function recalcTime(timeText, isOnLoad) {
 		line = line.trim();
 		if (!line && segmentTotal > 0) {
 			segmentTimes.push(segmentTotal);
-			segmentTotal = new Decimal('0');
+			segmentTotal = dec('0');
 			continue;
 		}
 		const m = line.match(/^\s*([0-9][0-9:]*(\.[0-9]+)?)(\s*(.+))?$/);
@@ -565,13 +569,13 @@ function onSaveButton(e) {
 
 window._onLoad = function() {
 	// Decimal.set({precision: 128});
-	Decimal.set({ defaults: true });
+	// Decimal.set({ defaults: true });
 
 	// const long = new Decimal('1111111111111111111111');
 	// log('toString()', long.toString());
 	// log('toFixed(0)', long.toFixed(0));
 
-	log('hmsToSeconds:', hmsToSeconds('100'));
+	log('hmsToSeconds:', hmsToSeconds('60:59.001'));
 
 	//const urlParams = new URLSearchParams(window.location.search);
 	$timeEdit.focus();
