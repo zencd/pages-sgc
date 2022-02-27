@@ -1,4 +1,5 @@
 <!--
++ '1111111249'
 - "OK" markers on the left of the textarea
 - safari: placeholder is joined into one line (can't be changed)
 - smartphone: hard to position cursor to the beginning of a line
@@ -353,6 +354,7 @@ function pluralize(noun, count) {
 function hmsToSeconds(hmsMillis) {
 	var hms = hmsMillis;
 	var dot = hms.indexOf('.');
+
 	var decimalMillis = dec('0');
 	if (dot >= 0) {
 		hms = hmsMillis.substring(0, dot);
@@ -362,12 +364,16 @@ function hmsToSeconds(hmsMillis) {
 	const words = hms.split(/:/);
 	let totalSeconds = 0;
 	let totalSecDec = dec('0');
-	for (i in words) {
+	for (let i in words) {
 		const word = words[i];
 		const mulInt = Math.pow(60, words.length - i - 1);
-		const n = parseInt(word, 10);
-		totalSeconds += (n * mulInt);
-		const additionDec = dec((n * mulInt).toString());
+		// const n = parseInt(word, 10);
+		// totalSeconds += (n * mulInt);
+		// const additionDec = dec((n * mulInt).toString());
+		// log('n:', n);
+		// log('word:', word);
+		// log('mulInt.toString():', mulInt.toString());
+		const additionDec = (mulInt === 1) ? dec(word) : dec(word).mul(dec(mulInt.toString()));
 		totalSecDec = totalSecDec.add(additionDec);
 	}
 	// let intPart = isNaN(totalSeconds) ? 0 : totalSeconds;
@@ -375,67 +381,33 @@ function hmsToSeconds(hmsMillis) {
 	return totalSecDec;
 }
 
-function intToStr(n) {
-	// avoid scientific notation
-	// return n.toLocaleString('fullwide', {useGrouping: false});
-	return BigInt(n).toString();
-}
-
 function decToHms(secs) {
-	log('decToHms', secs, typeof secs);
+	const [hours, secRem] = secs.divInt(3600);
+	const [minutes, seconds] = dec(secRem.toString()).divInt(60);
+	let s = '';
 
-	// if (secs <= 0) {
-	// 	return '0';
-	// }
-
-	var s = '';
-	var force = false;
-	var div = Math.floor(secs / 3600);
-	var rem = secs % 3600;
-	if (div > 0) {
-		s += (div < 10) ? ('0'+div) : intToStr(div);
-		force = true;
+	// hours
+	if (hours.whole !== '0') {
+		s += hours.whole + ':';
 	}
 
-	rem = Math.floor(rem / 60);
-	if (rem > 0 || force) {
-		if (s.length > 0) s += ':';
-		s += (rem < 10) ? ('0'+rem) : rem;
-		force = true;
+	// minutes
+	if (minutes.whole !== '0') {
+		s = (minutes.whole.length === 1 && hours.whole !== '0') ? (s + '0') : s;
+		s += minutes.whole + ':';
 	}
-	
-	rem = secs % 60;
-	if (rem > 0 || force) {
-		if (s.length > 0) s += ':';
-		s += (rem < 10) ? ('0'+rem) : rem;
-	}
-	
+
+	// seconds
+	s = (s && seconds < 10) ? s + '0' : s;
+	s += seconds;
+
+	// log('decToHms: ', secs.toString(), '=>', s);
 	return s;
 }
 
-function toHmsDecimalString(secs) {
-	const [hours, _] = secs.divInt(3600);
-	const [minutes, seconds] = secs.divInt(60);
-	return hours.whole + ':' + minutes.whole + ':' + seconds.whole;
-}
-
 function toHms(secs) {
-	log('toHms', secs, typeof secs);
-
-	if (secs.constructor.name === 'DecimalString') {
-		return toHmsDecimalString(secs);
-	}
-
-	const jsInt = Math.floor(secs.toNumber());
-	// const integer = secs.truncated();
-	const s = secs.toString();
-	const dot = s.indexOf('.');
-	const floatPart = dot >= 0 ? s.substring(dot+1) : '';
-	let res = decToHms(jsInt);
-	res += floatPart ? ('.' + floatPart) : '';
-	// log('toHms', secs.toString(), '=>', res.toString());
-	// log('integer', integer);
-	return res;
+	assert(secs.constructor.name === 'DecimalString', 'expecting a DecimalString');
+	return decToHms(secs);
 }
 
 function makeGrunUrl(timeAndLabel) {
@@ -481,6 +453,7 @@ function recalcTime(timeText, isOnLoad) {
 	const segmentTimes = [];
 	let firstValidTitle = '';
 	var numSplits = 0;
+	// log('1 totalSeconds', totalSeconds.toString());
 	for (i in lines) {
 		var line = lines[i];
 		line = line.trim();
@@ -494,9 +467,10 @@ function recalcTime(timeText, isOnLoad) {
 			const timeHms = m[1];
 			const lineLabel = (m[3] !== undefined) ? m[3].trim() : '';
 			const lineSec = hmsToSeconds(timeHms);
-			const neu = totalSeconds.add(lineSec);
-			// log(totalSeconds.toString(), '+', lineSec.toString(), '=', neu.toString());
-			totalSeconds = neu;
+			// log('totalSeconds was:', totalSeconds.toString());
+			totalSeconds = totalSeconds.add(lineSec);
+			// log('addition:', lineSec.toString());
+			// log('totalSeconds now:', totalSeconds.toString());
 			segmentTotal = segmentTotal.add(lineSec);
 			numSplits += 1;
 			timeAndLabel.push([lineSec, lineLabel]);
@@ -517,10 +491,10 @@ function recalcTime(timeText, isOnLoad) {
 		$segmentedTimes.innerHTML = 'total';
 	}
 
-	// log('totalSeconds', totalSeconds.toString());
+	// log('2 totalSeconds', totalSeconds.toString());
 
 	const grunUrl = makeGrunUrl(timeAndLabel);
-	const totalHms = toHms(totalSeconds);
+	const totalHms = decToHms(totalSeconds);
 	$totalTime.innerHTML = totalHms;
 	
 	// log('totalSeconds.toString:', totalSeconds.toString());
@@ -575,7 +549,13 @@ window._onLoad = function() {
 	// log('toString()', long.toString());
 	// log('toFixed(0)', long.toFixed(0));
 
-	log('hmsToSeconds:', hmsToSeconds('60:59.001'));
+	// log('hmsToSeconds:', hmsToSeconds('60:59.001'));
+	// log('hmsToSeconds:', hmsToSeconds('1111111111111111111111'));
+	// log('toHms:', decToHms(dec('123')));
+	// log('toHms:', decToHms(dec('111111111111111111111111111')));
+	// return;
+	// return;
+	// return;
 
 	//const urlParams = new URLSearchParams(window.location.search);
 	$timeEdit.focus();

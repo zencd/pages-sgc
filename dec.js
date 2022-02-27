@@ -7,6 +7,11 @@ function padZeroRight(s, maxLen) {
     return s;
 }
 
+function padZeroLeft(s, maxLen) {
+    while (s.length < maxLen) s = '0' + s;
+    return s;
+}
+
 function addStringsSO(str1, str2, doPad, carry) {
     // https://stackoverflow.com/a/48155887/207352
     // if (doPad === undefined) {
