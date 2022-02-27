@@ -378,6 +378,7 @@ function hmsToSeconds(hmsMillis) {
 	}
 	// let intPart = isNaN(totalSeconds) ? 0 : totalSeconds;
 	totalSecDec = totalSecDec.add(decimalMillis);
+	// log('hmsToSeconds', hmsMillis, '=>', totalSecDec.toString());
 	return totalSecDec;
 }
 
@@ -400,6 +401,10 @@ function decToHms(secs) {
 	// seconds
 	s = (s && seconds < 10) ? s + '0' : s;
 	s += seconds;
+
+	if (secs.part !== '0') {
+		s += '.' + secs.part;
+	}
 
 	// log('decToHms: ', secs.toString(), '=>', s);
 	return s;
@@ -464,6 +469,7 @@ function recalcTime(timeText, isOnLoad) {
 		}
 		const m = line.match(/^\s*([0-9][0-9:]*(\.[0-9]+)?)(\s*(.+))?$/);
 		if(m) {
+			// log(m);
 			const timeHms = m[1];
 			const lineLabel = (m[3] !== undefined) ? m[3].trim() : '';
 			const lineSec = hmsToSeconds(timeHms);
@@ -483,6 +489,9 @@ function recalcTime(timeText, isOnLoad) {
 		segmentTimes.push(segmentTotal);
 		// segmentTotal = 0;
 	}
+
+	// log('segmentTotal', segmentTotal.toString());
+	// log('totalSeconds', totalSeconds.toString());
 
 	if (segmentTimes.length > 1) {
 		const text = segmentTimes.map(t => toHms(t)).join(" + ");
