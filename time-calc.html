@@ -220,6 +220,7 @@ input[type="button"] {
 </style>
 
 <script type="text/javascript" src="decimal.min.js"></script>
+<script type="text/javascript" src="dec.js"></script>
 
 <script type="text/javascript">
 function onLoad() {
@@ -309,6 +310,8 @@ const placeholderMultiLine = "Example:\n\n" +
 const placeholderSafari = "01:59 Example";
 
 const placeholder = isSafari() ? placeholderSafari : placeholderMultiLine;
+
+const isMac = window.navigator.platform.match("Mac");
 
 function isSafari() {
 	return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -406,8 +409,19 @@ function toHmsInt(secs) {
 	return s;
 }
 
+function toHmsDecimalString(secs) {
+	const [hours, _] = secs.divInt(3600);
+	const [minutes, seconds] = secs.divInt(60);
+	return hours.whole + ':' + minutes.whole + ':' + seconds.whole;
+}
+
 function toHms(secs) {
 	log('toHms', secs, typeof secs);
+
+	if (secs.constructor.name === 'DecimalString') {
+		return toHmsDecimalString(secs);
+	}
+
 	const jsInt = Math.floor(secs.toNumber());
 	// const integer = secs.truncated();
 	const s = secs.toString();
@@ -437,12 +451,12 @@ function makeGrunUrl(timeAndLabel) {
 	return 'http://www.grun1.com/utils/timeCalc.html?' + query;
 }
 
-function makeTitle(firstValidTitle, numSplits, totalHms) {
+function makeTitle(rowTitle, numSplits, totalHms) {
 	let pageTitle = '';
 	if (numSplits > 0) {
-		if (firstValidTitle) {
+		if (rowTitle) {
 			if (numSplits > 1) {
-				pageTitle = firstValidTitle + ' +' + (numSplits - 1);
+				pageTitle = rowTitle + ' +' + (numSplits - 1);
 			}
 		} else {
 			pageTitle = numSplits + pluralize(' split', numSplits);
@@ -456,8 +470,9 @@ function makeTitle(firstValidTitle, numSplits, totalHms) {
 
 function recalcTime(timeText, isOnLoad) {
 	const lines = timeText.split(/\r?\n/);
-	var totalSeconds = new Decimal('0');
-	var segmentTotal = new Decimal('0');
+	// var totalSeconds = new Decimal('0');
+	var totalSeconds = dec('0');
+	var segmentTotal = dec('0');
 	const timeAndLabel = [];
 	const segmentTimes = [];
 	let firstValidTitle = '';
@@ -504,6 +519,10 @@ function recalcTime(timeText, isOnLoad) {
 	const totalHms = toHms(totalSeconds);
 	$totalTime.innerHTML = totalHms;
 	
+	// log('totalSeconds.toString:', totalSeconds.toString());
+	// log('totalSeconds.toFixed:', totalSeconds.toFixed(0));
+	// log('totalHms:', totalHms, typeof totalHms);
+
 	gGrunUrl = grunUrl;
 	$grunLink.setAttribute('href', grunUrl ? grunUrl : '');
 	$grunLink2.setAttribute('href', grunUrl ? grunUrl : '');
@@ -548,9 +567,11 @@ window._onLoad = function() {
 	// Decimal.set({precision: 128});
 	Decimal.set({ defaults: true });
 
-	const long = new Decimal('1111111111111111111111');
-	log('toString()', long.toString());
-	log('toFixed(0)', long.toFixed(0));
+	// const long = new Decimal('1111111111111111111111');
+	// log('toString()', long.toString());
+	// log('toFixed(0)', long.toFixed(0));
+
+	log('hmsToSeconds:', hmsToSeconds('100'));
 
 	//const urlParams = new URLSearchParams(window.location.search);
 	$timeEdit.focus();
@@ -572,11 +593,11 @@ window._onLoad = function() {
 
 	$saveBtn.addEventListener("click", onSaveButton, false);
 
-	document.addEventListener("keydown", function(e) {
-	  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode === 83) {
-	    e.preventDefault();
-	    log('Ctrl+S');
-	  }
+	document.addEventListener("keydown", function (e) {
+		if ((isMac ? e.metaKey : e.ctrlKey) && e.keyCode === 83) {
+			// ctrl+s
+			e.preventDefault();
+		}
 	}, false);
 
 	$timeEdit.setAttribute('placeholder', placeholder);

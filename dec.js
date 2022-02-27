@@ -1,13 +1,18 @@
+function assert(expr, msg) {
+    if (!expr) throw msg;
+}
+
 function padZeroRight(s, maxLen) {
     while (s.length < maxLen) s += '0';
     return s;
 }
 
-function addStrings(str1, str2, doPad, carry) {
+function addStringsSO(str1, str2, doPad, carry) {
     // https://stackoverflow.com/a/48155887/207352
     // if (doPad === undefined) {
     //     doPad = false;
     // }
+    // log('addStrings: str1:', str1, 'str2:', str2);
     const longer = Math.max(str1.length, str2.length);
     if (doPad) {
         str1 = padZeroRight(str1, longer);
@@ -48,6 +53,8 @@ function addStrings(str1, str2, doPad, carry) {
 
     return [output, carry];
 }
+
+const addStrings = addStringsSO;
 
 function longDivision(strNum, intDivisor) {
     // intDivisor = parseInt(intDivisor);
@@ -101,8 +108,8 @@ function longDivision(strNum, intDivisor) {
     return [ans, rem];
 }
 
-function DecimalNative() {
-    return this;
+function multiplyStrings(a, b) {
+    return (BigInt(a) * BigInt(b)).toString();
 }
 
 function DecimalString(input) {
@@ -126,22 +133,46 @@ function DecimalString(input) {
 DecimalString.prototype.add = function (other) {
     const [newPart, partCarry] = addStrings(this.part, other.part, true, false);
     const [newWhole, wholeCarry] = addStrings(this.whole, other.whole, false, partCarry);
-    return new DecimalString([newWhole, newPart]);
+    return dec(newWhole, newPart);
 }
 DecimalString.prototype.divInt = function (divisorInt) {
     const [res, rem] = longDivision(this.whole, divisorInt);
-    return [
-        new DecimalString([res, this.part]),
-        new DecimalString([rem, '0'])
-    ];
+    return [dec(res, this.part), rem];
+}
+DecimalString.prototype.mul = function (other) {
+    let big = BigInt(this.whole) * BigInt(other.whole);
+    return dec(big.toString());
 }
 DecimalString.prototype.toString = function () {
     let s = this.whole;
-    s += (this.part !== "0" ? ("." + this.part) : "");
+    if (this.part !== "0") {
+        s += '.' + this.part;
+    }
+    // s += (this.part !== "0" ? ("." + this.part) : "");
     return s;
 }
 
+function DecimalNative(input) {
+    this.whole = input[0];
+    this.part = input[1];
+    return this;
+}
+
 function dec(whole, part) {
+    // log('---------------');
+    // log('1) whole', whole, 'part: [' + part + ']');
+    const dot = whole.indexOf('.');
+    if (dot >= 0) {
+        const whole2 = whole.substring(0, dot);
+        let part2 = whole.substring(dot + 1);
+        // log('2) whole', whole, 'part: [' + part + ']', 'dot:', dot);
+        part2 = part2 === '' ? '0' : part2;
+        return new DecimalString([whole2, part2]);
+    }
+
+    if (part === undefined) {
+        part = '0';
+    }
     return new DecimalString([whole, part]);
 }
 

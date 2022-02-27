@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Title</title>
+<title>Decimal</title>
     <style>
         body {
             background: #444;
@@ -12,69 +12,79 @@
 <script src="dec.js"></script>
 
 <script>
+const log = console.info;
 
-function testAdd(a, b, expected) {
-    a = new DecimalString(a);
-    b = new DecimalString(b);
-    expected = new DecimalString(expected);
-    const actual = a.add(b);
-    if (actual.toString() !== expected.toString()) {
-        console.error(a.toString(), '+', b.toString(), '==', actual.toString(), 'not', expected.toString());
-    }
+function eq(x, y) {
+    return x === y || (isNaN(x) && isNaN(y));
 }
 
-function testDiv(a, b, wholeExp, remExp) {
-    function eq(x, y) {
-        return x === y || (isNaN(x) && isNaN(y));
-    }
+function testAdd(a, b, expStr) {
     if (typeof a !== 'string') throw 'Argument a expected to be a string';
-    if (typeof b !== 'number') throw 'Argument a expected to be a number';
-    const [wholeAct, remAct] = longDivision(a, b);
-    // log('a:', a, 'b:', b);
-    // log('wholeAct', wholeAct, 'remAct', remAct);
-    if (!eq(wholeAct, wholeExp) || !eq(remAct, remExp)) {
-        console.error(a, '/', b, '==', wholeAct, ';', remAct, ', not', wholeExp, ';', remExp);
+    if (typeof b !== 'string') throw 'Argument b expected to be a string';
+    if (typeof expStr !== 'string') throw 'Argument expected expected to be a string';
+
+    const aDec = dec(a);
+    const bDec = dec(b);
+
+    const actDec = aDec.add(bDec);
+    const actStr = actDec.toString();
+
+    if (actStr !== expStr) {
+        console.error(aDec.toString(), '+', bDec.toString(), '==', actStr, 'not', expStr);
     }
 }
 
-let a = new DecimalString('100.001');
-let b = new DecimalString('3.03');
-const log = console.log;
-log('a', a.toString());
-log('b', b.toString());
-let c = a.add(b);
-log('c', c.toString());
+function testDiv(aStr, bInt, wholeExp, remExpInt) {
+    if (typeof aStr !== 'string') throw 'Argument aStr expected to be a string';
+    if (typeof bInt !== 'number') throw 'Argument bInt expected to be a number';
+    if (typeof wholeExp !== 'string') throw 'Argument wholeExp expected to be a string';
+    if (typeof remExpInt !== 'number') throw 'Argument remExpInt expected to be a number';
 
-// log('longDivision', longDivision(a.whole, 77));
-// log('zero', new Deci().toString());
+    const aDec = dec(aStr);
+
+    const [resActDec, remActInt] = aDec.divInt(bInt);
+
+    if (!eq(resActDec.toString(), wholeExp) || !eq(remActInt, remExpInt)) {
+        console.error(aStr, '/', bInt, '==', resActDec, ';', remActInt, ', not', wholeExp, ';', remExpInt);
+    }
+
+    // const [wholeAct, remAct] = longDivision(a, b);
+    // if (!eq(wholeAct, wholeExp) || !eq(remAct, remExpInt)) {
+    //     console.error(aStr, '/', b, '==', wholeAct, ';', remAct, ', not', wholeExp, ';', remExpInt);
+    // }
+}
+
+function testMul(a, b, expStr) {
+    if (typeof a !== 'string') throw 'Argument a expected to be a string';
+    if (typeof b !== 'string') throw 'Argument b expected to be a string';
+    if (typeof expStr !== 'string') throw 'Argument expected expected to be a string';
+
+    a = dec(a);
+    b = dec(b);
+
+    const actDec = a.mul(b);
+    const actStr = actDec.toString();
+
+    if (!eq(actStr, expStr)) {
+        console.error(a.toString(), '*', b.toString(), '==', actStr, ', not', expStr);
+    }
+}
+
+// log('108.001', dec('108.001'));
 
 testAdd('1', '2', '3');
 testAdd('1.0', '2.0', '3');
 testAdd('108.001', '3.03', '111.031');
 testAdd('1.999', '2.002', '4.001');
 
-testDiv('8', 2, '4', 0);
-testDiv('100', 77, '1', 23);
-testDiv('1', 3, '0', 1);
-testDiv('0', 100, '0', 0);
-testDiv('100', 0, '', Number.NaN);
+testDiv('3', 60, '0', 3);
+testDiv('64', 60, '1', 4);
+testDiv('64.012', 60, '1.012', 4);
 
-const BIG = '1111111111111111111111111111111111111111122222';
-log('s1 / 60 =', (BigInt(BIG) / BigInt('60')).toString());
-testDiv(BIG, 60, '18518518518518518518518518518518518518518703', 42);
+testMul('3', '60', '180');
+testMul('3', '0', '0');
 
-a = dec(BIG, '56');
-log('a', a.toString());
-const [z, y] = a.divInt(60);
-log('z', z.toString());
-log('y', y.toString());
-
-// a = new BigDecimal("123456789123456789876.1");
-// b = a.divide("60");
-// c = b.add("9.000000000000000004");
-// log(a.toString());
-// log(b.toString());
-// log(c.toString());
+log('OK', new Date());
 
 </script>
 </head>
