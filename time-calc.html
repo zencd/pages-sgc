@@ -1,11 +1,9 @@
 <!--
-+ '1111111249'
 - "OK" markers on the left of the textarea
 - safari: placeholder is joined into one line (can't be changed)
 - smartphone: hard to position cursor to the beginning of a line
 - add notification "your url copied to clipboard"
 - input "1:2:3:4" now allowed but meaningless
-- "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
 - button "Save" - no vertical padding as it is on the total time
 - chrome win: y scroll appears
 - MSIE: "onLoad" не определено
@@ -17,6 +15,8 @@
 - handle Ctrl/Cmd+S ?
 - pageTitle: limit length
 - pageTitle: strip punctuation
++ bug: '1111111249' => '308642:41'
++ bug: "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
 + if input only has numbers, the page title stays 'Time Calculator'
 + safari: placeholder is too bright (dark mode)
 + total-time: adjust the light theme
@@ -385,16 +385,17 @@ function hmsToSeconds(hmsMillis) {
 function decToHms(secs) {
 	const [hours, secRem] = secs.divInt(3600);
 	const [minutes, seconds] = dec(secRem.toString()).divInt(60);
+	const hoursPresented = hours.whole !== '0';
 	let s = '';
 
 	// hours
-	if (hours.whole !== '0') {
+	if (hoursPresented) {
 		s += hours.whole + ':';
 	}
 
 	// minutes
-	if (minutes.whole !== '0') {
-		s = (minutes.whole.length === 1 && hours.whole !== '0') ? (s + '0') : s;
+	if (minutes.whole !== '0' || hoursPresented) {
+		s = (minutes.whole.length === 1 && hoursPresented) ? (s + '0') : s;
 		s += minutes.whole + ':';
 	}
 
