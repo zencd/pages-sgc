@@ -15,26 +15,26 @@
 - handle Ctrl/Cmd+S ?
 - pageTitle: limit length
 - pageTitle: strip punctuation
-+ bug: '1111111249' => '308642:41'
-+ bug: "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
-+ if input only has numbers, the page title stays 'Time Calculator'
-+ safari: placeholder is too bright (dark mode)
-+ total-time: adjust the light theme
-+ allow millis
-+ placeholder text blinks on frequent reload
-+ force utf8 by meta
-+ 12:09 => 12:9
-+ disallow url ending with '#'
-+ '1111111111111111111111111111' => '3.0864197530864196e+23:10:40'
-+ "11366" => "03:9:26"
-+ favicon
-+ '02' is meaningless 02:10:00:09
-+ no 'paris' in title when text is '111Paris'
-+ 'sapienza' in title when text is '111. Paris\n222 Sapienza'
-+ put some text into the title
-+ monospace everywhere
-+ textarea takes 606px
-+ use pixels everywhere, not em
+++ bug: '1111111249' => '308642:41'
+++ bug: "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
+++ if input only has numbers, the page title stays 'Time Calculator'
+++ safari: placeholder is too bright (dark mode)
+++ total-time: adjust the light theme
+++ allow millis
+++ placeholder text blinks on frequent reload
+++ force utf8 by meta
+++ 12:09 => 12:9
+++ disallow url ending with '#'
+++ '1111111111111111111111111111' => '3.0864197530864196e+23:10:40'
+++ "11366" => "03:9:26"
+++ favicon
+++ '02' is meaningless 02:10:00:09
+++ no 'paris' in title when text is '111Paris'
+++ 'sapienza' in title when text is '111. Paris\n222 Sapienza'
+++ put some text into the title
+++ monospace everywhere
+++ textarea takes 606px
+++ use pixels everywhere, not em
 -->
 
 <!DOCTYPE html>
@@ -355,7 +355,7 @@ function hmsToSeconds(hmsMillis) {
 	var hms = hmsMillis;
 	var dot = hms.indexOf('.');
 
-	var decimalMillis = dec('0');
+	var decimalMillis = dec(0);
 	if (dot >= 0) {
 		hms = hmsMillis.substring(0, dot);
 		decimalMillis = dec('0' + hmsMillis.substring(dot));
@@ -363,7 +363,7 @@ function hmsToSeconds(hmsMillis) {
 
 	const words = hms.split(/:/);
 	let totalSeconds = 0;
-	let totalSecDec = dec('0');
+	let totalSecDec = dec(0);
 	for (let i in words) {
 		const word = words[i];
 		const mulInt = Math.pow(60, words.length - i - 1);
@@ -453,8 +453,8 @@ function makeTitle(rowTitle, numSplits, totalHms) {
 function recalcTime(timeText, isOnLoad) {
 	const lines = timeText.split(/\r?\n/);
 	// var totalSeconds = new Decimal('0');
-	var totalSeconds = dec('0');
-	var segmentTotal = dec('0');
+	var totalSeconds = dec(0);
+	var segmentTotal = dec(0);
 	const timeAndLabel = [];
 	const segmentTimes = [];
 	let firstValidTitle = '';
@@ -465,7 +465,7 @@ function recalcTime(timeText, isOnLoad) {
 		line = line.trim();
 		if (!line && segmentTotal > 0) {
 			segmentTimes.push(segmentTotal);
-			segmentTotal = dec('0');
+			segmentTotal = dec(0);
 			continue;
 		}
 		const m = line.match(/^\s*([0-9][0-9:]*(\.[0-9]+)?)(\s*(.+))?$/);
