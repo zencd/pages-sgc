@@ -3,7 +3,6 @@
 - safari: placeholder is joined into one line (can't be changed)
 - smartphone: hard to position cursor to the beginning of a line
 - add notification "your url copied to clipboard"
-- input "1:2:3:4" now allowed but meaningless
 - button "Save" - no vertical padding as it is on the total time
 - chrome win: y scroll appears
 - MSIE: "onLoad" не определено
@@ -15,6 +14,7 @@
 - handle Ctrl/Cmd+S ?
 - pageTitle: limit length
 - pageTitle: strip punctuation
+++ input "1:2:3:4" now allowed but meaningless
 ++ bug: '1111111249' => '308642:41'
 ++ bug: "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
 ++ if input only has numbers, the page title stays 'Time Calculator'
@@ -43,184 +43,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Time Calculator</title>
 <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAABCgAwAEAAAAAQAAABAAAAAAx28c8QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KGV7hBwAAAw5JREFUOBF1U01IVFEUvve+meeb6c0bJUUiIskWCS1EKbDSaCE0FAXFbGyhGY2jMf6gk0rQIiqtlNEGf6tFiYsaaicStQkkqDAQCTcVtXClZfNm3rxx5r17O2cmI4TO5tx7fr577jnno36/XyLbJBaL2Wjyd3W5XBnFbcrpVCwSMdEWCAScqDc2NjhqigBra2u0rKzMYRgGhzOvqKw5Db6LlJAqQYmXChIXhHwUQjyZHB18jok+n69AVVWLIiKgUXg1gw6U1s7+bzuLS/b+/LFOICnBGPOoqodkLYuYqdScnVq/MD09HcdceCQvwY6+84zRm4LbvVCYKig9wIV4aLNMUiYFhZyTkxKl11XNW5rQ4+/XVz/XwqOWI9jec5Ax+ZlDdlY4nTIxDaN7fOT28S3g1o6+CUHoytTowP1LV7rnhK7PezTvYUL234KYMBNCgiaKT9lsJpM2TUIZrQuEwuXgxOoYpayBUrIHAR+NDX+3xGZjykgSsLUGAp272FT0zhInYsztVmUu+FvO7SVGWTXEi5b2cLlTljU4ryJAc3Oz58Ho8AfbtuZVVdshuZRjDB0gtbJcQAgX8xMjg5UWTb9BI5McR1xuNxFE6HhXFAWGASLooiQ54MD25QCgzix0G+xCQb8Vj8dRE0usWtksYYSdwWsi4c4D4AUEM3IA3OZfoSz8dBU6DKOI+kKhgono4Gv4b6+qaWfb2q+emJkZMtBPqKi2cvHiSw4gw8WCkdANKMt3uaP7UCwWMVXbdjY1NSnjIwN3E/qvp4JKRzG3pbOnBuMw3jbTCzQEL0Wj0U1Ynnswnp6Erq+ItFk/ORnJNQ6TtiQY7NpNFdcrj6ZVwC4MTYwMhB3Ly8u49wwW4xrMtg5nnCRisaWj7wYs1cssSesyVQolKtXD7GCRtNKkHn+Xj4cx/yGThKsMq+mV3MWz0PlTToeDJJMJwjnftsrJOd02GmajUT23yltkKikpYVt8aOvsPwftbsSmgvaCzpEJ9GPoyQv80l8y/UvnoqKiXFOBKFkMytM5A3SW/0vn3xA8duspEnNgAAAAAElFTkSuQmCC" />
-<style type="text/css">
-
-/* css reset */
-a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
-
-::-webkit-input-placeholder {color: #777;}
-::-moz-placeholder {color: pink;}
-:-ms-input-placeholder {color: pink;}
-:-moz-placeholder {color: pink;}
-
-body {
-	color: #333;
-}
-#wrapper {
-	margin: 0 auto;
-	padding: 0;
-	width: 100%;
-}
-h1 {
-	font-family: Georgia, serif;
-	font-weight: bold;
-	/*margin-top: 12px; margin-bottom: 12px;*/
-	/*39 = 12 + 15 + 12*/
-	line-height: 39px;
-
-	font-family: monospace;
-	font-size: 15px;
-
-	padding: 0 5px;
-}
-a {
-	text-decoration: none;
-	color: #0000EE;
-}
-a:hover {
-	color: #333;
-}
-#grun-link {
-	word-wrap: break-word;
-}
-#dbg {
-	word-wrap: break-word;
-}
-#dbg2 {
-	font-size: 22px;
-	font-family: monospace;
-	font-size: 15px;
-}
-textarea {
-	font-family: monospace;
-	font-size: 15px;
-	width: 100%;
-	/*max-width: 100%;*/
-	height: auto;
-	overflow-y: hidden;
-
-	/*border: none;*/
-	/*padding: 3px;*/
-	/*margin: 0;*/
-	/*box-sizing: content-box;*/
-	box-sizing: border-box;
-
-	padding: 4px;
-}
-.internal-link {
-	/*text-decoration: none;*/
-	/*border-bottom: 1px dashed #ccc;*/
-	/*font-size: 22px;*/
-}
-#update-notif {
-	opacity: 0;
-	/*font-style: italic;*/
-}
-.links {
-	font-size: 20px;
-	font-family: Georgia, serif;
-
-	font-family: monospace;
-	font-size: 15px;
-}
-#link-1,
-#link-2 {
-	/*display: inline-block;*/
-	/*transition: all 0.5s;*/
-}
-#total-time {
-	font-weight: bold;
-	padding: 0 5px;
-	color: black;
-	background: #ddd;
-}
-#segmented-times {
-	font-size: 22px;
-	font-family: monospace;
-	font-size: 15px;
-}
-input[type="button"] {
-	background: #999;
-	font-family: monospace;
-	font-size: 15px;
-}
-#copy-input {
-	width: 1px;
-	height:  1px;
-	background: #fff;
-	border: none;
-}
-#save-btn {
-	display: inline-block;
-	padding: 0 9px;
-}
-#save-btn:hover {
-}
-
-.right-left {
-	display: flex;
-	margin-top: 12px;
-}
-.left {
-	/*float: left;*/
-	flex-grow: 1;
-}
-.right {
-	/*width: 80px;*/
-	/*float: right;*/
-}
-
-.footer {
-	margin-top: 20px;
-	color: #777;
-}
-.footer a {
-	color: #777;
-	text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-	body {
-		background: #444;
-	}
-	h1 {
-		/*font-family: sans-serif;*/
-	}
-	h1, div, p {
-		color: #ccc;
-	}
-	textarea {
-		/*background: #555;*/
-		background: #444;
-		color: #ccc;
-	}
-	a {
-		color: #92A9BD;
-	}
-	a:hover {
-		color: #ccc;
-	}
-	#total-time {
-		color: black;
-		background: #999;
-	}
-	#copy-input {
-		width: 1px;
-		background: #444;
-		border: none;
-	}
-	#save-btn {
-		background: #333;
-	}
-}
-@media screen and (min-width: 600px) {
-	#wrapper {
-		width: 600px;
-	}
-}
-</style>
-
-<!--<script type="text/javascript" src="decimal.min.js"></script>-->
+<link rel="stylesheet" href="time-calc/style.css">
 <script type="text/javascript" src="time-calc/dec.js"></script>
 
 <script type="text/javascript">
@@ -287,21 +110,16 @@ Bug reports to <a href="mailto:zeencd@gmail.com?subject=Time+Calculator">@zencd<
 <script type="text/javascript">
 
 const log = console.log;
-const $dbg = document.getElementById('dbg');
-const $dbg2 = document.getElementById('dbg2');
 const $timeEdit = document.getElementById('time-edit');
 const $totalTime = document.getElementById('total-time');
 const $grunLink = document.getElementById('grun-link');
 const $permLink = document.getElementById('perm-link');
-const $updateNotif = document.getElementById('update-notif');
-const $link1 = document.getElementById('link-1');
-const $link2 = document.getElementById('link-2');
 const $segmentedTimes = document.getElementById('segmented-times');
 const $saveBtn = document.getElementById('save-btn');
 const $copyInput = document.getElementById('copy-input');
 const $grunLink2 = document.getElementById('grun-link-2');
-var gPermUrl = '';
-var gGrunUrl = '';
+let gPermUrl = '';
+let gGrunUrl = '';
 const gSiteTitle = 'Time Calculator';
 
 const placeholderMultiLine = "Example:\n\n" +
@@ -362,23 +180,14 @@ function hmsToSeconds(hmsMillis) {
 	}
 
 	const words = hms.split(/:/);
-	let totalSeconds = 0;
 	let totalSecDec = dec(0);
 	for (let i in words) {
 		const word = words[i];
 		const mulInt = Math.pow(60, words.length - i - 1);
-		// const n = parseInt(word, 10);
-		// totalSeconds += (n * mulInt);
-		// const additionDec = dec((n * mulInt).toString());
-		// log('n:', n);
-		// log('word:', word);
-		// log('mulInt.toString():', mulInt.toString());
 		const additionDec = (mulInt === 1) ? dec(word) : dec(word).mul(dec(mulInt.toString()));
 		totalSecDec = totalSecDec.add(additionDec);
 	}
-	// let intPart = isNaN(totalSeconds) ? 0 : totalSeconds;
 	totalSecDec = totalSecDec.add(decimalMillis);
-	// log('hmsToSeconds', hmsMillis, '=>', totalSecDec.toString());
 	return totalSecDec;
 }
 
@@ -468,11 +277,12 @@ function recalcTime(timeText, isOnLoad) {
 			segmentTotal = dec(0);
 			continue;
 		}
-		const m = line.match(/^\s*([0-9][0-9:]*(\.[0-9]+)?)(\s*(.+))?$/);
+		// const m = line.match(/^\s*(\d[0-9:]*(\.\d+)?)(\s*(.+))?$/);
+		const m = line.match(/^(\d+(:\d+){0,2}(\.\d+)?)(.*)$/);
 		if(m) {
 			// log(m);
 			const timeHms = m[1];
-			const lineLabel = (m[3] !== undefined) ? m[3].trim() : '';
+			const lineLabel = (m[4] !== undefined) ? m[4].trim() : '';
 			const lineSec = hmsToSeconds(timeHms);
 			// log('totalSeconds was:', totalSeconds.toString());
 			totalSeconds = totalSeconds.add(lineSec);

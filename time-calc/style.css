@@ -1,0 +1,173 @@
+/* css reset */
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+
+::-webkit-input-placeholder {color: #777;}
+::-moz-placeholder {color: pink;}
+:-ms-input-placeholder {color: pink;}
+:-moz-placeholder {color: pink;}
+
+body {
+	color: #333;
+}
+#wrapper {
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+}
+h1 {
+	font-family: Georgia, serif;
+	font-weight: bold;
+	/*margin-top: 12px; margin-bottom: 12px;*/
+	/*39 = 12 + 15 + 12*/
+	line-height: 39px;
+
+	font-family: monospace;
+	font-size: 15px;
+
+	padding: 0 5px;
+}
+a {
+	text-decoration: none;
+	color: #0000EE;
+}
+a:hover {
+	color: #333;
+}
+#grun-link {
+	word-wrap: break-word;
+}
+#dbg {
+	word-wrap: break-word;
+}
+#dbg2 {
+	font-size: 22px;
+	font-family: monospace;
+	font-size: 15px;
+}
+textarea {
+	font-family: monospace;
+	font-size: 15px;
+	width: 100%;
+	/*max-width: 100%;*/
+	height: auto;
+	overflow-y: hidden;
+
+	/*border: none;*/
+	/*padding: 3px;*/
+	/*margin: 0;*/
+	/*box-sizing: content-box;*/
+	box-sizing: border-box;
+
+	padding: 4px;
+}
+.internal-link {
+	/*text-decoration: none;*/
+	/*border-bottom: 1px dashed #ccc;*/
+	/*font-size: 22px;*/
+}
+#update-notif {
+	opacity: 0;
+	/*font-style: italic;*/
+}
+.links {
+	font-size: 20px;
+	font-family: Georgia, serif;
+
+	font-family: monospace;
+	font-size: 15px;
+}
+#link-1,
+#link-2 {
+	/*display: inline-block;*/
+	/*transition: all 0.5s;*/
+}
+#total-time {
+	font-weight: bold;
+	padding: 0 5px;
+	color: black;
+	background: #ddd;
+}
+#segmented-times {
+	font-size: 22px;
+	font-family: monospace;
+	font-size: 15px;
+}
+input[type="button"] {
+	background: #999;
+	font-family: monospace;
+	font-size: 15px;
+}
+#copy-input {
+	width: 1px;
+	height:  1px;
+	background: #fff;
+	border: none;
+}
+#save-btn {
+	display: inline-block;
+	padding: 0 9px;
+}
+#save-btn:hover {
+}
+
+.right-left {
+	display: flex;
+	margin-top: 12px;
+}
+.left {
+	/*float: left;*/
+	flex-grow: 1;
+}
+.right {
+	/*width: 80px;*/
+	/*float: right;*/
+}
+
+.footer {
+	margin-top: 20px;
+	color: #777;
+}
+.footer a {
+	color: #777;
+	text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background: #444;
+	}
+	h1 {
+		/*font-family: sans-serif;*/
+	}
+	h1, div, p {
+		color: #ccc;
+	}
+	textarea {
+		/*background: #555;*/
+		background: #444;
+		color: #ccc;
+	}
+	a {
+		color: #92A9BD;
+	}
+	a:hover {
+		color: #ccc;
+	}
+	#total-time {
+		color: black;
+		background: #999;
+	}
+	#copy-input {
+		width: 1px;
+		background: #444;
+		border: none;
+	}
+	#save-btn {
+		background: #333;
+	}
+}
+@media screen and (min-width: 600px) {
+	#wrapper {
+		width: 600px;
+	}
+}
