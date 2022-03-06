@@ -221,7 +221,7 @@ input[type="button"] {
 </style>
 
 <!--<script type="text/javascript" src="decimal.min.js"></script>-->
-<script type="text/javascript" src="dec.js"></script>
+<script type="text/javascript" src="time-calc/dec.js"></script>
 
 <script type="text/javascript">
 function onLoad() {
@@ -588,8 +588,9 @@ window._onLoad = function() {
 	$saveBtn.addEventListener("click", onSaveButton, false);
 
 	document.addEventListener("keydown", function (e) {
-		if ((isMac ? e.metaKey : e.ctrlKey) && e.keyCode === 83) {
+		if ((isMac ? e.metaKey : e.ctrlKey) && (e.key === 's' || e.keyCode === 83)) {
 			// ctrl+s
+			log('e.key', e.key);
 			e.preventDefault();
 		}
 	}, false);
