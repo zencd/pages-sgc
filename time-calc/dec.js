@@ -125,12 +125,18 @@ function DecimalString(input) {
     return this;
 }
 DecimalString.prototype.add = function (other) {
-    const [newPart, partCarry] = addStrings(this.part, other.part, true, false);
-    const [newWhole, wholeCarry] = addStrings(this.whole, other.whole, false, partCarry);
+    const newPartAndPartCarry = addStrings(this.part, other.part, true, false);
+    const newPart = newPartAndPartCarry[0],
+          partCarry = newPartAndPartCarry[1];
+    const newWholeAndWholeCarry = addStrings(this.whole, other.whole, false, partCarry);
+    const newWhole = newWholeAndWholeCarry[0],
+          wholeCarry = newWholeAndWholeCarry[1];
     return dec(newWhole, newPart);
 }
 DecimalString.prototype.divInt = function (divisorInt) {
-    const [res, rem] = longDivision(this.whole, divisorInt);
+    const resAndRem = longDivision(this.whole, divisorInt);
+    const res = resAndRem[0],
+          rem = resAndRem[1];
     return [dec(res, this.part), rem];
 }
 DecimalString.prototype.mul = function (other) {
