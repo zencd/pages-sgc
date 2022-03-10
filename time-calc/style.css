@@ -85,8 +85,10 @@ textarea {
 #total-time {
 	font-weight: bold;
 	padding: 0 5px;
+	line-height: 18px;
 	color: black;
 	background: #ddd;
+	display: inline-block;
 }
 #segmented-times {
 	font-size: 22px;
@@ -107,6 +109,7 @@ input[type="button"] {
 #save-btn {
 	display: inline-block;
 	padding: 0 9px;
+	line-height: 18px;
 }
 #save-btn:hover {
 }

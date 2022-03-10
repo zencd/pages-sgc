@@ -1,19 +1,19 @@
 <!--
 - "OK" markers on the left of the textarea
-- safari: placeholder is joined into one line (can't be changed)
-- smartphone: hard to position cursor to the beginning of a line
 - add notification "your url copied to clipboard"
-- button "Save" - no vertical padding as it is on the total time
 - chrome win: y scroll appears
 - MSIE: "onLoad" не определено
-- remove animations
 - enable scroll-by-touch on the textarea cause there is no y-scroll
-- use prefix like 't:' or ':'
 - force unix line ending?
 - go base85 ?
 - handle Ctrl/Cmd+S ?
 - pageTitle: limit length
 - pageTitle: strip punctuation
+++ use prefix like 't:' or ':'
+++ remove animations
+++ button "Save" - no vertical padding as it is on the total time
+++ safari: placeholder is joined into one line (can't be changed)
+++ smartphone: hard to position cursor to the beginning of a line
 ++ input "1:2:3:4" now allowed but meaningless
 ++ bug: '1111111249' => '308642:41'
 ++ bug: "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
@@ -157,11 +157,15 @@ function decode_ascii85(a) {
   }(e, c[l]), h.fromCharCode.apply(h, e);
 }
 
-function encode(unicode) {
-	return btoa(unescape(encodeURIComponent(unicode)));
+function encodeB64(str) {
+	return ':' + btoa(unescape(encodeURIComponent(str)));
 }
 
-function decode(b64) {
+function decodeB64(b64) {
+	const colon = b64.indexOf(':');
+	if (colon >= 0) {
+		b64 = b64.substring(colon + 1);
+	}
 	return decodeURIComponent(escape(window.atob(b64)));
 }
 
@@ -246,8 +250,9 @@ function makeTitle(rowTitle, numSplits, totalHms) {
 	let pageTitle = '';
 	if (numSplits > 0) {
 		if (rowTitle) {
+			pageTitle = rowTitle;
 			if (numSplits > 1) {
-				pageTitle = rowTitle + ' +' + (numSplits - 1);
+				pageTitle += ' +' + (numSplits - 1);
 			}
 		} else {
 			pageTitle = numSplits + pluralize(' split', numSplits);
@@ -329,7 +334,7 @@ function recalcTime(timeText, isOnLoad) {
 }
 
 function updateUrl(timeText, isOnLoad) {
-	const b64 = encode(timeText);
+	const b64 = encodeB64(timeText);
 	const url = document.location.protocol + '//' + document.location.host +
 	            document.location.pathname + (b64 ? '#' + b64 : '');
 	gPermUrl = url;
@@ -346,7 +351,7 @@ function changeTimeEditSize() {
 function readTimeTextFromUrl() {
 	var val = document.location.hash;
 	val = (val && val.startsWith('#')) ? val.substring(1) : '';
-	return val ? decode(val) : val;
+	return val ? decodeB64(val) : val;
 }
 
 function onSaveButton(e) {
