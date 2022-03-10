@@ -158,7 +158,8 @@ function decode_ascii85(a) {
 }
 
 function encodeB64(str) {
-	return ':' + btoa(unescape(encodeURIComponent(str)));
+	const meta = '';
+	return [meta, btoa(unescape(encodeURIComponent(str)))];
 }
 
 function decodeB64(b64) {
@@ -333,10 +334,12 @@ function recalcTime(timeText, isOnLoad) {
 	document.title = makeTitle(firstValidTitle, numSplits, totalHms);
 }
 
-function updateUrl(timeText, isOnLoad) {
-	const b64 = encodeB64(timeText);
-	const url = document.location.protocol + '//' + document.location.host +
-	            document.location.pathname + (b64 ? '#' + b64 : '');
+function updateUrl(timeText) {
+	const [meta, b64] = encodeB64(timeText);
+	let url = document.location.protocol + '//' + document.location.host + document.location.pathname;
+	if (b64) {
+		url += '#' + meta + ':' + b64;
+	}
 	gPermUrl = url;
 	$permLink.setAttribute('href', url);
 	$saveBtn.setAttribute('href', url);
@@ -389,14 +392,14 @@ window._onLoad = function() {
 	$timeEdit.value = textPlain;
 	recalcTime(textPlain, true);
 	if (textPlain) {
-		updateUrl(textPlain, true);
+		updateUrl(textPlain);
 	}
 	changeTimeEditSize();
 
 	$timeEdit.addEventListener('input', function(e) {
 		const timeText = $timeEdit.value;
 		recalcTime(timeText, false);
-		updateUrl(timeText, false);
+		updateUrl(timeText);
 		changeTimeEditSize();
 	}, false);
 
