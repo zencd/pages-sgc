@@ -1,3 +1,3 @@
 ## Welcome
 
-- [Split Time Calculator](time-calc.html)
+- [Split Time Calculator](time-calc-src/index.html)

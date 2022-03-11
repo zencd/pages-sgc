@@ -1,110 +1,482 @@
-<!--
-- "OK" markers on the left of the textarea
-- add notification "your url copied to clipboard"
-- chrome win: y scroll appears
-- MSIE: "onLoad" не определено
-- enable scroll-by-touch on the textarea cause there is no y-scroll
-- force unix line ending?
-- go base85 ?
-- handle Ctrl/Cmd+S ?
-- pageTitle: limit length
-- pageTitle: strip punctuation
-++ use prefix like 't:' or ':'
-++ remove animations
-++ button "Save" - no vertical padding as it is on the total time
-++ safari: placeholder is joined into one line (can't be changed)
-++ smartphone: hard to position cursor to the beginning of a line
-++ input "1:2:3:4" now allowed but meaningless
-++ bug: '1111111249' => '308642:41'
-++ bug: "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
-++ if input only has numbers, the page title stays 'Time Calculator'
-++ safari: placeholder is too bright (dark mode)
-++ total-time: adjust the light theme
-++ allow millis
-++ placeholder text blinks on frequent reload
-++ force utf8 by meta
-++ 12:09 => 12:9
-++ disallow url ending with '#'
-++ '1111111111111111111111111111' => '3.0864197530864196e+23:10:40'
-++ "11366" => "03:9:26"
-++ favicon
-++ '02' is meaningless 02:10:00:09
-++ no 'paris' in title when text is '111Paris'
-++ 'sapienza' in title when text is '111. Paris\n222 Sapienza'
-++ put some text into the title
-++ monospace everywhere
-++ textarea takes 606px
-++ use pixels everywhere, not em
--->
+<!-- - "OK" markers on the left of the textarea - add notification "your url copied to clipboard" - chrome win: y scroll appears - MSIE: "onLoad" Đ˝Đľ ĐžĐżŃĐľĐ´ĐľĐťĐľĐ˝Đž - enable scroll-by-touch on the textarea cause there is no y-scroll - force unix line ending? - go base85 ? - handle Ctrl/Cmd+S ? - pageTitle: limit length - pageTitle: strip punctuation ++ use prefix like 't:' or ':' ++ remove animations ++ button "Save" - no vertical padding as it is on the total time ++ safari: placeholder is joined into one line (can't be changed) ++ smartphone: hard to position cursor to the beginning of a line ++ input "1:2:3:4" now allowed but meaningless ++ bug: '1111111249' => '308642:41' ++ bug: "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24" ++ if input only has numbers, the page title stays 'Time Calculator' ++ safari: placeholder is too bright (dark mode) ++ total-time: adjust the light theme ++ allow millis ++ placeholder text blinks on frequent reload ++ force utf8 by meta ++ 12:09 => 12:9 ++ disallow url ending with '#' ++ '1111111111111111111111111111' => '3.0864197530864196e+23:10:40' ++ "11366" => "03:9:26" ++ favicon ++ '02' is meaningless 02:10:00:09 ++ no 'paris' in title when text is '111Paris' ++ 'sapienza' in title when text is '111. Paris\n222 Sapienza' ++ put some text into the title ++ monospace everywhere ++ textarea takes 606px ++ use pixels everywhere, not em --> <!DOCTYPE html> <head> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Time Calculator</title> <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAABCgAwAEAAAAAQAAABAAAAAAx28c8QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KGV7hBwAAAw5JREFUOBF1U01IVFEUvve+meeb6c0bJUUiIskWCS1EKbDSaCE0FAXFbGyhGY2jMf6gk0rQIiqtlNEGf6tFiYsaaicStQkkqDAQCTcVtXClZfNm3rxx5r17O2cmI4TO5tx7fr577jnno36/XyLbJBaL2Wjyd3W5XBnFbcrpVCwSMdEWCAScqDc2NjhqigBra2u0rKzMYRgGhzOvqKw5Db6LlJAqQYmXChIXhHwUQjyZHB18jok+n69AVVWLIiKgUXg1gw6U1s7+bzuLS/b+/LFOICnBGPOoqodkLYuYqdScnVq/MD09HcdceCQvwY6+84zRm4LbvVCYKig9wIV4aLNMUiYFhZyTkxKl11XNW5rQ4+/XVz/XwqOWI9jec5Ax+ZlDdlY4nTIxDaN7fOT28S3g1o6+CUHoytTowP1LV7rnhK7PezTvYUL234KYMBNCgiaKT9lsJpM2TUIZrQuEwuXgxOoYpayBUrIHAR+NDX+3xGZjykgSsLUGAp272FT0zhInYsztVmUu+FvO7SVGWTXEi5b2cLlTljU4ryJAc3Oz58Ho8AfbtuZVVdshuZRjDB0gtbJcQAgX8xMjg5UWTb9BI5McR1xuNxFE6HhXFAWGASLooiQ54MD25QCgzix0G+xCQb8Vj8dRE0usWtksYYSdwWsi4c4D4AUEM3IA3OZfoSz8dBU6DKOI+kKhgono4Gv4b6+qaWfb2q+emJkZMtBPqKi2cvHiSw4gw8WCkdANKMt3uaP7UCwWMVXbdjY1NSnjIwN3E/qvp4JKRzG3pbOnBuMw3jbTCzQEL0Wj0U1Ynnswnp6Erq+ItFk/ORnJNQ6TtiQY7NpNFdcrj6ZVwC4MTYwMhB3Ly8u49wwW4xrMtg5nnCRisaWj7wYs1cssSesyVQolKtXD7GCRtNKkHn+Xj4cx/yGThKsMq+mV3MWz0PlTToeDJJMJwjnftsrJOd02GmajUT23yltkKikpYVt8aOvsPwftbsSmgvaCzpEJ9GPoyQv80l8y/UvnoqKiXFOBKFkMytM5A3SW/0vn3xA8duspEnNgAAAAAElFTkSuQmCC"> <style> a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}::-webkit-input-placeholder{color:#777;}::-moz-placeholder{color:pink;}:-ms-input-placeholder{color:pink;}:-moz-placeholder{color:pink;}body{ color:#333;}#wrapper{ box-sizing:border-box;margin:0 auto;padding:0 10px;width:100%;}h1{ font-family:Georgia, serif;font-weight:bold; line-height:39px;font-family:monospace;font-size:15px;padding:0 5px;}a{ text-decoration:none;color:#0000EE;}a:hover{ color:#333;}#grun-link{ word-wrap:break-word;}#dbg{ word-wrap:break-word;}#dbg2{ font-size:22px;font-family:monospace;font-size:15px;}textarea{ font-family:monospace;font-size:15px;width:100%; height:auto;overflow-y:hidden; box-sizing:border-box;padding:4px;}.internal-link{ }#update-notif{ opacity:0; }.links{ font-size:20px;font-family:Georgia, serif;font-family:monospace;font-size:15px;}#link-1, #link-2{ }#total-time{ font-weight:bold;padding:0 5px;line-height:18px;color:black;background:#ddd;display:inline-block;}#segmented-times{ font-size:22px;font-family:monospace;font-size:15px;}input[type="button"]{ background:#999;font-family:monospace;font-size:15px;}#copy-input{ width:1px;height:1px;background:#fff;border:none;}#save-btn{ display:inline-block;padding:0 9px;line-height:18px;}#save-btn:hover{ }.right-left{ display:flex;margin-top:12px;}.left{ flex-grow:1;}.right{ }.footer{ margin-top:20px;color:#777;}.footer a{ color:#777;text-decoration:none;}@media (prefers-color-scheme:dark){ body{ background:#444;}h1{ }h1, div, p{ color:#ccc;}textarea{ background:#444;color:#ccc;}a{ color:#92A9BD;}a:hover{ color:#ccc;}#total-time{ color:black;background:#999;}#copy-input{ width:1px;background:#444;border:none;}#save-btn{ background:#333;}}@media screen and (min-width:600px){ #wrapper{ width:600px;}}</style> <script type="text/javascript">function assert(expr, msg) {
+    if (!expr) throw msg;
+}
 
-<!DOCTYPE html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Time Calculator</title>
-<link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAABCgAwAEAAAAAQAAABAAAAAAx28c8QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KGV7hBwAAAw5JREFUOBF1U01IVFEUvve+meeb6c0bJUUiIskWCS1EKbDSaCE0FAXFbGyhGY2jMf6gk0rQIiqtlNEGf6tFiYsaaicStQkkqDAQCTcVtXClZfNm3rxx5r17O2cmI4TO5tx7fr577jnno36/XyLbJBaL2Wjyd3W5XBnFbcrpVCwSMdEWCAScqDc2NjhqigBra2u0rKzMYRgGhzOvqKw5Db6LlJAqQYmXChIXhHwUQjyZHB18jok+n69AVVWLIiKgUXg1gw6U1s7+bzuLS/b+/LFOICnBGPOoqodkLYuYqdScnVq/MD09HcdceCQvwY6+84zRm4LbvVCYKig9wIV4aLNMUiYFhZyTkxKl11XNW5rQ4+/XVz/XwqOWI9jec5Ax+ZlDdlY4nTIxDaN7fOT28S3g1o6+CUHoytTowP1LV7rnhK7PezTvYUL234KYMBNCgiaKT9lsJpM2TUIZrQuEwuXgxOoYpayBUrIHAR+NDX+3xGZjykgSsLUGAp272FT0zhInYsztVmUu+FvO7SVGWTXEi5b2cLlTljU4ryJAc3Oz58Ho8AfbtuZVVdshuZRjDB0gtbJcQAgX8xMjg5UWTb9BI5McR1xuNxFE6HhXFAWGASLooiQ54MD25QCgzix0G+xCQb8Vj8dRE0usWtksYYSdwWsi4c4D4AUEM3IA3OZfoSz8dBU6DKOI+kKhgono4Gv4b6+qaWfb2q+emJkZMtBPqKi2cvHiSw4gw8WCkdANKMt3uaP7UCwWMVXbdjY1NSnjIwN3E/qvp4JKRzG3pbOnBuMw3jbTCzQEL0Wj0U1Ynnswnp6Erq+ItFk/ORnJNQ6TtiQY7NpNFdcrj6ZVwC4MTYwMhB3Ly8u49wwW4xrMtg5nnCRisaWj7wYs1cssSesyVQolKtXD7GCRtNKkHn+Xj4cx/yGThKsMq+mV3MWz0PlTToeDJJMJwjnftsrJOd02GmajUT23yltkKikpYVt8aOvsPwftbsSmgvaCzpEJ9GPoyQv80l8y/UvnoqKiXFOBKFkMytM5A3SW/0vn3xA8duspEnNgAAAAAElFTkSuQmCC" />
-<link rel="stylesheet" href="time-calc/style.css">
-<script type="text/javascript" src="time-calc/dec.js"></script>
+function padZeroRight(s, maxLen) {
+    while (s.length < maxLen) s += '0';
+    return s;
+}
 
-<script type="text/javascript">
-</script>
+function addStrings(str1, str2, doPad, carry) {
+    // https://stackoverflow.com/a/48155887/207352
+    // if (doPad === undefined) {
+    //     doPad = false;
+    // }
+    // log('addStrings: str1:', str1, 'str2:', str2);
+    const longer = Math.max(str1.length, str2.length);
+    if (doPad) {
+        str1 = padZeroRight(str1, longer);
+        str2 = padZeroRight(str2, longer);
+    }
+    const str1a = str1.split('').reverse();
+    const str2a = str2.split('').reverse();
+    let output = '';
+    //let carry = false;
+    for (let i = 0; i < longer; i++) {
+        let result;
+        if (str1a[i] && str2a[i]) {
+            result = parseInt(str1a[i]) + parseInt(str2a[i]);
+        } else if (str1a[i] && !str2a[i]) {
+            result = parseInt(str1a[i]);
+        } else if (!str1a[i] && str2a[i]) {
+            result = parseInt(str2a[i]);
+        }
 
-</head>
+        if (carry) {
+            result += 1;
+            carry = false;
+        }
+        if (result >= 10) {
+            carry = true;
+            output += result.toString()[1];
+        } else {
+            output += result.toString();
+        }
+    }
+    output = output.split('').reverse().join('');
 
-<body onload="onLoad()">
+    if (carry) {
+        if (!doPad) {
+            output = '1' + output;
+        }
+    }
 
-<div id="wrapper">
-<h1>Split Time Calculator</h1>
+    return [output, carry];
+}
 
-<div style="display: none">
-<div class="links">
-	<span id="link-1">🔗</span><a href="" class="internal-link" id="perm-link">Permanent link</a>
-	&nbsp;
-	<span id="link-2">🔗</span><a href="" class="internal-link" id="grun-link" target="_blank">Grun1</a>
-	<span id="update-notif">← Updated</span>
-</div>
-</div>
+function longDivision(strNum, intDivisor) {
+    // intDivisor = parseInt(intDivisor);
 
-<textarea id="time-edit" rows="10" placeholder="" wrap="off"></textarea>
+    // log('longDivision', 'strNum', strNum, 'intDivisor', intDivisor);
 
-<div class="right-left">
-	<div class="left">
+    if (intDivisor === 0) {
+        return ['', Number.NaN];
+    }
 
-		<div id="dbg2">
-			<span id="total-time">0</span>
-			<span id="segmented-times"></span>
-		</div>
+    const zeroCode = 48; // ('0').charCodeAt(0)
 
-	</div>
-	<div class="right" style="font-family: monospace; font-size: 15px;">
-		<!-- <input type="button" name="" value="Save"> -->
-		<!-- <a href="" style="background: #333;">[grun1]</a> -->
+    // As result can be very large store it in string but since we need to modify it very often so using string builder
+    let ans = "";
 
-		<a href="" id="save-btn" style="">Save</a>
-	</div>
-</div>
+    // We will be iterating the dividend so converting it to char array
 
+    // Initially the carry would be zero
+    let idx = 0;
+    let temp = strNum[idx] - '0';
+    while (temp < intDivisor && idx + 1 < strNum.length) {
+        // log('=== loop ===');
+        // log('temp', temp);
+        // log('intDivisor', intDivisor);
+        // log('strNum', strNum);
+        // log('idx+1', idx+1)
+        const ch = strNum[idx + 1];
+        // log('ch', ch);
+        temp = temp * 10 + ch.charCodeAt(0) - zeroCode;
+        idx += 1;
+    }
+    idx += 1;
 
-<div class="footer">
-Bug reports to <a href="mailto:zeencd@gmail.com?subject=Time+Calculator">@zencd</a> / Need <a href="" target="_blank" id="grun-link-2">grun</a>?
-</div>
+    while (strNum.length > idx) {
+        // Store result in answer i.e. temp / divisor
+        ans += String.fromCharCode(Math.floor(temp / intDivisor) + zeroCode);
+        // Take next digit of number
+        temp = ((temp % intDivisor) * 10 + (strNum[idx]).charCodeAt(0) - zeroCode);
+        idx += 1;
+    }
 
-<input type="text" name="" id="copy-input" value="" style="">
+    ans += String.fromCharCode(Math.floor(temp / intDivisor) + zeroCode);
+    const rem = temp % intDivisor;
+    // log('temp', temp, 'divisor', intDivisor, 'rem', rem);
 
-</div>
+    //If divisor is greater than number
+    if (ans.length === 0)
+        return ["0", strNum];
+        // return "0";
+    //else return ans
+    return [ans, rem];
+}
 
-<div style="display: none;">
-<br>
-<div id="dbg"></div>
-<br>
-<div id="grun-link-xxx"></div>
-</div>
+function DecimalString(input) {
+    if (Array.isArray(input)) {
+        this.whole = input[0];
+        this.part = input[1];
+        return this;
+    }
 
-</div>
+    const dot = input.indexOf('.');
+    if (dot >= 0) {
+        this.whole = input.substring(0, dot);
+        this.part = input.substring(dot + 1);
+        return this;
+    }
 
-</body>
+    this.whole = input;
+    this.part = '0';
+    return this;
+}
+DecimalString.prototype.add = function (other) {
+    const newPartAndPartCarry = addStrings(this.part, other.part, true, false);
+    const newPart = newPartAndPartCarry[0],
+          partCarry = newPartAndPartCarry[1];
+    const newWholeAndWholeCarry = addStrings(this.whole, other.whole, false, partCarry);
+    const newWhole = newWholeAndWholeCarry[0],
+          wholeCarry = newWholeAndWholeCarry[1];
+    return dec(newWhole, newPart);
+}
+DecimalString.prototype.divInt = function (divisorInt) {
+    const resAndRem = longDivision(this.whole, divisorInt);
+    const res = resAndRem[0],
+          rem = resAndRem[1];
+    return [dec(res, this.part), rem];
+}
+DecimalString.prototype.mul = function (other) {
+    let big = BigInt(this.whole) * BigInt(other.whole);
+    return dec(big.toString());
+}
+DecimalString.prototype.toString = function () {
+    let s = this.whole;
+    if (this.part !== "0") {
+        s += '.' + this.part;
+    }
+    return s;
+}
 
-<script type="text/javascript">
-</script>
+function dec(whole, part) {
+    if (typeof whole === 'string') {
+        const dot = whole.indexOf('.');
+        if (dot >= 0) {
+            const whole2 = whole.substring(0, dot);
+            let part2 = whole.substring(dot + 1);
+            part2 = part2 === '' ? '0' : part2;
+            return new DecimalString([whole2, part2]);
+        }
+    }
 
-<script type="text/javascript" src="time-calc/main.js"></script>
+    whole = (typeof whole === "number") ? whole.toString() : whole;
+
+    part = (part === undefined) ? '0' : part;
+
+    return new DecimalString([whole, part]);
+}</script> <script type="text/javascript"></script> </head> <body onload="onLoad()"> <div id="wrapper"> <h1>Split Time Calculator</h1> <div style="display:none"> <div class="links"> <span id="link-1">đ</span><a href class="internal-link" id="perm-link">Permanent link</a> &nbsp; <span id="link-2">đ</span><a href class="internal-link" id="grun-link" target="_blank">Grun1</a> <span id="update-notif">â Updated</span> </div> </div> <textarea id="time-edit" rows="10" placeholder wrap="off"></textarea> <div class="right-left"> <div class="left"> <div id="dbg2"> <span id="total-time">0</span> <span id="segmented-times"></span> </div> </div> <div class="right" style="font-family:monospace;font-size:15px;"> <!-- <input type="button" name="" value="Save"> --> <!-- <a href="" style="background: #333;">[grun1]</a> --> <a href id="save-btn" style>Save</a> </div> </div> <div class="footer"> Bug reports to <a href="mailto:zeencd@gmail.com?subject=Time+Calculator">@zencd</a> / Need <a href target="_blank" id="grun-link-2">grun</a>? </div> <input type="text" name id="copy-input" value style> </div> <div style="display:none;"> <br> <div id="dbg"></div> <br> <div id="grun-link-xxx"></div> </div> </body> <script type="text/javascript"></script> <script type="text/javascript">const log = console.log; 
+const $timeEdit = document.getElementById('time-edit'); 
+const $totalTime = document.getElementById('total-time'); 
+const $grunLink = document.getElementById('grun-link'); 
+const $permLink = document.getElementById('perm-link'); 
+const $segmentedTimes = document.getElementById('segmented-times'); 
+const $saveBtn = document.getElementById('save-btn'); 
+const $copyInput = document.getElementById('copy-input'); 
+const $grunLink2 = document.getElementById('grun-link-2'); 
+let gPermUrl = ''; 
+let gGrunUrl = ''; 
+const gSiteTitle = 'Time Calculator'; 
+ 
+const placeholderMultiLine = "Example:\n\n" + 
+"1:59 Paris\n" + 
+"1234:59:59.999 Sapienza"; 
+ 
+const placeholderSafari = "01:59 Example"; 
+ 
+const placeholder = isSafari() ? placeholderSafari : placeholderMultiLine; 
+ 
+const isMac = window.navigator.platform.match("Mac"); 
+ 
+function isSafari() { 
+ return /^((?!chrome|android).)*safari/i.test(navigator.userAgent); 
+} 
+ 
+function encode_ascii85(a) { 
+  var b, c, d, e, f, g, h, i, j, k; 
+  for (!/[^\x00-\xFF]/.test(a), b = "\x00\x00\x00\x00".slice(a.length % 4 || 4), a += b,  
+  c = [], d = 0, e = a.length; e > d; d += 4) f = (a.charCodeAt(d) << 24) + (a.charCodeAt(d + 1) << 16) + (a.charCodeAt(d + 2) << 8) + a.charCodeAt(d + 3),  
+  0 !== f ? (k = f % 85, f = (f - k) / 85, j = f % 85, f = (f - j) / 85, i = f % 85,  
+  f = (f - i) / 85, h = f % 85, f = (f - h) / 85, g = f % 85, c.push(g + 33, h + 33, i + 33, j + 33, k + 33)) :c.push(122); 
+  return function(a, b) { 
+    for (var c = b; c > 0; c--) a.pop(); 
+  }(c, b.length), "<~" + String.fromCharCode.apply(String, c) + "~>"; 
+} 
+ 
+function decode_ascii85(a) { 
+  var c, d, e, f, g, h = String, l = "length", w = 255, x = "charCodeAt", y = "slice", z = "replace"; 
+  for ("<~" === a[y](0, 2) && "~>" === a[y](-2), a = a[y](2, -2)[z](/\s/g, "")[z]("z", "!!!!!"),  
+  c = "uuuuu"[y](a[l] % 5 || 5), a += c, e = [], f = 0, g = a[l]; g > f; f += 5) d = 52200625 * (a[x](f) - 33) + 614125 * (a[x](f + 1) - 33) + 7225 * (a[x](f + 2) - 33) + 85 * (a[x](f + 3) - 33) + (a[x](f + 4) - 33),  
+  e.push(w & d >> 24, w & d >> 16, w & d >> 8, w & d); 
+  return function(a, b) { 
+    for (var c = b; c > 0; c--) a.pop(); 
+  }(e, c[l]), h.fromCharCode.apply(h, e); 
+} 
+ 
+function encodeB64(str) { 
+ const meta = ''; 
+ return [meta, btoa(unescape(encodeURIComponent(str)))]; 
+} 
+ 
+function decodeB64(b64) { 
+ const colon = b64.indexOf(':'); 
+ if (colon >= 0) { 
+  b64 = b64.substring(colon + 1); 
+ } 
+ return decodeURIComponent(escape(window.atob(b64))); 
+} 
+ 
+function pluralize(noun, count) { 
+ return count === 1 ? noun : noun + 's'; 
+} 
+ 
+function hmsToSeconds(hmsMillis) { 
+ var hms = hmsMillis; 
+ var dot = hms.indexOf('.'); 
+ 
+ var decimalMillis = dec(0); 
+ if (dot >= 0) { 
+  hms = hmsMillis.substring(0, dot); 
+  decimalMillis = dec('0' + hmsMillis.substring(dot)); 
+ } 
+ 
+ const words = hms.split(/:/); 
+ let totalSecDec = dec(0); 
+ for (let i in words) { 
+  const word = words[i]; 
+  const mulInt = Math.pow(60, words.length - i - 1); 
+  const additionDec = (mulInt === 1) ? dec(word) : dec(word).mul(dec(mulInt.toString())); 
+  totalSecDec = totalSecDec.add(additionDec); 
+ } 
+ totalSecDec = totalSecDec.add(decimalMillis); 
+ return totalSecDec; 
+} 
+ 
+function decToHms(secs) { 
+ const hoursAndSecRem = secs.divInt(3600); 
+ const hours = hoursAndSecRem[0], 
+       secRem = hoursAndSecRem[1]; 
+ const minutesAndSeconds = dec(secRem.toString()).divInt(60); 
+ const minutes = minutesAndSeconds[0], 
+       seconds = minutesAndSeconds[1]; 
+ const hoursPresented = hours.whole !== '0'; 
+ let s = ''; 
+ 
+ // hours 
+ if (hoursPresented) { 
+  s += hours.whole + ':'; 
+ } 
+ 
+ // minutes 
+ if (minutes.whole !== '0' || hoursPresented) { 
+  s = (minutes.whole.length === 1 && hoursPresented) ? (s + '0') : s; 
+  s += minutes.whole + ':'; 
+ } 
+ 
+ // seconds 
+ s = (s && seconds < 10) ? s + '0' : s; 
+ s += seconds; 
+ 
+ if (secs.part !== '0') { 
+  s += '.' + secs.part; 
+ } 
+ 
+ // log('decToHms: ', secs.toString(), '=>', s); 
+ return s; 
+} 
+ 
+function toHms(secs) { 
+ //log('secs.constructor.name', secs.constructor.name); 
+ //assert(secs.constructor.name === 'DecimalString', 'expecting a DecimalString'); 
+ return decToHms(secs); 
+} 
+ 
+function makeGrunUrl(timeAndLabel) { 
+ if (timeAndLabel.length === 0) { 
+  return null; 
+ } 
+ var query = ''; 
+ for (var i = 0; i < timeAndLabel.length; i++) { 
+  if (i > 0) { 
+   query += '&'; 
+  } 
+  const secStr = toHms(timeAndLabel[i][0]); 
+  const label = timeAndLabel[i][1]; 
+  query += 't' + (i+1) + '=' + secStr; 
+  query += '&c' + (i+1) + '=' + encodeURIComponent(label); 
+ } 
+ return 'http://www.grun1.com/utils/timeCalc.html?' + query; 
+} 
+ 
+function makeTitle(rowTitle, numSplits, totalHms) { 
+ let pageTitle = ''; 
+ if (numSplits > 0) { 
+  if (rowTitle) { 
+   pageTitle = rowTitle; 
+   if (numSplits > 1) { 
+    pageTitle += ' +' + (numSplits - 1); 
+   } 
+  } else { 
+   pageTitle = numSplits + pluralize(' split', numSplits); 
+  } 
+  pageTitle += ', ' + totalHms; 
+  pageTitle += ' - '; 
+ } 
+ pageTitle += gSiteTitle; 
+ return pageTitle; 
+} 
+ 
+function recalcTime(timeText, isOnLoad) { 
+ const lines = timeText.split(/\r?\n/); 
+ // var totalSeconds = new Decimal('0'); 
+ var totalSeconds = dec(0); 
+ var segmentTotal = dec(0); 
+ const timeAndLabel = []; 
+ const segmentTimes = []; 
+ let firstValidTitle = ''; 
+ var numSplits = 0; 
+ // log('1 totalSeconds', totalSeconds.toString()); 
+ for (i in lines) { 
+  var line = lines[i]; 
+  line = line.trim(); 
+  if (!line && segmentTotal > 0) { 
+   segmentTimes.push(segmentTotal); 
+   segmentTotal = dec(0); 
+   continue; 
+  } 
+  // const m = line.match(/^\s*(\d[0-9:]*(\.\d+)?)(\s*(.+))?$/); 
+  const m = line.match(/^(\d+(:\d+){0,2}(\.\d+)?)(.*)$/); 
+  if(m) { 
+   // log(m); 
+   const timeHms = m[1]; 
+   const lineLabel = (m[4] !== undefined) ? m[4].trim() : ''; 
+   const lineSec = hmsToSeconds(timeHms); 
+   // log('totalSeconds was:', totalSeconds.toString()); 
+   totalSeconds = totalSeconds.add(lineSec); 
+   // log('addition:', lineSec.toString()); 
+   // log('totalSeconds now:', totalSeconds.toString()); 
+   segmentTotal = segmentTotal.add(lineSec); 
+   numSplits += 1; 
+   timeAndLabel.push([lineSec, lineLabel]); 
+   if (lineLabel && !firstValidTitle) { 
+    firstValidTitle = lineLabel; 
+   } 
+  } 
+ } 
+ if (segmentTotal > 0) { 
+  segmentTimes.push(segmentTotal); 
+  // segmentTotal = 0; 
+ } 
+ 
+ // log('segmentTotal', segmentTotal.toString()); 
+ // log('totalSeconds', totalSeconds.toString()); 
+ 
+ if (segmentTimes.length > 1) { 
+  const text = segmentTimes.map(function(t) {return toHms(t)}).join(" + "); 
+  $segmentedTimes.innerHTML = '= ' + text; 
+ } else { 
+  $segmentedTimes.innerHTML = 'total'; 
+ } 
+ 
+ // log('2 totalSeconds', totalSeconds.toString()); 
+ 
+ const grunUrl = makeGrunUrl(timeAndLabel); 
+ const totalHms = decToHms(totalSeconds); 
+ $totalTime.innerHTML = totalHms; 
+  
+ // log('totalSeconds.toString:', totalSeconds.toString()); 
+ // log('totalSeconds.toFixed:', totalSeconds.toFixed(0)); 
+ // log('totalHms:', totalHms, typeof totalHms); 
+ 
+ gGrunUrl = grunUrl; 
+ $grunLink.setAttribute('href', grunUrl ? grunUrl : ''); 
+ $grunLink2.setAttribute('href', grunUrl ? grunUrl : ''); 
+ 
+ document.title = makeTitle(firstValidTitle, numSplits, totalHms); 
+} 
+ 
+function updateUrl(timeText) { 
+ const metaAndB64 = encodeB64(timeText); 
+ const meta = metaAndB64[0], 
+       b64 = metaAndB64[1]; 
+ let url = document.location.protocol + '//' + document.location.host + document.location.pathname; 
+ if (b64) { 
+  url += '#' + meta + ':' + b64; 
+ } 
+ gPermUrl = url; 
+ $permLink.setAttribute('href', url); 
+ $saveBtn.setAttribute('href', url); 
+ window.history.replaceState({} , gSiteTitle, url); 
+} 
+ 
+function changeTimeEditSize() { 
+  $timeEdit.style.height = "auto"; 
+  $timeEdit.style.height = $timeEdit.scrollHeight + "px"; 
+} 
+ 
+function readTimeTextFromUrl() { 
+ var val = document.location.hash; 
+ val = (val && val.indexOf('#') === 0) ? val.substring(1) : ''; 
+ return val ? decodeB64(val) : val; 
+} 
+ 
+function onSaveButton(e) { 
+ const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey; 
+ if (anyMod) { 
+  return; 
+ } 
+ e.preventDefault(); 
+ $copyInput.value = gPermUrl; 
+ $copyInput.select(); 
+ document.execCommand('copy'); 
+ $timeEdit.focus(); 
+} 
+ 
+function onLoad() { 
+ // Decimal.set({precision: 128}); 
+ // Decimal.set({ defaults: true }); 
+ 
+ // const long = new Decimal('1111111111111111111111'); 
+ // log('toString()', long.toString()); 
+ // log('toFixed(0)', long.toFixed(0)); 
+ 
+ // log('hmsToSeconds:', hmsToSeconds('60:59.001')); 
+ // log('hmsToSeconds:', hmsToSeconds('1111111111111111111111')); 
+ // log('toHms:', decToHms(dec('123'))); 
+ // log('toHms:', decToHms(dec('111111111111111111111111111'))); 
+ // return; 
+ // return; 
+ // return; 
+ 
+ //const urlParams = new URLSearchParams(window.location.search); 
+ $timeEdit.focus(); 
+ 
+ const textPlain = readTimeTextFromUrl(); 
+ $timeEdit.value = textPlain; 
+ recalcTime(textPlain, true); 
+ if (textPlain) { 
+  updateUrl(textPlain); 
+ } 
+ changeTimeEditSize(); 
+ 
+ $timeEdit.addEventListener('input', function(e) { 
+  const timeText = $timeEdit.value; 
+  recalcTime(timeText, false); 
+  updateUrl(timeText); 
+  changeTimeEditSize(); 
+ }, false); 
+ 
+ $saveBtn.addEventListener("click", onSaveButton, false); 
+ 
+ document.addEventListener("keydown", function (e) { 
+  if ((isMac ? e.metaKey : e.ctrlKey) && (e.key === 's' || e.keyCode === 83)) { 
+   // ctrl+s 
+   log('e.key', e.key); 
+   e.preventDefault(); 
+  } 
+ }, false); 
+ 
+ $timeEdit.setAttribute('placeholder', placeholder); 
+}</script> 

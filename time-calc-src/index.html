@@ -1,0 +1,110 @@
+<!--
+- "OK" markers on the left of the textarea
+- add notification "your url copied to clipboard"
+- chrome win: y scroll appears
+- MSIE: "onLoad" не определено
+- enable scroll-by-touch on the textarea cause there is no y-scroll
+- force unix line ending?
+- go base85 ?
+- handle Ctrl/Cmd+S ?
+- pageTitle: limit length
+- pageTitle: strip punctuation
+++ use prefix like 't:' or ':'
+++ remove animations
+++ button "Save" - no vertical padding as it is on the total time
+++ safari: placeholder is joined into one line (can't be changed)
+++ smartphone: hard to position cursor to the beginning of a line
+++ input "1:2:3:4" now allowed but meaningless
+++ bug: '1111111249' => '308642:41'
+++ bug: "111111111111111111111111:51" => "1851851851851851890688:56:00.666666666666667e+24"
+++ if input only has numbers, the page title stays 'Time Calculator'
+++ safari: placeholder is too bright (dark mode)
+++ total-time: adjust the light theme
+++ allow millis
+++ placeholder text blinks on frequent reload
+++ force utf8 by meta
+++ 12:09 => 12:9
+++ disallow url ending with '#'
+++ '1111111111111111111111111111' => '3.0864197530864196e+23:10:40'
+++ "11366" => "03:9:26"
+++ favicon
+++ '02' is meaningless 02:10:00:09
+++ no 'paris' in title when text is '111Paris'
+++ 'sapienza' in title when text is '111. Paris\n222 Sapienza'
+++ put some text into the title
+++ monospace everywhere
+++ textarea takes 606px
+++ use pixels everywhere, not em
+-->
+
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Calculator</title>
+<link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAABCgAwAEAAAAAQAAABAAAAAAx28c8QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KGV7hBwAAAw5JREFUOBF1U01IVFEUvve+meeb6c0bJUUiIskWCS1EKbDSaCE0FAXFbGyhGY2jMf6gk0rQIiqtlNEGf6tFiYsaaicStQkkqDAQCTcVtXClZfNm3rxx5r17O2cmI4TO5tx7fr577jnno36/XyLbJBaL2Wjyd3W5XBnFbcrpVCwSMdEWCAScqDc2NjhqigBra2u0rKzMYRgGhzOvqKw5Db6LlJAqQYmXChIXhHwUQjyZHB18jok+n69AVVWLIiKgUXg1gw6U1s7+bzuLS/b+/LFOICnBGPOoqodkLYuYqdScnVq/MD09HcdceCQvwY6+84zRm4LbvVCYKig9wIV4aLNMUiYFhZyTkxKl11XNW5rQ4+/XVz/XwqOWI9jec5Ax+ZlDdlY4nTIxDaN7fOT28S3g1o6+CUHoytTowP1LV7rnhK7PezTvYUL234KYMBNCgiaKT9lsJpM2TUIZrQuEwuXgxOoYpayBUrIHAR+NDX+3xGZjykgSsLUGAp272FT0zhInYsztVmUu+FvO7SVGWTXEi5b2cLlTljU4ryJAc3Oz58Ho8AfbtuZVVdshuZRjDB0gtbJcQAgX8xMjg5UWTb9BI5McR1xuNxFE6HhXFAWGASLooiQ54MD25QCgzix0G+xCQb8Vj8dRE0usWtksYYSdwWsi4c4D4AUEM3IA3OZfoSz8dBU6DKOI+kKhgono4Gv4b6+qaWfb2q+emJkZMtBPqKi2cvHiSw4gw8WCkdANKMt3uaP7UCwWMVXbdjY1NSnjIwN3E/qvp4JKRzG3pbOnBuMw3jbTCzQEL0Wj0U1Ynnswnp6Erq+ItFk/ORnJNQ6TtiQY7NpNFdcrj6ZVwC4MTYwMhB3Ly8u49wwW4xrMtg5nnCRisaWj7wYs1cssSesyVQolKtXD7GCRtNKkHn+Xj4cx/yGThKsMq+mV3MWz0PlTToeDJJMJwjnftsrJOd02GmajUT23yltkKikpYVt8aOvsPwftbsSmgvaCzpEJ9GPoyQv80l8y/UvnoqKiXFOBKFkMytM5A3SW/0vn3xA8duspEnNgAAAAAElFTkSuQmCC" />
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="dec.js"></script>
+
+<script type="text/javascript">
+</script>
+
+</head>
+
+<body onload="onLoad()">
+
+<div id="wrapper">
+<h1>Split Time Calculator</h1>
+
+<div style="display: none">
+<div class="links">
+	<span id="link-1">🔗</span><a href="" class="internal-link" id="perm-link">Permanent link</a>
+	&nbsp;
+	<span id="link-2">🔗</span><a href="" class="internal-link" id="grun-link" target="_blank">Grun1</a>
+	<span id="update-notif">← Updated</span>
+</div>
+</div>
+
+<textarea id="time-edit" rows="10" placeholder="" wrap="off"></textarea>
+
+<div class="right-left">
+	<div class="left">
+
+		<div id="dbg2">
+			<span id="total-time">0</span>
+			<span id="segmented-times"></span>
+		</div>
+
+	</div>
+	<div class="right" style="font-family: monospace; font-size: 15px;">
+		<!-- <input type="button" name="" value="Save"> -->
+		<!-- <a href="" style="background: #333;">[grun1]</a> -->
+
+		<a href="" id="save-btn" style="">Save</a>
+	</div>
+</div>
+
+
+<div class="footer">
+Bug reports to <a href="mailto:zeencd@gmail.com?subject=Time+Calculator">@zencd</a> / Need <a href="" target="_blank" id="grun-link-2">grun</a>?
+</div>
+
+<input type="text" name="" id="copy-input" value="" style="">
+
+</div>
+
+<div style="display: none;">
+<br>
+<div id="dbg"></div>
+<br>
+<div id="grun-link-xxx"></div>
+</div>
+
+</div>
+
+</body>
+
+<script type="text/javascript">
+</script>
+
+<script type="text/javascript" src="main.js"></script>
