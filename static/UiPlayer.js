@@ -152,11 +152,8 @@ function UiPlayer(playerElem, videoElem) {
     const videoElem = document.getElementById('video-player');
     const uiPlayer = new UiPlayer(playerElem, videoElem);
 
-    const aa = document.querySelectorAll('a[href*="youtube.com"]');
-    //console.log('aa', aa.length);
+    const aa = document.querySelectorAll('a.audioPlayer[href*="youtube.com"]');
     [].forEach.call(aa, function (a) {
-        //console.log('a', a);
-        //console.log('href', a.getAttribute('href'));
         a.addEventListener('click', function (e) {
             e.preventDefault();
             const href = a.getAttribute('href');
@@ -165,16 +162,9 @@ function UiPlayer(playerElem, videoElem) {
             const urlObj = new URL(href);
             const params = new URLSearchParams(urlObj.search);
             const params2 = Object.fromEntries(params.entries());
-            //console.log('params2', params2);
             const uid = params.get('v');
             const t = params.get('t');
-            //console.log('v', params.get('v'));
-            //console.log('t', params.get('t'));
-            //return;
             if (pos >= 0) {
-                //const uid = href.substring(pos + 2);
-                //console.log('uid: ', uid);
-                //console.log('offset', offset);
                 uiPlayer.setTimeOffset(t);
                 uiPlayer.loadClip(uid);
                 let title = a.getAttribute('title');
