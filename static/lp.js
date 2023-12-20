@@ -39,3 +39,17 @@ document.body.addEventListener('keyup', function(e) {
         fetch('/ready?slug=' + slug);
     }
 });
+
+(function () {
+    const aa = document.querySelectorAll('a.ytVideoPLayer1[href*="youtube.com"]');
+    [].forEach.call(aa, function (a) {
+        const yid = a.getAttribute('data-yid')
+        console.log("a", yid)
+        a.addEventListener('click', function (e) {
+            console.log("clicked", yid)
+            e.preventDefault();
+            const html = '<iframe class="ytVideoPLayer2" width="590" height="351" src="https://www.youtube-nocookie.com/embed/' + yid + '?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+            a.outerHTML = html;
+        }, false);
+    });
+})();

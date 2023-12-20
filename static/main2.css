@@ -208,8 +208,14 @@ color: #222;
 .vkVideoPLayer {
 width: 100%;
 }
-.ytVideoPLayer {
+
+.ytVideoPLayer1 {
 width: 100%;
+xoutline: 0.5px solid red;
+}
+.ytVideoPLayer2 {
+width: 100%;
+height: 351px;
 }
 
 .tagCat {
