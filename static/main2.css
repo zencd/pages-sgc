@@ -147,10 +147,16 @@ text-decoration: none;
 .trackList a:hover {
 text-decoration: underline;
 }
+
 .releaseInfo {
 font-family: School, serif;
 font-family: JournalSans, sans-serif;
+xcolor: #888;
 }
+.releaseInfo a {
+xcolor: #888;
+}
+
 .tagList {
 font-family: JournalSans, sans-serif;
 xtext-align: right;

@@ -33,9 +33,9 @@ startLP();
 document.body.addEventListener('keyup', function(e) {
     const h1 = document.querySelector('h1')
     const slug = h1 ? h1.getAttribute('data-slug') : ''
-    if (e.key == 'e') {
+    if (e.code == 'KeyE') {
         fetch('/edit?slug=' + slug);
-    } else if (e.key == 'y') {
+    } else if (e.code == 'KeyY') {
         fetch('/ready?slug=' + slug);
     }
 });
