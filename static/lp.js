@@ -44,12 +44,24 @@ document.body.addEventListener('keyup', function(e) {
     const aa = document.querySelectorAll('a.ytVideoPLayer1[href*="youtube.com"]');
     [].forEach.call(aa, function (a) {
         const yid = a.getAttribute('data-yid')
-        console.log("a", yid)
+        //console.log("a", yid)
         a.addEventListener('click', function (e) {
-            console.log("clicked", yid)
+            //console.log("clicked", yid)
             e.preventDefault();
-            const html = '<iframe class="ytVideoPLayer2" width="590" height="351" src="https://www.youtube-nocookie.com/embed/' + yid + '?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
-            a.outerHTML = html;
+            const iframe = document.createElement('iframe')
+            iframe.setAttribute('class', 'ytVideoPLayer2')
+            iframe.setAttribute('width', '590')
+            iframe.setAttribute('height', '351')
+            iframe.setAttribute('src', 'https://www.youtube-nocookie.com/embed/' + yid + '?autoplay=1')
+            iframe.setAttribute('title', 'YouTube video player')
+            iframe.setAttribute('frameborder', '0')
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share')
+            iframe.setAttribute('allowfullscreen', '')
+            a.parentNode.insertBefore(iframe, a)
+            a.parentNode.removeChild(a)
+
+            //const html = '<iframe class="ytVideoPLayer2" width="590" height="351" src="https://www.youtube-nocookie.com/embed/' + yid + '?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+            //a.outerHTML = html;
         }, false);
     });
 })();
