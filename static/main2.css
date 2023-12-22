@@ -76,7 +76,7 @@ xbackground-image: url(/static/scanlines.png);
 .wrap1 {
 margin: 0 auto;
 max-width: 650px;
-backdrop-filter: blur(60px);
+xbackdrop-filter: blur(60px);
 box-sizing: border-box; min-height: 100vh; /*100% height*/
 }
 

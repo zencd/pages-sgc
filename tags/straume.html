@@ -43,15 +43,15 @@ padding-top: 100px;
         <div class="wrap2">
             
 
-<h1>Egils Straume : 2</h1>
+<h1>Egils Straume: 2</h1>
 
 
-<p class="textBlock"> A Latvian conductor of a jazz combo and sax player also.</p>
+<p class="textBlock">A Latvian conductor of a jazz combo and sax player also.</p>
 
 
 <ol class="filmList">
 
-    <li>2012 <a href="/egils-straume-1977.html">Egils Straume / Эгилс Страуме 1977</a>
+    <li>2012 <a href="/egils-straume-1977.html">Egils Straume Jazz Fiesta 1978</a>
 
     <li>2011 <a href="/various-red-square-groove.html">VA Red Square Groove 2000</a>
 
@@ -87,6 +87,33 @@ padding-top: 100px;
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

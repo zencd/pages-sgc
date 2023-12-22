@@ -96,7 +96,9 @@ Release info:
 
     <div class="textBlock">An oriental jazz fusion album recorded 1984 and released a year later. All tracks are written by Yury Parfenov (Юрий Парфёнов) who is playing horns here also.</div>
 
-    <div class="textBlock"><a href="https://www.youtube.com/watch?v=oWazt-Lta54" style="background: url(/static/yt-play.png) center center no-repeat, url(https://img.youtube.com/vi/oWazt-Lta54/hqdefault.jpg) center center no-repeat; background-size: auto, cover;" class="ytVideoPLayer1" data-yid="oWazt-Lta54"></a></div>
+    <div class="textBlock"><!-- <audio controls preload="none"><source src="/audio/boomerang - india 1984.mp3" type="audio/mpeg"></audio>
+        <br><i>boomerang - india 1984.mp3</i> -->
+<!-- <a href="https://www.youtube.com/watch?v=oWazt-Lta54" style="background: url(/static/yt-play.png) center center no-repeat, url(https://img.youtube.com/vi/oWazt-Lta54/hqdefault.jpg) center center no-repeat; background-size: auto, cover;" class="ytVideoPLayer1" data-yid="oWazt-Lta54"></a> --></div>
 
 
 <!--<div class="textBlock"><iframe class="ytVideoPLayer2" width="590" height="351" src="https://www.youtube-nocookie.com/embed/sY7aAT4io5A?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe></div>-->
@@ -105,17 +107,17 @@ Release info:
 <div class="textBlock trackList">
 Tracklisting:
 
-<br>A1 Бумеранг
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=oWazt-Lta54&t=4">A1 Бумеранг (Boomerang)</a>
 
-<br>A2 Орнамент
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=oWazt-Lta54&t=350">A2 Орнамент (Ornament)</a>
 
-<br>A3 Три четверти
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=oWazt-Lta54&t=776">A3 Три четверти (Three quarters)</a>
 
-<br>B1 Минарет
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=oWazt-Lta54&t=1130">B1 Минарет (Minaret)</a>
 
-<br>B2 Индия / India ✻
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=oWazt-Lta54&t=1332">B2 Индия (India)</a> ✻
 
-<br>B3 Турецкие зарисовки
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=oWazt-Lta54&t=1833">B3 Турецкие зарисовки (Turkish sketches)</a>
 
 </div>
 
@@ -173,6 +175,33 @@ Download:
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

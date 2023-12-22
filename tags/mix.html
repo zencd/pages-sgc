@@ -107,7 +107,7 @@ padding-top: 100px;
 
     <li>2010 <a href="/the-4th-jankies-soviet-mix.html">Jankie&#39;s 4th soviet mix</a>
 
-    <li>2010 <a href="/my-mix-of-rare-cool-soviet-cinemusic-of-60s-70s.html">My mix of rare cool soviet cinemusic of 60s-70s</a>
+    <li>2010 <a href="/my-mix-of-rare-cool-soviet-cinemusic-of-60s-70s.html">Rare soviet cinemusic mix</a>
 
     <li>2010 <a href="/ivan-tchizhevskys-mixes.html">Ivan Tchizhevsky&#39;s mixes</a>
 
@@ -145,6 +145,33 @@ padding-top: 100px;
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

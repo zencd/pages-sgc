@@ -43,10 +43,10 @@ padding-top: 100px;
         <div class="wrap2">
             
 
-<h1>ВИА 75 : 3</h1>
+<h1>ВИА 75: 3</h1>
 
 
-<p class="textBlock"> Yes, this is their name - &#34;75&#34;. An ensemble from Georgia banded 1975 by the ex-leader of the famous &#34;Orera&#34;. They recorded several dope groove tracks in the 70s but later became too soft, I blame the eighties for that.</p>
+<p class="textBlock">Yes, this is their name - &#34;75&#34;. An ensemble from Georgia banded 1975 by the ex-leader of the famous &#34;Orera&#34;. They recorded several dope groove tracks in the 70s but later became too soft, I blame the eighties for that.</p>
 
 
 <ol class="filmList">
@@ -89,6 +89,33 @@ padding-top: 100px;
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

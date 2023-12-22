@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rafiq Babayev / Рафик Бабаев 1970 - Soviet Groove</title>
+    <title>Rafiq Babayev vs operettas 1970 - Soviet Groove</title>
     <link rel="stylesheet" type="text/css" href="/static/main2.css"/>
     <link rel="stylesheet" type="text/css" href="/static/player-bar.css" />
     <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
@@ -45,7 +45,7 @@ padding-top: 400px;
 
 
 
-<h1 data-slug="rafiq-babayev-1970">Rafiq Babayev / Рафик Бабаев 1970</h1>
+<h1 data-slug="rafiq-babayev-1970">Rafiq Babayev vs operettas 1970</h1>
 
 <!--<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/468065808&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>-->
 
@@ -92,7 +92,7 @@ Release info:
 
 
 
-    <div class="textBlock">A rip of Rafiq Babayev's early LP brought to us by <a href="https://soundcloud.com/u1989" target="_self">Yuri</a>.</div>
+    <div class="textBlock">A rip of Rafiq Babayev's early LP where he, together with his band, covers themes from operettas. The latter is not what I love personally but these variations are super. Brought to us by <a href="https://soundcloud.com/u1989" target="_self">Yuri</a>.</div>
 
     <div class="textBlock"><!-- <audio controls preload="none"><source src="/audio/babayev-gajiyev-sampler.mp3" type="audio/mpeg"></audio>
         <br><i>babayev-gajiyev-sampler.mp3</i> --></div>
@@ -192,6 +192,33 @@ Download:
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

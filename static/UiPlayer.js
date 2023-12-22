@@ -25,7 +25,9 @@ function UiPlayer(playerElem, videoElem) {
 
     const ysp = YoutubeSinglePlayer(videoElem);
     this.ysp = ysp;
+    ysp.onReady = onReady;
     ysp.onStateChange = onStateChange;
+    ysp.onPlayerObjectCreated = onPlayerObjectCreated;
 
     const newScriptTag = document.createElement('script');
     newScriptTag.src = "https://www.youtube.com/player_api";
@@ -80,8 +82,15 @@ function UiPlayer(playerElem, videoElem) {
         updateProgressInterval = setInterval(updateProgressBar, PROGRESS_BAR_TIMEOUT);
     }
 
+    function onPlayerObjectCreated(player) {
+        //console.log('onPlayerObjectCreated, player:', player)
+    }
+
+    function onReady(event) {
+        ysp.player.setVolume(0);
+    }
+
     function onStateChange(event) {
-        // console.log('onStateChange: event.data: ' + event.data);
         if (event.data === YT.PlayerState.PLAYING) {
             playing = true;
             playButton.setAttribute('src', pauseImage);
@@ -89,11 +98,13 @@ function UiPlayer(playerElem, videoElem) {
             startThreadUpdateProgressBar();
             const timeOffset = self.timeOffset
             self.timeOffset = 0
-            //console.log('timeOffset', timeOffset);
             if (timeOffset) {
                 ysp.player.seekTo(timeOffset);
+                ysp.player.setVolume(100)
                 const percent = timeOffset / ysp.player.getDuration() * 100
                 updateProgressBar(percent);
+            } else {
+                ysp.player.setVolume(100)
             }
         } else if (event.data === YT.PlayerState.PAUSED) {
             playing = false;
@@ -109,10 +120,8 @@ function UiPlayer(playerElem, videoElem) {
     function onProgressBarClick(e) {
         if (ysp.player) {
             const ratio = e.offsetX / progressBarParent.offsetWidth;
-            //console.log('dur', ysp.player.getDuration());
             const newTime = ysp.player.getDuration() * ratio;
             updateProgressBar(ratio * 100);
-            //console.log('ratio * 100', ratio * 100);
             ysp.player.seekTo(newTime);
         }
     }
@@ -126,7 +135,7 @@ function UiPlayer(playerElem, videoElem) {
             //console.log('loading new video:', clipId);
             updateProgressBar(0);
             clearInterval(updateProgressInterval);
-            ysp.loadById(clipId);
+            ysp.loadById(clipId, self.timeOffset);
             self.currentId = clipId;
         } else {
             // playerState: 1 (playing), 2 (not playing)
@@ -173,4 +182,44 @@ function UiPlayer(playerElem, videoElem) {
             }
         }, false);
     });
+
+    function changeVolume(player, from, to) {
+        if (from < to) {
+            var step = 10
+            from += step
+            //console.log('volume', from)
+            player.setVolume(from)
+            if (from < to) {
+                setTimeout(function() { changeVolume(player, from, to) }, 15)
+            }
+        } else {
+            var step = -10
+            from += step
+            player.setVolume(from)
+            //console.log('volume', from)
+            if (from > to) {
+                setTimeout(function() { changeVolume(player, from, to) }, 15)
+            } else {
+                uiPlayer.ysp.player.pauseVideo();
+            }
+        }
+    }
+
+    document.body.addEventListener('keydown', function(e) {
+        const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey
+        if (e.code == 'Space' && !anyMod) {
+            if (uiPlayer.ysp.player) {
+                e.preventDefault()
+                if (uiPlayer.ysp.player.playerInfo.playerState == 1) {
+                    //uiPlayer.ysp.player.setVolume(0)
+                    changeVolume(uiPlayer.ysp.player, 100, 0)
+                    //uiPlayer.ysp.player.pauseVideo();
+                } else {
+                    changeVolume(uiPlayer.ysp.player, 0, 100)
+                    //uiPlayer.ysp.player.setVolume(100)
+                    uiPlayer.ysp.player.playVideo();
+                }
+            }
+        }
+    })
 })();

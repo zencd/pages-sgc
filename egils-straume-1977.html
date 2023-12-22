@@ -2,7 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Egils Straume / Эгилс Страуме 1977 - Soviet Groove</title>
+    <title>Egils Straume Jazz Fiesta 1978 - Soviet Groove</title>
     <link rel="stylesheet" type="text/css" href="/static/main2.css"/>
     <link rel="stylesheet" type="text/css" href="/static/player-bar.css" />
     <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
@@ -12,14 +12,14 @@
 body {
 background:
     linear-gradient(to bottom, rgb(0, 0, 0, 0.0) 0%, rgb(0, 0, 0, 0.0) 100%),
-    url(/image/straume%201977.jpg) no-repeat center center fixed;
+    url(/image/straume-fiesta.jpg) no-repeat center center fixed;
 background-size: auto, cover;
 }
 .wrap1 {
 background:
   linear-gradient(to bottom, rgb(34, 34, 34, 0) 0px, rgb(34, 34, 34, 0.8) 300px, rgb(34, 34, 34, 0.9) 350px, rgb(34, 34, 34, 1) 400px),
   url(/static/scanlines.png),
-  url(/image/straume%201977.jpg) no-repeat top center fixed;
+  url(/image/straume-fiesta.jpg) no-repeat top center fixed;
 background-size: 100%, auto, 650px auto;
 padding-top: 400px;
 }
@@ -45,7 +45,7 @@ padding-top: 400px;
 
 
 
-<h1 data-slug="egils-straume-1977">Egils Straume / Эгилс Страуме 1977</h1>
+<h1 data-slug="egils-straume-1977">Egils Straume Jazz Fiesta 1978</h1>
 
 <!--<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/468065808&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>-->
 
@@ -86,14 +86,16 @@ Release info:
 
 <br><a href="https://www.discogs.com/release/2950178" target="_blank">discogs.com/release/2950178</a>
 
-<br>Melodiya 1977 LP C60-10237-8
+<br><a href="https://records.su/album/18495" target="_blank">records.su/album/18495</a>
+
+<br>Melodiya 1978 LP C60-10237-8
 
 </div>
 
 
 
-    <div class="textBlock"><audio controls preload="none"><source src="/audio/egils straume fiesta sampler.mp3" type="audio/mpeg"></audio>
-        <br><i>egils straume fiesta sampler.mp3</i></div>
+    <div class="textBlock"><!-- <audio controls preload="none"><source src="/audio/egils straume fiesta sampler.mp3" type="audio/mpeg"></audio>
+        <br><i>egils straume fiesta sampler.mp3</i> --></div>
 
 
 <!--<div class="textBlock"><iframe class="ytVideoPLayer2" width="590" height="351" src="https://www.youtube-nocookie.com/embed/sY7aAT4io5A?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe></div>-->
@@ -102,19 +104,19 @@ Release info:
 <div class="textBlock trackList">
 Tracklisting:
 
-<br>A1. Ekstraversija
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=cy9ybEGaZKA&t=0">A1 Ekstraversija</a>
 
-<br>A2. Korālis
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=cy9ybEGaZKA&t=403">A2 Korālis</a>
 
-<br>A3. 1 : 07
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=cy9ybEGaZKA&t=814">A3 1-07</a>
 
-<br>A4. Intraversija
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=cy9ybEGaZKA&t=894">A4 Intraversija</a>
 
-<br>B1. Fiesta
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=cy9ybEGaZKA&t=1213">B1 Fiesta</a>
 
-<br>B2. Zoria - Moria
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=cy9ybEGaZKA&t=1540">B2 Zoria - Moria</a>
 
-<br>B3. Aditi
+<br><a class="audioPlayer" href="https://www.youtube.com/watch?v=cy9ybEGaZKA&t=1866">B3 Aditi</a>
 
 </div>
 
@@ -174,6 +176,33 @@ Download:
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

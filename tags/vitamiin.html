@@ -43,15 +43,15 @@ padding-top: 100px;
         <div class="wrap2">
             
 
-<h1>Vitamiin : 2</h1>
+<h1>Vitamiin: 2</h1>
 
 
-<p class="textBlock"> An Estonian pop band backing different vocalists as well as recording independently. Under name &#34;Uus Generatsioon&#34; the same men used to perform highly professional progressive music.</p>
+<p class="textBlock">ВИА Витамин. Estonian pop band backing different vocalists as well as recording independently. Under name &#34;Uus Generatsioon&#34; the same men used to perform highly professional progressive music.</p>
 
 
 <ol class="filmList">
 
-    <li>2012 <a href="/sweet-vs-vitamiin.html">Sweet Vitamiin</a>
+    <li>2012 <a href="/sweet-vs-vitamiin.html">Sweet Vitamiin Music Video</a>
 
     <li>2009 <a href="/vitamin-1984.html">Vitamiin / Витамин 1984</a>
 
@@ -87,6 +87,33 @@ padding-top: 100px;
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

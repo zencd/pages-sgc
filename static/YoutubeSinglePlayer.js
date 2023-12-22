@@ -1,12 +1,18 @@
 ﻿// https://developers.google.com/youtube/iframe_api_reference
+// https://developers.google.com/youtube/player_parameters
 function YoutubeSinglePlayer(videoElem) {
     const yspThis = this;
     this.player = null;
+    this.onPlayerObjectCreated = null;
     this.onReady = null;
     this.onStateChange = null;
-    this.loadById = function (videoId) {
+    this.loadById = function (videoId, timeOffset) {
         function onYouTubeIframeAPIReady() {
             console.log('onYouTubeIframeAPIReady...');
+            const playerVars = {
+                autoplay: 1,
+                start: timeOffset, // has no effect :|
+            }
             yspThis.player = new window.YT.Player(videoElem, {
                 videoId: videoId,
                 events: {
@@ -17,9 +23,11 @@ function YoutubeSinglePlayer(videoElem) {
                         if (yspThis.onStateChange) yspThis.onStateChange(event);
                     }
                 },
-                playerVars: {autoplay: 1}
+                playerVars: playerVars
             });
-            // console.log('player created', yspThis.player);
+            if (yspThis.onPlayerObjectCreated) {
+                yspThis.onPlayerObjectCreated(yspThis.player);
+            }
             // console.log('player.loadVideoById', yspThis.player.loadVideoById);
         }
 
@@ -36,7 +44,7 @@ function YoutubeSinglePlayer(videoElem) {
             // XXX implicitly loading video is not needed because of 1) autoplay 2) method `loadVideoById` binds later
             // yspThis.player.loadVideoById(videoId);
         } else {
-            console.log('case 3');
+            // console.log('case 3');
             if (!window.onYouTubeIframeAPIReady) { // this if can be removed
                 // console.log('setting window.onYouTubeIframeAPIReady');
                 // console.log('  existing window.onYouTubeIframeAPIReady:', window.onYouTubeIframeAPIReady);

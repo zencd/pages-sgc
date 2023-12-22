@@ -43,7 +43,7 @@ padding-top: 100px;
         <div class="wrap2">
             
 
-<h1>Bossa: 2</h1>
+<h1>Bossa: 3</h1>
 
 
 
@@ -52,6 +52,8 @@ padding-top: 100px;
     <li>2023 <a href="/eolika-ep-1969.html">Eolika First EP 1969</a>
 
     <li>2012 <a href="/bossa-baltica.html">Bossa Baltica Mix</a>
+
+    <li>2012 <a href="/gintarine-pora-75.html">Gintarinė Pora 75 / Янтарная пара 75</a>
 
 </ol>
 
@@ -85,6 +87,33 @@ padding-top: 100px;
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

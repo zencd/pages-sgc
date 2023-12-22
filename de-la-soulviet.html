@@ -79,13 +79,7 @@ padding-top: 100px;
 
     <div class="textBlock">Ещё одна работа Тенгиза (Термоядерный Джем, Пьянству Бойз, Мистер Малой, Фанк-Петербург). Продакшен отличный. Узнать бы ещё что за "полюшко" легло в основу 5-го трека, да послушать кассету T-Jam'а...</div>
 
-    <div class="textBlock"><blockquote>Quotes about De La Soulviet: 
-"The blends are artfully done and the samples are tastefully chosen"
-- Jeff Weiss, LA Times
-"De La Soul + Soviet Jazz = TenDJiz's De La Soulviet Mashup Revolution"
-- Miami New Times</blockquote></div>
-
-    <div class="textBlock"><a href="https://soundcloud.com/delasoulviet/sets/de-la-soulviet/" target="_blank">soundcloud.com/delasoulviet/sets/de-la-soulviet/</a></div>
+    <div class="textBlock"><a href="https://soundcloud.com/djsoulviet/sets/de-la-soulviet" target="_blank">soundcloud.com/djsoulviet/sets/de-la-soulviet</a></div>
 
 
 <!--<div class="textBlock"><iframe class="ytVideoPLayer2" width="590" height="351" src="https://www.youtube-nocookie.com/embed/sY7aAT4io5A?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe></div>-->
@@ -136,6 +130,33 @@ padding-top: 100px;
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

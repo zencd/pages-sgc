@@ -53,7 +53,7 @@ padding-top: 100px;
 
     <li>2012 <a href="/yuri-morozov-mix.html">Yuri Morozov Mix</a>
 
-    <li>2010 <a href="/apple-1980.html">Apple / Яблоко 1980</a>
+    <li>2010 <a href="/apple-1980.html">Quadraphonic Apple 1980</a>
 
     <li>2010 <a href="/va-noorte-laulud-1978.html">Noorte Laulud / Песни молодёжи 1978</a>
 
@@ -67,7 +67,7 @@ padding-top: 100px;
 
     <li>2010 <a href="/modo-1978.html">Modo EP 1978</a>
 
-    <li>2009 <a href="/david-tukhmanov-1975.html">David Tukhmanov / Давид Тухманов 1975</a>
+    <li>2009 <a href="/david-tukhmanov-1975.html">David Tukhmanov Concept LP 1975</a>
 
 </ol>
 
@@ -101,6 +101,33 @@ padding-top: 100px;
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

@@ -52,7 +52,8 @@ console.log('res', res)
 </script>
 
 <div class="textBlock">
-    Get notified: <a href="https://t.me/soviet_groove">t.me/soviet_groove</a>
+    Be notified: <a href="https://t.me/soviet_groove">t.me/soviet_groove</a>.
+    Explore <a href="/tags/best.html">the best</a>.
     <br>
     <br>
 </div>
@@ -115,7 +116,7 @@ console.log('res', res)
 
     <li>2013 <a href="/cj-plus-soviet-jazz-machine-1.html">CJ Plus - Soviet Jazz Machine Mix</a>
 
-    <li>2013 <a href="/rafiq-babayev-1970.html">Rafiq Babayev / Рафик Бабаев 1970</a>
+    <li>2013 <a href="/rafiq-babayev-1970.html">Rafiq Babayev vs operettas 1970</a>
 
     <li>2012 <a href="/olga-voskonyan-1989.html">Olga Voskonyan / Ольга Восконьян 1989</a>
 
@@ -171,7 +172,7 @@ console.log('res', res)
 
     <li>2012 <a href="/laine-vs-mauro-malavasi.html">Laine vs Mauro Malavasi</a>
 
-    <li>2012 <a href="/sweet-vs-vitamiin.html">Sweet Vitamiin</a>
+    <li>2012 <a href="/sweet-vs-vitamiin.html">Sweet Vitamiin Music Video</a>
 
     <li>2012 <a href="/eastern-nuggets-by-nuts-one.html">Eastern Nuggets by Nuts One</a>
 
@@ -197,7 +198,7 @@ console.log('res', res)
 
     <li>2012 <a href="/gulshan-1980.html">Gulshan / Гульшан 1980</a>
 
-    <li>2012 <a href="/egils-straume-1977.html">Egils Straume / Эгилс Страуме 1977</a>
+    <li>2012 <a href="/egils-straume-1977.html">Egils Straume Jazz Fiesta 1978</a>
 
     <li>2012 <a href="/yuri-morozov-mix.html">Yuri Morozov Mix</a>
 
@@ -319,7 +320,7 @@ console.log('res', res)
 
     <li>2011 <a href="/various-red-square-groove.html">VA Red Square Groove 2000</a>
 
-    <li>2010 <a href="/apple-1980.html">Apple / Яблоко 1980</a>
+    <li>2010 <a href="/apple-1980.html">Quadraphonic Apple 1980</a>
 
     <li>2010 <a href="/yury-saulsky-1977.html">Yury Saulsky / Юрий Саульский 1977</a>
 
@@ -391,7 +392,7 @@ console.log('res', res)
 
     <li>2010 <a href="/band-called-75-1979.html">75 - Rhythm of Joy 1979</a>
 
-    <li>2010 <a href="/jazz-band-boomerang-1983.html">Boomerang / Бумеранг 1982</a>
+    <li>2010 <a href="/jazz-band-boomerang-1983.html">Boomerang first fusion 1982</a>
 
     <li>2010 <a href="/funky-russian-internet.html">Russian funk internet</a>
 
@@ -425,7 +426,7 @@ console.log('res', res)
 
     <li>2010 <a href="/a-sound-test-recording-70s.html">A sound test recording 70s</a>
 
-    <li>2010 <a href="/my-mix-of-rare-cool-soviet-cinemusic-of-60s-70s.html">My mix of rare cool soviet cinemusic of 60s-70s</a>
+    <li>2010 <a href="/my-mix-of-rare-cool-soviet-cinemusic-of-60s-70s.html">Rare soviet cinemusic mix</a>
 
     <li>2010 <a href="/andrey-petrov.html">Andrey Petrov / Андрей Петров</a>
 
@@ -495,7 +496,7 @@ console.log('res', res)
 
     <li>2009 <a href="/zodiac-1983-space-funk.html">Zodiac&#39;s 1983 space funk</a>
 
-    <li>2009 <a href="/david-tukhmanov-1975.html">David Tukhmanov / Давид Тухманов 1975</a>
+    <li>2009 <a href="/david-tukhmanov-1975.html">David Tukhmanov Concept LP 1975</a>
 
     <li>2009 <a href="/edita-pyekha-1970.html">Edita Pyekha 1970</a>
 
@@ -556,10 +557,10 @@ console.log('res', res)
 </div>
 <script>
 //console.log('timeouted');
-var lines = document.querySelectorAll('.js-file-line');
-[].forEach.call(lines, function (line) {
-    console.log('line', line.innerText)
-});
+//var lines = document.querySelectorAll('.js-file-line');
+//[].forEach.call(lines, function (line) {
+//    console.log('line', line.innerText)
+//});
 </script>
 
 
@@ -592,6 +593,33 @@ var lines = document.querySelectorAll('.js-file-line');
 
 
 <script async src="/static/main.js"></script>
-<script src="/static/YoutubeSinglePlayer.js"></script>
-<script src="/static/UiPlayer.js"></script>
+<script src="/static/audio-player-core.js"></script>
+<script src="/static/audio-player-ui.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>-->
+
+<script>
+const books = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: 'John',
+      lastName: 'Scalzi'
+    }
+  },
+  {
+    title: 'The Lock Artist',
+    author: {
+      firstName: 'Steve',
+      lastName: 'Hamilton'
+    }
+  }
+]
+
+// 2. Set up the Fuse instance
+//const fuse = new Fuse(books, {keys: ['title', 'author.firstName']})
+//console.log('fuse', fuse)
+//var res = fuse.search('jon')
+//console.log('res', res)
+</script>
+
 </body>

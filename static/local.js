@@ -30,12 +30,15 @@ async function startLP() {
 // window.addEventListener("focus", function() { console.log("Page got focus") });
 startLP();
 
-document.body.addEventListener('keyup', function(e) {
+document.body.addEventListener('keydown', function(e) {
     const h1 = document.querySelector('h1')
     const slug = h1 ? h1.getAttribute('data-slug') : ''
-    if (e.code == 'KeyE') {
+    const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey;
+    if (e.code == 'KeyE' && !anyMod) {
         fetch('/edit?slug=' + slug);
-    } else if (e.code == 'KeyY') {
+    } else if (e.code == 'KeyY' && !anyMod) {
         fetch('/ready?slug=' + slug);
+    } else if (e.code == 'KeyR' && !anyMod) {
+        fetch('/restart');
     }
 });
