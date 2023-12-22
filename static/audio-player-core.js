@@ -15,7 +15,7 @@ function YoutubeSinglePlayer(videoElem) {
     this.timeOffset = 0;
     this.loadById = function (videoId, timeOffset, newYoutubeScriptId) {
         function onYouTubeIframeAPIReady() {
-            console.log('onYouTubeIframeAPIReady...');
+            //console.log('onYouTubeIframeAPIReady...');
             const playerVars = {
                 autoplay: 1,
                 start: timeOffset, // has no effect :|
@@ -30,22 +30,26 @@ function YoutubeSinglePlayer(videoElem) {
                 },
                 playerVars: playerVars
             });
+            //console.log('seekTo', timeOffset)
+            //yspThis.player.seekTo(timeOffset)
         }
 
+        yspThis.timeOffset = timeOffset
+        //console.log('loadById', 'timeOffset', timeOffset)
         if (yspThis.player) {
-            // console.log('case 1');
+            //console.log('case 1');
             // console.log('player.loadVideoById', yspThis.player.loadVideoById);
             yspThis.player.loadVideoById(videoId);
         } else if (typeof window.YT !== 'undefined') {
             // YT code maybe loaded already (by some other code)
             // so the callback won't be invoked - do it manually
-            // console.log('case 2');
+            //console.log('case 2');
             // console.log('window.YT', window.YT);
             onYouTubeIframeAPIReady();
             // XXX implicitly loading video is not needed because of 1) autoplay 2) method `loadVideoById` binds later
             // yspThis.player.loadVideoById(videoId);
         } else {
-            // console.log('case 3');
+            //console.log('case 3');
             if (!window.onYouTubeIframeAPIReady) { // this if can be removed
                 // console.log('setting window.onYouTubeIframeAPIReady');
                 // console.log('  existing window.onYouTubeIframeAPIReady:', window.onYouTubeIframeAPIReady);
@@ -53,7 +57,7 @@ function YoutubeSinglePlayer(videoElem) {
                 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
             }
 
-            const youtubeScript = document.getElementById(youtubeScriptId);
+            const youtubeScript = document.getElementById(newYoutubeScriptId);
             if (youtubeScript === null) {
                 const tag = document.createElement('script');
                 const firstScript = document.getElementsByTagName('script')[0];
@@ -69,6 +73,7 @@ function YoutubeSinglePlayer(videoElem) {
             const timeOffset = yspThis.timeOffset
             yspThis.timeOffset = 0
             if (timeOffset) {
+                //console.log('seekTo', timeOffset)
                 yspThis.player.seekTo(timeOffset);
                 yspThis.player.setVolume(100)
             } else {
