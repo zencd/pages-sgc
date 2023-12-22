@@ -105,7 +105,6 @@ function UiPlayer(playerElem, videoElem) {
     progressBarParent.addEventListener('touchend', onProgressBarClick, false);
 
     this.loadClip = function (clipId, timeOffset) {
-        console.log('loadClip', clipId, timeOffset)
         const newClip = self.currentId != clipId;
         playerElem.style.display = 'flex';
         if (newClip) {
@@ -114,7 +113,6 @@ function UiPlayer(playerElem, videoElem) {
             ysp.loadById(clipId, timeOffset, 'youtube-api-script-xaqdlrwqglw');
             self.currentId = clipId;
         } else {
-            console.log('seekTo', timeOffset)
             ysp.timeOffset = timeOffset
             ysp.player.seekTo(timeOffset);
             if (ysp.player.playerInfo.playerState != 1) {
