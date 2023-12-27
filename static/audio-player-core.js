@@ -15,7 +15,7 @@ function YoutubeSinglePlayer(videoElem) {
     this.timeOffset = 0;
     this.loadById = function (videoId, timeOffset, newYoutubeScriptId) {
         function onYouTubeIframeAPIReady() {
-            //console.log('onYouTubeIframeAPIReady...');
+            console.log('onYouTubeIframeAPIReady')
             const playerVars = {
                 autoplay: 1,
                 start: timeOffset, // has no effect :|
@@ -68,13 +68,30 @@ function YoutubeSinglePlayer(videoElem) {
         }
     };
 
+    this.seekTo = function(t, comment) {
+        //console.log("seekTo", t, comment);
+        //console.trace();
+        this.player.seekTo(t);
+    }
+
+    this.isPlaying = function() {
+        return this.player && this.player.playerInfo.playerState == 1
+    }
+
+    this.getState = function() {
+        return this.player ? this.player.playerInfo.playerState : -1
+    }
+
+    this.getVideoUrl = function() {
+        return this.player ? this.player.getVideoUrl() : null
+    }
+
     function onStateChange(event) {
         if (event.data === YT.PlayerState.PLAYING) {
             const timeOffset = yspThis.timeOffset
             yspThis.timeOffset = 0
             if (timeOffset) {
-                //console.log('seekTo', timeOffset)
-                yspThis.player.seekTo(timeOffset);
+                yspThis.seekTo(timeOffset, "onStateChange"); // 2
                 yspThis.player.setVolume(100)
             } else {
                 yspThis.player.setVolume(100)

@@ -238,3 +238,15 @@ letter-spacing: 1px;
 font-family: JournalSans;
 color: #666;
 }
+
+.audioPlayer {
+xbackground: #AB9239;
+xcolor: #222;
+xline-height: 44px;
+}
+
+.name {
+xfont-weight: bold;
+font-family: JournalSans;
+background: #333;
+}

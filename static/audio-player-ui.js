@@ -54,7 +54,7 @@ function UiPlayer(playerElem, videoElem) {
 
     playButton.addEventListener("click", function () {
         if (ysp.player) {
-            if (ysp.playing) {
+            if (ysp.isPlaying()) {
                 ysp.pause()
                 playButton.setAttribute('src', playImage);
             } else {
@@ -97,7 +97,7 @@ function UiPlayer(playerElem, videoElem) {
             const ratio = e.offsetX / progressBarParent.offsetWidth;
             const newTime = ysp.player.getDuration() * ratio;
             updateProgressBar(ratio * 100);
-            ysp.player.seekTo(newTime);
+            ysp.seekTo(newTime);
         }
     }
 
@@ -105,7 +105,8 @@ function UiPlayer(playerElem, videoElem) {
     progressBarParent.addEventListener('touchend', onProgressBarClick, false);
 
     this.loadClip = function (clipId, timeOffset) {
-        const newClip = self.currentId != clipId;
+        const curUrl = ysp.getVideoUrl() || ''
+        const newClip = curUrl.indexOf(clipId) < 0;
         playerElem.style.display = 'flex';
         if (newClip) {
             updateProgressBar(0);
@@ -113,22 +114,22 @@ function UiPlayer(playerElem, videoElem) {
             ysp.loadById(clipId, timeOffset, 'youtube-api-script-xaqdlrwqglw');
             self.currentId = clipId;
         } else {
-            ysp.timeOffset = timeOffset
-            ysp.player.seekTo(timeOffset);
-            if (ysp.player.playerInfo.playerState != 1) {
-                ysp.player.playVideo();
+            if (ysp.getState() === 5) {
+                ysp.timeOffset = timeOffset // 5 = stopped
+            } else {
+                ysp.timeOffset = 0;
+            }
+            ysp.seekTo(timeOffset, "loadClip, existing clip"); // 1
+            if (!ysp.isPlaying()) {
+                ysp.play()
             }
         }
     };
     return this;
 }
 
-(function () {
-    const playerElem = document.getElementById('player-bar');
-    const videoElem = document.getElementById('video-player');
-    const uiPlayer = new UiPlayer(playerElem, videoElem);
-
-    const aa = document.querySelectorAll('a.audioPlayer[href*="youtube.com"]');
+function setupYoutubeAudioPlayerLinks(root, uiPlayer) {
+    const aa = root.querySelectorAll('a.audioPlayer[href*="youtube.com"]');
     [].forEach.call(aa, function (a) {
         a.addEventListener('click', function (e) {
             e.preventDefault();
@@ -148,13 +149,22 @@ function UiPlayer(playerElem, videoElem) {
             }
         }, false);
     });
+}
+
+(function () {
+    const playerElem = document.getElementById('player-bar');
+    const videoElem = document.getElementById('video-player');
+    const uiPlayer = new UiPlayer(playerElem, videoElem);
+    window.g_uiPlayer = uiPlayer
+
+    setupYoutubeAudioPlayerLinks(document, uiPlayer)
 
     document.body.addEventListener('keydown', function(e) {
         const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey
         if (e.code == 'KeyP' && !anyMod) {
             if (uiPlayer.ysp.player) {
                 e.preventDefault()
-                if (uiPlayer.ysp.player.playerInfo.playerState == 1) {
+                if (uiPlayer.ysp.isPlaying()) {
                     uiPlayer.ysp.pause()
                 } else {
                     uiPlayer.ysp.play()

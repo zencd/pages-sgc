@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<body style="background: #333">
+<button>This text will be overwritten</button>
+</body>
+<script>
+const button = document.querySelector("button");
+let state = {
+  buttonText: "Initial text"
+};
+// Change the look of your app based on state
+function render() {
+  button.innerText = state.buttonText;
+}
+// Set initial state and render app for the first time
+(function initialize() {
+  window.history.replaceState(state, null, "");
+  render(state);
+})();
+// Update state, history, and user interface
+// Connect your button to the handler above to trigger on click
+button.addEventListener("click", function () {
+  state.buttonText = "I clicked the button!"
+  window.history.pushState(state, null, "");
+  render(state);
+});
+// Tell your browser to give you old state and re-render on back
+window.onpopstate = function (event) {
+  if (event.state) { state = event.state; }
+  render(state);
+};
+</script>
+</html>
