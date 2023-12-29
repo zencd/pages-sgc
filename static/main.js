@@ -30,6 +30,7 @@
         [].forEach.call(aa, function (a) {
             const matches = !a.classList.contains('audioPlayer') &&
                 !a.classList.contains('ytVideoPLayer1') &&
+                a.getAttribute('target') != '_blank' &&
                 a.getAttribute('href').startsWith('/')
             //log('a', a.classList.contains('audioPlayer'))
             if (matches) {
