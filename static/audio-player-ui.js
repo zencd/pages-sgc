@@ -21,6 +21,7 @@ function UiPlayer(playerElem, videoElem) {
     const progressElem = playerElem.querySelector('.player-bar-progress');
     const playImage = playerElem.getAttribute('data-button-play');
     const pauseImage = playerElem.getAttribute('data-button-pause');
+    const loaderImage = playerElem.getAttribute('data-button-loader');
 
     const ysp = YoutubeSinglePlayer(videoElem);
     this.ysp = ysp;
@@ -55,11 +56,11 @@ function UiPlayer(playerElem, videoElem) {
     playButton.addEventListener("click", function () {
         if (ysp.player) {
             if (ysp.isPlaying()) {
-                ysp.pause()
                 playButton.setAttribute('src', playImage);
+                ysp.pause()
             } else {
+                playButton.setAttribute('src', loaderImage);
                 ysp.play()
-                playButton.setAttribute('src', pauseImage);
             }
         }
     });
@@ -105,6 +106,7 @@ function UiPlayer(playerElem, videoElem) {
     progressBarParent.addEventListener('touchend', onProgressBarClick, false);
 
     this.loadClip = function (clipId, timeOffset) {
+        playButton.setAttribute('src', loaderImage);
         const curUrl = ysp.getVideoUrl() || ''
         const newClip = curUrl.indexOf(clipId) < 0;
         playerElem.style.display = 'flex';
