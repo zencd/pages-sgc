@@ -1,7 +1,4 @@
 (function () {
-})();
-
-(function () {
     const log = console.log
     const $pageContent = document.getElementById('pageContent')
     const $pageSpecificStyle = document.getElementById('pageSpecificStyle')
@@ -32,11 +29,13 @@
                 !a.classList.contains('ytVideoPLayer1') &&
                 a.getAttribute('target') != '_blank' &&
                 a.getAttribute('href').startsWith('/')
-            //log('a', a.classList.contains('audioPlayer'))
             if (matches) {
                 a.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    loadPage(a.getAttribute('href'), true)
+                    const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey;
+                    if (!anyMod) {
+                        e.preventDefault();
+                        loadPage(a.getAttribute('href'), true)
+                    }
                 }, false);
             }
         });
@@ -54,7 +53,7 @@
         const text = await resp.text()
         const pageContent = findSubstring(text, '<!-- pageContent begin -->', '<!-- pageContent end -->')
         if (!pageContent) {
-            alert("Failed loading " + url)
+            console.error("Failed loading " + url)
             return
         }
         const title = findSubstring(text, '<title>', '</title>')
@@ -70,27 +69,13 @@
         setupYoutubeAudioPlayerLinks($pageContent, window.g_uiPlayer)
         const bgStyle = findSubstring(text, '<style id="pageSpecificStyle">', '</style>')
         if (bgStyle) {
-            //log('bgStyle', bgStyle)
             $pageSpecificStyle.innerText = bgStyle
         }
     }
 
-    //console.log('replaceState', '')
-    //window.history.replaceState({}, null, '');
-
     window.onpopstate = (e) => {
         loadPage(window.location.pathname, false)
     }
-
-//    window.onpopstate = function(e) {
-//        //console.log('e.state', e.state)
-//        //console.log('window.location.pathname', window.location.pathname)
-//        loadPage(window.location.pathname)
-//        if (e.state) {
-//            //document.getElementById("content").innerHTML = e.state.html;
-//            //document.title = e.state.pageTitle;
-//        }
-//    };
 
     setupInternalLinks(document)
     setupYoutubeVideoPlayerLinks(document)
