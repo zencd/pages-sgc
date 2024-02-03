@@ -69,6 +69,7 @@ font-family: School, sans-serif;
 }
 
 .wrap0 {
+-webkit-backdrop-filter: saturate(50%) sepia(0%) contrast(70%) brightness(0.3) blur(30px);
 backdrop-filter: saturate(50%) sepia(0%) contrast(70%) brightness(0.3) blur(30px);
 xbackground-image: url(/static/scanlines.png);
 }
@@ -227,6 +228,12 @@ height: 351px;
 
 .tagCat {
 margin-top: 24px;
+}
+.tagCat a {
+text-decoration: none;
+}
+.tagCat a:hover {
+text-decoration: underline;
 }
 
 abbr {

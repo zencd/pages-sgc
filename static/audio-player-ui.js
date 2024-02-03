@@ -57,10 +57,10 @@ function UiPlayer(playerElem, videoElem) {
         if (ysp.player) {
             if (ysp.isPlaying()) {
                 playButton.setAttribute('src', playImage);
-                ysp.pause()
+                self.pause()
             } else {
                 playButton.setAttribute('src', loaderImage);
-                ysp.play()
+                self.play()
             }
         }
     });
@@ -127,6 +127,17 @@ function UiPlayer(playerElem, videoElem) {
             }
         }
     };
+
+    this.play = function() {
+        playButton.setAttribute('src', pauseImage);
+        ysp.play();
+    };
+
+    this.pause = function() {
+        playButton.setAttribute('src', playImage);
+        ysp.pause();
+    };
+
     return this;
 }
 
@@ -167,9 +178,9 @@ function setupYoutubeAudioPlayerLinks(root, uiPlayer) {
             if (uiPlayer.ysp.player) {
                 e.preventDefault()
                 if (uiPlayer.ysp.isPlaying()) {
-                    uiPlayer.ysp.pause()
+                    uiPlayer.pause()
                 } else {
-                    uiPlayer.ysp.play()
+                    uiPlayer.play()
                 }
             }
         }
