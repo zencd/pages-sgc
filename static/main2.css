@@ -119,6 +119,10 @@ p {
 }
 a {
   color: #AB9239;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 .title {
   font-family: NewspaperSans, sans-serif;

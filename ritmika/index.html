@@ -1,0 +1,386 @@
+<html>
+<head>
+<title>Ритмическая гимнастика: треклист</title>
+<meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'/>
+<link rel="stylesheet" type="text/css" href="player-bar.css" />
+<style type="text/css">
+h1, h2, h3, h4, p, div, li {
+	font-family: School, "PT Serif", serif;
+}
+.new h2 {
+	background: #efe;
+}
+.playlist a {
+	color: orange;
+	text-decoration: none;
+	border-bottom: 1px dotted gray;
+}
+.playlist a:hover {
+	border-bottom: 1px solid darkgray;
+}
+.playlist a.recognized {
+	color: black;
+}
+.playlist a.playing {
+	/*color: #f00;*/
+	font-weight: bold;
+}
+.playlist a[href=""] {
+	text-decoration: none;
+	color: gray;
+	font-style: italic;
+	border-bottom: none;
+	cursor: text;
+}
+#player {
+}
+.issues {
+	/*display: inline-flex;*/
+}
+.issue {
+	display: inline-block;
+	vertical-align:top;
+	width: 300px;
+	width: 20em;
+	/*float: left;*/
+	margin-right: 1em;
+}
+#disqus_thread {
+	max-width: 50em;
+}
+p {
+	xfont-size: 1rem;
+}
+body {
+	background: url('ritmika.png') no-repeat right bottom;
+}
+
+/* mobile first */
+
+.issue {
+	width: 100%;
+}
+.issue li {
+	font-size: 1.4rem;
+}
+body {
+	margin: 0rem 1rem;
+}
+
+/* desktop */
+
+@media (min-width: 680px) {
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	.wrapper {
+		padding: 1rem 2rem;
+	}
+	.issue {
+		width: 320px;
+	}
+	.issue li {
+		font-size: 1rem;
+	}
+}
+
+/* dark theme */
+/*@media (prefers-color-scheme: dark) {*/
+	body {
+		background: #181A1B;
+	}
+	h1, h2, div, p, ul, ol {
+		color: #E8E6E3;
+	}
+	a[href=""] {
+		color: #968F82;
+		xcolor: red;
+	}
+	a {
+		color: #4F8FF7;
+		xcolor: red;
+	}
+	.playlist a.recognized {
+		color: #E8E6E3;
+	}
+/*}*/
+
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<h1>
+	<a href="..">SG</a> / Ритмическая гимнастика: треклист
+	<!-- <audio controls="1" id="player" autoplay="1" preload="auto" oncanplaythrough="this.play();" src="" /> -->
+</h1>
+
+<p>
+  Разбираем треклисты известной советской телепередачи.
+  Дополнить: <a href="https://klem.ru/forum/showthread.php?p=244072">форум KLEM</a>,
+  комментарии внизу
+  или <a href="mailto:zeencd@gmail.com?subject=Ритмическая%20гимнастика">zeencd@gmail.com</a>.
+</p>
+
+<div class="issues">
+  <div class="issue">
+    <h2>01. Наталья Линичук</h2>
+    <ol class="playlist">
+    <li><a href="">RG-01-01 (intro)</a></li>
+    <li><a href="">RG-01-02</a></li>
+    <li><a href="">Инстр. анс. Йозефа Вобрубы – Ярмарка</a></li>
+    <li><a href="">Fausto Papetti – Souvenirs (Voyage)</a></li>
+    <li><a href="">RG-01-05</a></li>
+    <li><a href="">RG-01-06</a></li>
+    <li><a href="">Fausto Papetti – Sunday Party</a></li>
+    <li><a href="">Fausto Papetti – Sunday Party</a></li>
+    <li><a href="">Cerrone – Give Me Love</a></li>
+    <li><a href="">RG-01-10</a></li>
+    <li><a href="">Gazebo – Love In Your Eyes (instrumental)</a></li>
+    <li><a href="">RG-01-12</a></li>
+    <li><a href="">Оркестр П.Овсянникова – Пожелтевшая фотография</a></li>
+    <li><a href="">RG-01-14</a></li>
+    <li><a href="">Эдуард Артемьев – Родные берега</a></li>
+    <li><a href="">RG-01-16</a></li>
+    </ol>
+  </div>
+
+  <div class="issue">
+    <h2>02. Лилия Сабитова</h2>
+    <ol class="playlist" data-clip="U_SXPbDPMVE">
+      <li><a href="" data-offset="00:00">Ring – Savage Lover (instrumental)</a>
+      <li><a href="" data-offset="02:02">Michel Colombier – Queen's Road</a>
+      <li><a href="" data-offset="02:10">Michel Colombier – Queen's Road</a>
+      <li><a href="" data-offset="04:08">Lime – Don't You Wanna Do It</a>
+      <li><a href="" data-offset="05:54">Lime – I Don't Wanna Lose You (Club Mix)</a>
+      <li><a href="" data-offset="07:34">Talko – Psyko Flash</a>
+      <li><a href="" data-offset="09:17">Herbie Mann – Birdwalk</a>
+      <li><a href="" data-offset="12:15">RG-02-08</a>
+      <li><a href="" data-offset="14:44">Paul Horn - Undercurrrents</a>
+      <li><a href="" data-offset="16:14">Lime – The Party's Over</a>
+      <li><a href="" data-offset="17:34">Bobbi Humphrey - Say the Word</a>
+      <li><a href="" data-offset="20:11">Azul Y Negro – El Hombre Lobo</a>
+      <li><a href="" data-offset="21:05">Stars On 45 Theme 12" Mix</a>
+      <li><a href="" data-offset="22:00">Stars On 45 Theme 12" Mix</a>
+      <li><a href="" data-offset="22:47">Deodato – Night Cruiser</a>
+      <li><a href="" data-offset="23:30">Deodato – Love Magic</a>
+      <li><a href="" data-offset="25:18">Michel Colombier – Spring</a>
+      <li><a href="" data-offset="26:55">Mezzaforte – Spring Fever</a>
+    </ol>
+  </div>
+
+  <div class="issue">
+    <h2>03. Елена Букреева</h2>
+    <ol class="playlist" data-clip="GlrRKindB-U">
+      <li><a href="#" data-offset="00:00">Voyage – Follow the Brightest Star</a>
+      <li><a href="#" data-offset="01:50">Classix Nouveaux – The Unloved</a>
+      <li><a href="#" data-offset="03:53">Barrabas – Sex Surprise Big Surprise</a>
+      <li><a href="#" data-offset="05:50">Azoto – San Salvador</a>
+      <li><a href="#" data-offset="07:59">Fantastique – Maria No Mas (Maxi Version)</a>
+      <li><a href="#" data-offset="09:13">Ollie & Jerry – Showdown</a>
+      <li><a href="#" data-offset="11:47">Ollie & Jerry – There's No Stoppin' Us</a>
+      <li><a href="#" data-offset="13:12">Раймонд Паулс – Эй вы там наверху</a>
+      <li><a href="#" data-offset="15:30">Shakatak – Lose Myself</a>
+      <li><a href="#" data-offset="16:41">Bob James – It's only me</a>
+      <li><a href="#" data-offset="17:37">Bob James – It's only me</a>
+      <li><a href="#" data-offset="18:17">Cerrone – Love Is Here</a>
+      <li><a href="#" data-offset="20:32">Santa Esmeralda – Don't Let Me Be Misunderstood</a>
+      <li><a href="#" data-offset="21:09">RG-03-13 = RG-04-03</a>
+      <li><a href="#" data-offset="24:10">Виктор Резников – Кто виноват (инструментал)</a>
+      <li><a href="#" data-offset="25:56">RG-03-15 (relax)</a>
+      <li><a href="#" data-offset="28:02">Johnny Buffalo's Band – Slag Solution</a>
+    </ol>
+  </div>
+
+
+  <div class="issue">
+    <h2>04. Елена Скороходова</h2>
+    <ol class="playlist" data-clip="sOp6bUT-Lfs">
+      <li><a href="" data-offset="00:00">Cerrone – Give Me Love</a></li>
+      <li><a href="" data-offset="02:36">Talko – Psyko Flash</a></li>
+      <li><a href="" data-offset="04:22">RG-04-03 = RG-03-13</a></li>
+      <li><a href="" data-offset="06:57">Herbie Mann – Birdwalk</a></li>
+      <li><a href="" data-offset="09:51">Classix Nouveaux – The Unloved</a></li>
+      <li><a href="" data-offset="11:49">Fantastique – Maria No Mas (Maxi Version)</a></li>
+      <li><a href="" data-offset="13:02">Stars On 45 Theme 12" Mix</a></li>
+      <li><a href="" data-offset="15:23">Pete Tex – This World Today Is a Mess</a></li>
+      <li><a href="" data-offset="17:19">Fausto Papetti – Sunday Party</a></li>
+      <li><a href="" data-offset="19:13">Bobbi Humphrey - Say the Word</a></li>
+      <li><a href="" data-offset="21:05">Ollie &amp; Jerry – Showdown</a></li>
+      <li><a href="" data-offset="23:32">Виктор Резников – Кто виноват (инструментал)</a></li>
+      <li><a href="" data-offset="25:12">Frank Duval – Alaya</a></li>
+      <li><a href="" data-offset="26:56">RG-04-14</a></li> 
+    </ol>
+  </div>
+
+  <div class="issue">
+    <h2>05. Линичук и Бобрин</h2>
+    <ol class="playlist">
+    	<li><a class="audioPlayer" href="https://www.youtube.com/watch?v=xSWb8BjgAQc">Вся музыка – Зигмар Лиепиньш</a>
+    </ol>
+    <p>
+      Замечена композиция с его LP «Музыка и спорт».
+    </p>
+  </div>
+
+  <div class="issue">
+    <h2>06. Елена Букреева</h2>
+    <ol class="playlist">
+    	<li><a class="audioPlayer" href="https://www.youtube.com/watch?v=mcaoqFzst7k">Вся музыка – Крис Кельми</a>
+	</ol>
+    <p>
+      Замечены обработки песен «Замыкая круг», «Дед мороз», «Распахни окно».
+    </p>
+  </div>
+
+
+  <div class="issue">
+    <h2>07. Игорь Бобрин</h2>
+    <p>
+      Вся музыка – Крис Кельми.
+    </p>
+    <p>
+      Замечена обработка песни «Не торопись».
+    </p>
+  </div>
+
+  <div class="issue">
+    <h2>08. Наталья Ефремова</h2>
+    Вся музыка – Ави Недзвецкий.
+    <ol class="playlist" data-clip="PG3oLeB9PiI">
+      <li><a href="" data-offset="00:00">Недзвецкий-01</a></li>
+      <li><a href="" data-offset="00:41">Недзвецкий-02</a></li>
+      <li><a href="">Недзвецкий-03</a></li>
+      <li><a href="">Недзвецкий-04</a></li>
+      <li><a href="">Недзвецкий-05</a></li>
+      <li><a href="">Недзвецкий-06</a></li>
+      <li><a href="">Недзвецкий-07</a></li>
+      <li><a href="">Недзвецкий-08</a></li>
+      <li><a href="">Недзвецкий-09</a></li>
+      <li><a href="">Недзвецкий-10</a></li>
+      <li><a href="">Недзвецкий-11</a></li>
+    </ol>
+  </div>
+
+  <div class="issue">
+    <h2>09. На море (С. Рожнова)</h2>
+    <p>Вся музыка – группа «Дисплей».</p>
+    <ol class="playlist" data-clip="NgNiHp3gF40">
+      <li><a href="" data-offset="00:00">Забег на десять тысяч метров</a></li>
+      <li><a href="" data-offset="00:49">Пластика-гимнастика</a></li>
+      <li><a href="" data-offset="01:02">Старый боцман (инстр.)</a></li>
+      <li><a href="" data-offset="05:06">Радость движения</a></li>
+      <li><a href="" data-offset="06:33">Иностранка</a></li>
+      <li><a href="" data-offset="10:28">Клондайк</a></li>
+      <li><a href="" data-offset="14:34">Радость движения</a></li>
+      <li><a href="" data-offset="17:44">На море</a></li>
+      <li><a href="" data-offset="18:36">Забег на десять тысяч метров</a></li>
+      <li><a href="" data-offset="25:43">Океан (инстр.)</a></li>
+    </ol>
+  </div>
+
+  <div class="issue">
+    <h2>10. Квартира</h2>
+    <ol class="playlist">
+    <li><a href="">Radiorama – Bad Girls</a></li>
+    <li><a href="">Taylor Dayne - Tell It To My Heart (House Of Hearts Mix)</a></li>
+    <li><a href="">Adriano Celentano – Mi Scade</a></li>
+    <li><a href="">Billy Ocean – Get Outta My Dreams, Get Into My Car (12" mix)</a></li>
+    <li><a href="">Billy Ocean – Get Outta My Dreams, Get Into My Car (12" mix)</a></li>
+    <li><a href="">Rick Astley – Together Forever (Lover's Leap Extended Remix) / Kylie Minogue – I Should Be So Lucky (12" mix)</a></li>
+    <li><a href="">Adriano Celentano – Mi Scade</a></li>
+    <li><a href="">Chris Norman – Broken Heroes</a></li>
+    <li><a href="">London Boys – Harlem Desire</a></li>
+    <li><a href="">Fancy – I Can't Live Without You</a></li>
+    <li><a href="">Radiorama – Bye Bye Baby</a></li>
+    <li><a href="">Chris Norman – Broken Heroes</a></li>
+    </ol>
+  </div>
+
+  <div class="issue">
+    <h2>11. Рожнова, Кныш</h2>
+    <ol class="playlist" data-clip="7x0eoni09wI">
+      <li><a href="" data-offset="00:00">Intro (?) / P4F – Mister X</a>
+      <li><a href="" data-offset="02:55">T-Coy – Carino</a>
+      <li><a href="" data-offset="04:55">RG-11-03</a>
+      <li><a href="" data-offset="07:54">Patrick Cowley – Invasion (?)</a>
+      <li><a href="" data-offset="09:26">Patrick Cowley – Mind Warp (?)</a>
+      <li><a href="" data-offset="12:24">Patrick Cowley – Invasion (?)</a>
+      <li><a href="" data-offset="16:54">Droids – The Force</a>
+      <li><a href="" data-offset="20:52">Cyré - Last Chance (Last Dub)</a>
+      <li><a href="" data-offset="24:56">RG-11-09</a>
+      <li><a href="" data-offset="28:47">Madonna – Live To Tell</a>
+    </ol>
+  </div>
+
+  <div class="issue">
+    <h2>12. Инна Игнатова</h2>
+    <p>
+      Вся музыка – Юрий Потеенко.
+    </p>
+  </div>
+
+</div>
+
+<div style="clear:both;"></div>
+
+<div>
+  <h4>Благодарю:</h4>
+  <p>
+    KLEM, Diskotech, Sergey_D, Неизвестный друг, diomen36, farit, johny1964 и др.
+  </p>
+
+  <h4>Ссылки:</h4>
+  РГ на <a href="http://tv-80.ru/muzykalnye/ritmicheskaya-gimnastika/">tv-80.ru</a> +
+  <a href="http://rhytmicaerobic.blogspot.ru/">rhytmicaerobic.blogspot.ru</a>
+
+</div>
+
+<br/>
+<br/>
+
+<div id="disqus_thread"></div>
+
+</div>
+
+<div id="video-player" style="display: none;"></div>
+<div id="player-bar" class="player-bar" style="display: none;"
+     data-button-play="images/play.svg"
+     data-button-pause="images/pause.svg"
+     data-button-loader="images/loader.svg"
+>
+  <div class="player-bar-seek">
+    <div class="player-bar-progress">
+    </div>
+    <div class="player-bar-title" style=""></div>
+  </div>
+  <div class="player-bar-controls">
+    <img src="" class="play-button"><img src="images/close.svg" class="close-button">
+  </div>
+</div>
+
+
+</body>
+
+<script>
+</script>
+
+<script src="main.js"></script>
+<script src="audio-player-core.js"></script>
+<script src="audio-player-ui.js"></script>
+
+<!--
+<script type="text/javascript">
+    var disqus_shortname = 'recognized';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+ -->
+</html>
