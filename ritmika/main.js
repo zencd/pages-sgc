@@ -20,7 +20,10 @@ function hmsToSeconds(str) {
 			$a.setAttribute("href", youtubeLink(clipId, offset));
 			$($a).addClass("audioPlayer");
 			var text = $($a).text();
-			if (text.indexOf("RG") < 0 && text.indexOf("Недзвецкий") < 0 && text.indexOf("(?)") < 0) {
+			var unrec = text.indexOf("RG") >= 0 || text.indexOf("(?)") >= 0;
+			if (unrec) {
+				$($a).addClass("unrecognized");
+			} else {
 				$($a).addClass("recognized");
 			}
 		}

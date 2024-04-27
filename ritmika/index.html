@@ -14,7 +14,7 @@ h1, h2, h3, h4, p, div, li {
 	background: #efe;
 }
 .playlist a {
-	color: orange;
+  color: #E8E6E3;
 	text-decoration: none;
 	border-bottom: 1px dotted gray;
 }
@@ -22,7 +22,7 @@ h1, h2, h3, h4, p, div, li {
 	border-bottom: 1px solid darkgray;
 }
 .playlist a.recognized {
-	color: black;
+	xcolor: black;
 }
 .playlist a.playing {
 	/*color: #f00;*/
@@ -31,7 +31,7 @@ h1, h2, h3, h4, p, div, li {
 .playlist a[href=""] {
 	text-decoration: none;
 	color: gray;
-	font-style: italic;
+	xfont-style: italic;
 	border-bottom: none;
 	cursor: text;
 }
@@ -66,7 +66,7 @@ body {
 .issue li {
 	font-size: 1.4rem;
 }
-body {
+.wrapper {
 	margin: 0rem 1rem;
 }
 
@@ -97,7 +97,7 @@ body {
 		color: #E8E6E3;
 	}
 	a[href=""] {
-		color: #968F82;
+		xcolor: #968F82;
 		xcolor: red;
 	}
 	a {
@@ -107,6 +107,9 @@ body {
 	.playlist a.recognized {
 		color: #E8E6E3;
 	}
+  .playlist a.unrecognized {
+    color: orange;
+  }
 /*}*/
 
 </style>
@@ -115,8 +118,7 @@ body {
 <div class="wrapper">
 
 <h1>
-	<a href="..">SG</a> / Ритмическая гимнастика: треклист
-	<!-- <audio controls="1" id="player" autoplay="1" preload="auto" oncanplaythrough="this.play();" src="" /> -->
+	Ритмическая гимнастика: треклист
 </h1>
 
 <p>
@@ -128,33 +130,32 @@ body {
 
 <div class="issues">
   <div class="issue">
-    <h2>01. Наталья Линичук</h2>
-    <ol class="playlist">
-    <li><a href="">RG-01-01 (intro)</a></li>
-    <li><a href="">RG-01-02</a></li>
-    <li><a href="">Инстр. анс. Йозефа Вобрубы – Ярмарка</a></li>
-    <li><a href="">Fausto Papetti – Souvenirs (Voyage)</a></li>
-    <li><a href="">RG-01-05</a></li>
-    <li><a href="">RG-01-06</a></li>
-    <li><a href="">Fausto Papetti – Sunday Party</a></li>
-    <li><a href="">Fausto Papetti – Sunday Party</a></li>
-    <li><a href="">Cerrone – Give Me Love</a></li>
-    <li><a href="">RG-01-10</a></li>
-    <li><a href="">Gazebo – Love In Your Eyes (instrumental)</a></li>
-    <li><a href="">RG-01-12</a></li>
-    <li><a href="">Оркестр П.Овсянникова – Пожелтевшая фотография</a></li>
-    <li><a href="">RG-01-14</a></li>
-    <li><a href="">Эдуард Артемьев – Родные берега</a></li>
-    <li><a href="">RG-01-16</a></li>
+    <h2>1. Наталья Линичук</h2>
+    <ol class="playlist" data-clip="4iV4nempC_o">
+      <li><a href="#" data-offset="00:00">RG-01-01</a>
+      <li><a href="#" data-offset="00:50">Salsoul Orchestra - Street Sense</a>
+      <li><a href="#" data-offset="02:26">Salsoul Orchestra - Burning Spear</a>
+      <li><a href="#" data-offset="04:03">Orchestr Josef Vobruba — Veletrh</a>
+      <li><a href="#" data-offset="06:09">Fausto Papetti – Souvenirs</a>
+      <li><a href="#" data-offset="09:13">RG-01-05</a>
+      <li><a href="#" data-offset="11:31">RG-01-06</a>
+      <li><a href="#" data-offset="13:06">Fausto Papetti – Sunday Party</a>
+      <li><a href="#" data-offset="15:31">Cerrone – Give Me Love</a>
+      <li><a href="#" data-offset="17:09">RG-01-10</a>
+      <li><a href="#" data-offset="19:10">Gazebo – Love In Your Eyes (instrumental)</a>
+      <li><a href="#" data-offset="21:50">RG-01-12</a>
+      <li><a href="#" data-offset="23:42">Оркестр Овсянникова – Пожелтевшая фотография</a>
+      <li><a href="#" data-offset="25:05">RG-01-14</a>
+      <li><a href="#" data-offset="27:01">Эдуард Артемьев – Родные берега</a>
+      <li><a href="#" data-offset="29:08">RG-01-16</a>
     </ol>
   </div>
 
   <div class="issue">
-    <h2>02. Лилия Сабитова</h2>
+    <h2>2. Лилия Сабитова</h2>
     <ol class="playlist" data-clip="U_SXPbDPMVE">
       <li><a href="" data-offset="00:00">Ring – Savage Lover (instrumental)</a>
       <li><a href="" data-offset="02:02">Michel Colombier – Queen's Road</a>
-      <li><a href="" data-offset="02:10">Michel Colombier – Queen's Road</a>
       <li><a href="" data-offset="04:08">Lime – Don't You Wanna Do It</a>
       <li><a href="" data-offset="05:54">Lime – I Don't Wanna Lose You (Club Mix)</a>
       <li><a href="" data-offset="07:34">Talko – Psyko Flash</a>
@@ -165,7 +166,6 @@ body {
       <li><a href="" data-offset="17:34">Bobbi Humphrey - Say the Word</a>
       <li><a href="" data-offset="20:11">Azul Y Negro – El Hombre Lobo</a>
       <li><a href="" data-offset="21:05">Stars On 45 Theme 12" Mix</a>
-      <li><a href="" data-offset="22:00">Stars On 45 Theme 12" Mix</a>
       <li><a href="" data-offset="22:47">Deodato – Night Cruiser</a>
       <li><a href="" data-offset="23:30">Deodato – Love Magic</a>
       <li><a href="" data-offset="25:18">Michel Colombier – Spring</a>
@@ -174,7 +174,7 @@ body {
   </div>
 
   <div class="issue">
-    <h2>03. Елена Букреева</h2>
+    <h2>3. Елена Букреева</h2>
     <ol class="playlist" data-clip="GlrRKindB-U">
       <li><a href="#" data-offset="00:00">Voyage – Follow the Brightest Star</a>
       <li><a href="#" data-offset="01:50">Classix Nouveaux – The Unloved</a>
@@ -183,22 +183,21 @@ body {
       <li><a href="#" data-offset="07:59">Fantastique – Maria No Mas (Maxi Version)</a>
       <li><a href="#" data-offset="09:13">Ollie & Jerry – Showdown</a>
       <li><a href="#" data-offset="11:47">Ollie & Jerry – There's No Stoppin' Us</a>
-      <li><a href="#" data-offset="13:12">Раймонд Паулс – Эй вы там наверху</a>
+      <li><a href="#" data-offset="13:12">Раймонд Паулс – Делу время</a>
       <li><a href="#" data-offset="15:30">Shakatak – Lose Myself</a>
       <li><a href="#" data-offset="16:41">Bob James – It's only me</a>
-      <li><a href="#" data-offset="17:37">Bob James – It's only me</a>
       <li><a href="#" data-offset="18:17">Cerrone – Love Is Here</a>
       <li><a href="#" data-offset="20:32">Santa Esmeralda – Don't Let Me Be Misunderstood</a>
       <li><a href="#" data-offset="21:09">RG-03-13 = RG-04-03</a>
       <li><a href="#" data-offset="24:10">Виктор Резников – Кто виноват (инструментал)</a>
-      <li><a href="#" data-offset="25:56">RG-03-15 (relax)</a>
+      <li><a href="#" data-offset="25:56">RG-03-15</a>
       <li><a href="#" data-offset="28:02">Johnny Buffalo's Band – Slag Solution</a>
     </ol>
   </div>
 
 
   <div class="issue">
-    <h2>04. Елена Скороходова</h2>
+    <h2>4. Елена Скороходова</h2>
     <ol class="playlist" data-clip="sOp6bUT-Lfs">
       <li><a href="" data-offset="00:00">Cerrone – Give Me Love</a></li>
       <li><a href="" data-offset="02:36">Talko – Psyko Flash</a></li>
@@ -218,9 +217,9 @@ body {
   </div>
 
   <div class="issue">
-    <h2>05. Линичук и Бобрин</h2>
+    <h2>5. Линичук и Бобрин</h2>
     <ol class="playlist">
-    	<li><a class="audioPlayer" href="https://www.youtube.com/watch?v=xSWb8BjgAQc">Вся музыка – Зигмар Лиепиньш</a>
+    	<li><a class="audioPlayer" href="https://www.youtube.com/watch?v=xSWb8BjgAQc">Композитор: Зигмар Лиепиньш (5)</a>
     </ol>
     <p>
       Замечена композиция с его LP «Музыка и спорт».
@@ -228,10 +227,10 @@ body {
   </div>
 
   <div class="issue">
-    <h2>06. Елена Букреева</h2>
+    <h2>6. Елена Букреева</h2>
     <ol class="playlist">
-    	<li><a class="audioPlayer" href="https://www.youtube.com/watch?v=mcaoqFzst7k">Вся музыка – Крис Кельми</a>
-	</ol>
+    	<li><a class="audioPlayer" href="https://www.youtube.com/watch?v=mcaoqFzst7k">Композитор: Крис Кельми (6)</a>
+	  </ol>
     <p>
       Замечены обработки песен «Замыкая круг», «Дед мороз», «Распахни окно».
     </p>
@@ -239,35 +238,35 @@ body {
 
 
   <div class="issue">
-    <h2>07. Игорь Бобрин</h2>
-    <p>
-      Вся музыка – Крис Кельми.
-    </p>
+    <h2>7. Игорь Бобрин</h2>
+    <ol class="playlist">
+      <li><a class="audioPlayer" href="https://www.youtube.com/watch?v=j1EyrtAHIQs">Композитор: Крис Кельми (7)</a>
+    </ol>
     <p>
       Замечена обработка песни «Не торопись».
     </p>
   </div>
 
   <div class="issue">
-    <h2>08. Наталья Ефремова</h2>
-    Вся музыка – Ави Недзвецкий.
+    <h2>8. Наталья Ефремова</h2>
+    Композитор: Ави Недзвецкий.
     <ol class="playlist" data-clip="PG3oLeB9PiI">
-      <li><a href="" data-offset="00:00">Недзвецкий-01</a></li>
-      <li><a href="" data-offset="00:41">Недзвецкий-02</a></li>
-      <li><a href="">Недзвецкий-03</a></li>
-      <li><a href="">Недзвецкий-04</a></li>
-      <li><a href="">Недзвецкий-05</a></li>
-      <li><a href="">Недзвецкий-06</a></li>
-      <li><a href="">Недзвецкий-07</a></li>
-      <li><a href="">Недзвецкий-08</a></li>
-      <li><a href="">Недзвецкий-09</a></li>
-      <li><a href="">Недзвецкий-10</a></li>
-      <li><a href="">Недзвецкий-11</a></li>
+      <li><a href="" data-offset="00:00">RG-08-01</a></li>
+      <li><a href="" data-offset="00:41">RG-08-02</a></li>
+      <li><a href="">RG-08-03</a></li>
+      <li><a href="">RG-08-04</a></li>
+      <li><a href="">RG-08-05</a></li>
+      <li><a href="">RG-08-06</a></li>
+      <li><a href="">RG-08-07</a></li>
+      <li><a href="">RG-08-08</a></li>
+      <li><a href="">RG-08-09</a></li>
+      <li><a href="">RG-08-10</a></li>
+      <li><a href="">RG-08-11</a></li>
     </ol>
   </div>
 
   <div class="issue">
-    <h2>09. На море (С. Рожнова)</h2>
+    <h2>9. На море (Рожнова)</h2>
     <p>Вся музыка – группа «Дисплей».</p>
     <ol class="playlist" data-clip="NgNiHp3gF40">
       <li><a href="" data-offset="00:00">Забег на десять тысяч метров</a></li>
@@ -290,8 +289,8 @@ body {
     <li><a href="">Taylor Dayne - Tell It To My Heart (House Of Hearts Mix)</a></li>
     <li><a href="">Adriano Celentano – Mi Scade</a></li>
     <li><a href="">Billy Ocean – Get Outta My Dreams, Get Into My Car (12" mix)</a></li>
-    <li><a href="">Billy Ocean – Get Outta My Dreams, Get Into My Car (12" mix)</a></li>
-    <li><a href="">Rick Astley – Together Forever (Lover's Leap Extended Remix) / Kylie Minogue – I Should Be So Lucky (12" mix)</a></li>
+    <li><a href="">Rick Astley – Together Forever (Lover's Leap Extended Remix)</a></li>
+    <li><a href="">Kylie Minogue – I Should Be So Lucky (12" mix)</a></li>
     <li><a href="">Adriano Celentano – Mi Scade</a></li>
     <li><a href="">Chris Norman – Broken Heroes</a></li>
     <li><a href="">London Boys – Harlem Desire</a></li>
@@ -304,7 +303,8 @@ body {
   <div class="issue">
     <h2>11. Рожнова, Кныш</h2>
     <ol class="playlist" data-clip="7x0eoni09wI">
-      <li><a href="" data-offset="00:00">Intro (?) / P4F – Mister X</a>
+      <li><a href="" data-offset="00:00">RG-11-00</a>
+      <li><a href="" data-offset="00:24">P4F – Mister X</a>
       <li><a href="" data-offset="02:55">T-Coy – Carino</a>
       <li><a href="" data-offset="04:55">RG-11-03</a>
       <li><a href="" data-offset="07:54">Patrick Cowley – Invasion (?)</a>
@@ -312,16 +312,17 @@ body {
       <li><a href="" data-offset="12:24">Patrick Cowley – Invasion (?)</a>
       <li><a href="" data-offset="16:54">Droids – The Force</a>
       <li><a href="" data-offset="20:52">Cyré - Last Chance (Last Dub)</a>
-      <li><a href="" data-offset="24:56">RG-11-09</a>
+      <li><a href="" data-offset="24:56">Madonna – Live To Tell</a>
+      <li><a href="" data-offset="25:04">RG-11-09</a>
       <li><a href="" data-offset="28:47">Madonna – Live To Tell</a>
     </ol>
   </div>
 
   <div class="issue">
     <h2>12. Инна Игнатова</h2>
-    <p>
-      Вся музыка – Юрий Потеенко.
-    </p>
+    <ol class="playlist">
+      <li><a class="audioPlayer" href="https://www.youtube.com/watch?v=UE1dGGDlCpQ">Композитор: Юрий Потеенко (12)</a>
+    </ol>
   </div>
 
 </div>
@@ -329,12 +330,13 @@ body {
 <div style="clear:both;"></div>
 
 <div>
-  <h4>Благодарю:</h4>
+  <h4>Приняли участие:</h4>
   <p>
-    KLEM, Diskotech, Sergey_D, Неизвестный друг, diomen36, farit, johny1964 и др.
+    KLEM, Diskotech, Sergey_D, Неизвестный друг, diomen36, farit, johny1964 и другие.
   </p>
 
   <h4>Ссылки:</h4>
+  <a href="https://klem.ru/forum/showthread.php?p=244072">Форум KLEM</a> +
   РГ на <a href="http://tv-80.ru/muzykalnye/ritmicheskaya-gimnastika/">tv-80.ru</a> +
   <a href="http://rhytmicaerobic.blogspot.ru/">rhytmicaerobic.blogspot.ru</a>
 
@@ -373,7 +375,6 @@ body {
 <script src="audio-player-core.js"></script>
 <script src="audio-player-ui.js"></script>
 
-<!--
 <script type="text/javascript">
     var disqus_shortname = 'recognized';
     (function() {
@@ -382,5 +383,4 @@ body {
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
- -->
 </html>
