@@ -83,7 +83,7 @@ box-sizing: border-box; min-height: 100vh; /*100% height*/
 
 .wrap2 {
   background: #222;
-  background-image: url(bg222-noise.png);
+  background-image: url(/static/images/bg222-noise.png);
   padding: 5px;
 }
 
