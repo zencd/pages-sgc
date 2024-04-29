@@ -148,6 +148,9 @@ function setupYoutubeAudioPlayerLinks(root, uiPlayer) {
     //console.log('aa', aa);
     [].forEach.call(aa, function (a) {
         a.addEventListener('click', function (e) {
+            if (anyKeyMod(e)) {
+                return;
+            }
             e.preventDefault();
             const href = a.getAttribute('href');
             const offset = parseInt(a.getAttribute('data-offset'));
@@ -156,7 +159,22 @@ function setupYoutubeAudioPlayerLinks(root, uiPlayer) {
             const params = new URLSearchParams(urlObj.search);
             const params2 = Object.fromEntries(params.entries());
             const uid = params.get('v');
-            const t = params.get('t') || 0;
+            var t = params.get('t') || '0';
+            var m = null
+            if (!m) {
+                // like 't=125s'
+                var m = t.match(/^([0-9]+)s$/);
+                if (m) {
+                    t = m[1];
+                }
+            }
+            if (!m) {
+                // like 't=2m50s'
+                m = t.match(/^([0-9]+)m([0-9]+)s$/);
+                if (m) {
+                    t = '' + (parseInt(m[1]) * 60 + parseInt(m[2]))
+                }
+            }
             if (pos >= 0) {
                 uiPlayer.loadClip(uid, t);
                 let title = a.getAttribute('title');
@@ -165,6 +183,10 @@ function setupYoutubeAudioPlayerLinks(root, uiPlayer) {
             }
         }, false);
     });
+}
+
+function anyKeyMod(e) {
+    return e.metaKey || e.shiftKey || e.ctrlKey || e.altKey;
 }
 
 (function () {
@@ -176,7 +198,9 @@ function setupYoutubeAudioPlayerLinks(root, uiPlayer) {
     setupYoutubeAudioPlayerLinks(document, uiPlayer)
 
     document.body.addEventListener('keydown', function(e) {
-        const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey
+        const anyMod = anyKeyMod(e);
+        // ArrowLeft
+        // ArrowRight
         if (e.code == 'KeyP' && !anyMod) {
             if (uiPlayer.ysp.player) {
                 e.preventDefault()
