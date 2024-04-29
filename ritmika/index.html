@@ -11,8 +11,24 @@
 h1, h2, h3, h4, p, div, li {
 	font-family: School, "PT Serif", serif;
 }
-.new h2 {
-	background: #efe;
+ol {
+  margin-left: 0;
+  padding-left: 0;
+  list-style-position: inside;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: inside;
+  list-style: none;
+}
+ul a {
+  color: #E8E6E3;
+  text-decoration: none;
+  border-bottom: 1px dotted gray;  
+}
+ul a:hover {
+  border-bottom: 1px solid darkgray;
 }
 .playlist a {
   color: #E8E6E3;
@@ -103,8 +119,13 @@ body {
 	}
 	a {
 		color: #4F8FF7;
+    xtext-decoration: none;
+    xcolor: lightblue;
 		xcolor: red;
 	}
+  a:hover {
+    xtext-decoration: underline;
+  }
 	.playlist a.recognized {
 		color: #E8E6E3;
 	}
@@ -133,7 +154,7 @@ body {
     <h2>1. Наталья Линичук</h2>
     <ol class="playlist" data-clip="4iV4nempC_o">
       <li><a href="#" data-offset="00:00">RG-01-01 Комп. А. Кирияк (?)</a>
-      <li><a href="#" data-offset="00:50">Salsoul Orchestra – Street Sense</a>
+      <li><a href="#" data-offset="00:50">Salsoul Orchestra – Somebody To Love</a>
       <li><a href="#" data-offset="02:26">Salsoul Orchestra – Burning Spear</a>
       <li><a href="#" data-offset="04:03">Orchestr Josef Vobruba — Veletrh (Ярмарка)</a>
       <li><a href="#" data-offset="06:09">Fausto Papetti – Souvenirs</a>
@@ -257,12 +278,22 @@ body {
 
   <div class="issue">
     <h2>7. Игорь Бобрин</h2>
-    <ol class="playlist">
-      <li><a class="audioPlayer" href="https://www.youtube.com/watch?v=j1EyrtAHIQs">Композитор: Крис Кельми (7)</a>
+    <p>Композитор: Крис Кельми</p>
+    <ol class="playlist" data-clip="j1EyrtAHIQs">
+      <li><a href="#" data-offset="00:27">RG-07-01</a>
+      <li><a href="#" data-offset="05:25">RG-07-02</a>
+      <li><a href="#" data-offset="06:33">RG-07-03 Взлёт(?)</a>
+      <li><a href="#" data-offset="11:34">Распахни окно</a>
+      <li><a href="#" data-offset="13:34">RG-07-05 Не торопись (?)</a>
+      <li><a href="#" data-offset="15:45">RG-07-06 = RG-07-02</a>
+      <li><a href="#" data-offset="17:47">RG-07-07 Чтобы встретить тебя (?)</a>
+      <li><a href="#" data-offset="18:46">RG-07-08</a>
+      <li><a href="#" data-offset="20:11">RG-07-09</a>
+      <li><a href="#" data-offset="22:39">RG-07-10</a>
+      <li><a href="#" data-offset="24:49">RG-07-11</a>
+      <li><a href="#" data-offset="27:06">RG-07-12</a>
+      <li><a href="#" data-offset="28:05">Спор</a>
     </ol>
-    <p>
-      Замечена обработка песни «Не торопись».
-    </p>
   </div>
 
   <div class="issue">
