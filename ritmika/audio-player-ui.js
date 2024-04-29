@@ -143,7 +143,8 @@ function UiPlayer(playerElem, videoElem) {
 
 function setupYoutubeAudioPlayerLinks(root, uiPlayer) {
     // console.log('setupYoutubeAudioPlayerLinks...')
-    const aa = root.querySelectorAll('a.audioPlayer[href*="youtube.com"]');
+    // const aa = root.querySelectorAll('a.audioPlayer[href*="youtube.com"]');
+    const aa = root.querySelectorAll('a[href*="youtube.com"]');
     //console.log('aa', aa);
     [].forEach.call(aa, function (a) {
         a.addEventListener('click', function (e) {
