@@ -12,7 +12,7 @@ function hmsToSeconds(str) {
 }
 
 (function () {
-	// console.log('ritmika.html js started')
+	const MAX_UPDATE_ITEMS = 3;
 	$('a[data-offset]').each(function(i, $a) {
 		const clipId = $a.parentNode.parentNode.getAttribute('data-clip');
 		const offset = $a.getAttribute('data-offset');
@@ -33,5 +33,27 @@ function hmsToSeconds(str) {
 		$a.addEventListener('click', function(e) {
 			e.preventDefault();
 		});
+	});
+	var $updateList = document.querySelector('#updateList');
+	var $shower = document.querySelector('#updateShower');
+	var $hidden = document.querySelector('#updateHiddenArea');
+	var $updateListAllChildren = $updateList.children;
+	var i = 0;
+	for (; i < $updateListAllChildren.length; i++) {
+		var $child = $updateListAllChildren[i];
+		if (i >= MAX_UPDATE_ITEMS && $child.getAttribute('id') !== 'updateShower') {
+			$child.style.display = 'none'
+		}
+	}
+	if (i >= MAX_UPDATE_ITEMS) {
+		$shower.style.display = 'list-item'
+	}
+	$shower.addEventListener('click', function(e) {
+		e.preventDefault();
+		for (var i = 0; i < $updateListAllChildren.length; i++) {
+			var $child = $updateListAllChildren[i];
+			$child.style.display = 'block'
+		}
+		$shower.style.display = 'none'
 	});
 })();

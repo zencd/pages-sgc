@@ -30,6 +30,10 @@ ul a {
 ul a:hover {
   border-bottom: 1px solid darkgray;
 }
+#updateList a {
+  color: #E8E6E3;
+  text-decoration: none;
+}
 .playlist a {
   color: #E8E6E3;
 	text-decoration: none;
@@ -73,7 +77,6 @@ p {
 }
 body {
 	xbackground: url('ritmika.png') no-repeat right bottom;
-  
 }
 
 /* mobile first */
@@ -109,11 +112,11 @@ body {
 /* dark theme */
 /*@media (prefers-color-scheme: dark) {*/
 	body {
-		background: #181A1B;
+		background: #252525;
     background-image: linear-gradient(to bottom, rgba(0, 40, 0, 0.5), rgba(0, 0, 0, 0.2)), linear-gradient(to bottom right, #121C84, #84121C);
     xbackground-image: linear-gradient(to bottom right, #0C1257, #570C12);
     xbackground-image: linear-gradient(to bottom right, #090E41, #41090E);
-    xbackground-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.0)), url(../static/images/bg222-noise.png);
+    xbackground-image: linear-gradient(to bottom right, rgba(0, 10, 50, 0.5), rgba(20, 20, 0, 0.0)), url(../static/images/bg222-noise.png);
 
     /*background-image:
     linear-gradient(to bottom left, rgba(255,0,0,0.5), rgba(0,255,255,0.5)),
@@ -390,8 +393,9 @@ body {
   <a href="http://rhytmicaerobic.blogspot.ru/">rhytmicaerobic.blogspot.ru</a>
 
   <h2>Обновления:</h2>
-  <ul>
-    <li>RG-05 Зигмар Лиепиньш – Снова звёзды
+
+  <ul id="updateList">
+    <li>RG-05 Зигмар Лиепиньш – Снова звёзды</li>
     <li><a href="https://www.youtube.com/watch?v=gXBuEcue9tE">RG-11 Jean-Michel Jarre – Équinoxe pt. 5</a>
     <li><a href="https://www.youtube.com/watch?v=ZfRkOMMj1HA">RG-05 Зигмар Лиепиньш - Твёрдый орешек</a>
     <li><a href="https://www.youtube.com/watch?v=CNz0OKu7hOQ">RG-05 Зигмар Лиепиньш - Челнок</a>
@@ -399,10 +403,10 @@ body {
     <li><a href="https://www.youtube.com/watch?v=T1cfj2bg9GQ">RG-11 Anders Baldwin, Brady Hoffman, Alice Shelton, Luke Barker, Ruby Terry – Interactive</a>
     <li><a href="https://www.youtube.com/watch?v=DFsCqi1SBTA&t=1m45s">Stars On 45 (уточнена версия)</a>
     <li><a href="https://www.youtube.com/watch?v=oAHJWXMCQK8">RG 01-05 The Magic Disco Machine – Window Shopping</a>
-    <li>RG-04-14 Orkiestra Pod Dyr. Adama Skorupki – Hałaśliwa Kaskada (LP W Rytmie Samby 1978)
-    <li>RG-01-16 Orkiestra Pod Dyr. Adama Skorupki – Złoty Kask (LP W Rytmie Samby 1978)
-    <li><a href="https://www.youtube.com/watch?v=uCgVoCaX5uI">RG-01-14 Али Брезовски – Успешный день</a> (Танцевального оркестра Братиславского радио в сопровождении вок. группы "Диоп трио")
-    <li>RG-03-15 музыка, аранжировка и исполнение, Андрей Родионов – «Ничего Более...» (1982)
+    <li>RG-04-14 Orkiestra Pod Dyr. Adama Skorupki – Hałaśliwa Kaskada (LP W Rytmie Samby 1978)</li>
+    <li>RG-01-16 Orkiestra Pod Dyr. Adama Skorupki – Złoty Kask (LP W Rytmie Samby 1978)</li>
+    <li><a href="https://www.youtube.com/watch?v=uCgVoCaX5uI">RG-01-14 Али Брезовски – Успешный день</a>
+    <li>RG-03-15 музыка, аранжировка и исполнение, Андрей Родионов – «Ничего Более...» (1982)</li>
     <li><a class="audioPlayer" href="https://www.youtube.com/watch?v=y-t-SB0624s&t=152s">RG-01 Salsoul Orchestra – Somebody to Love</a>
     <li><a class="audioPlayer" href="https://www.youtube.com/watch?v=8QeJoXJP2Mk">RG-01 Salsoul Orchestra – Burning Spear</a>
     <li><a class="audioPlayer" href="https://www.youtube.com/watch?v=K-SJ1BASW7U">RG-11 Cyré – Last Chance (Last Dub)</a>
@@ -411,7 +415,7 @@ body {
     <li><a class="audioPlayer" href="https://www.youtube.com/watch?v=uQv1ooAL__E&t=19m18s">RG-01-10 VC-People – Bird Catcher</a>
     <li><a href="https://www.youtube.com/watch?v=TvSyE8WBUEY">RG-01-04 Orchestr Josef Vobruba — Veletrh (Ярмарка)</a>
     <li><a href="https://www.youtube.com/watch?v=IzAO9A9GjgI">RG-11 Madonna – Live To Tell</a>
-    <li>...
+    <li id="updateShower" style="display: none;"><a href="#">ещё...</a>
   </ul>
 
 </div>
