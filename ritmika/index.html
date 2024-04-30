@@ -4,12 +4,11 @@
 <meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 <link rel="shortcut icon" type="image/png" href="../static/favicon.png"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'/>
 <link rel="stylesheet" type="text/css" href="player-bar.css" />
 <style type="text/css">
 h1, h2, h3, h4, p, div, li {
-	font-family: School, "PT Serif", serif;
+	font-family: "PT Serif", serif;
 }
 ol {
   margin-left: 0;
@@ -42,9 +41,6 @@ ul a:hover {
 .playlist a:hover {
 	border-bottom: 1px solid darkgray;
 }
-.playlist a.recognized {
-	xcolor: black;
-}
 .playlist a.playing {
 	/*color: #f00;*/
 	font-weight: bold;
@@ -52,7 +48,6 @@ ul a:hover {
 .playlist a[href=""] {
 	text-decoration: none;
 	color: gray;
-	xfont-style: italic;
 	border-bottom: none;
 	cursor: text;
 }
@@ -72,12 +67,6 @@ ul a:hover {
 #disqus_thread {
 	max-width: 50em;
 }
-p {
-	xfont-size: 1rem;
-}
-body {
-	xbackground: url('ritmika.png') no-repeat right bottom;
-}
 
 /* mobile first */
 
@@ -87,8 +76,12 @@ body {
 .issue li {
 	font-size: 1.4rem;
 }
+body {
+  margin: 0;
+  padding: 0;
+}
 .wrapper {
-	margin: 0rem 1rem;
+	margin: 0px 20px;
 }
 
 /* desktop */
@@ -352,7 +345,7 @@ body {
   <div class="issue">
     <h2>11. Рожнова, Кныш</h2>
     <ol class="playlist" data-clip="7x0eoni09wI">
-      <li><a href="" data-offset="00:00">Jean-Michel Jarre – Équinoxe pt. 5</a>
+      <li><a href="" data-offset="00:00">JM Jarre – Équinoxe pt. 5</a>
       <li><a href="" data-offset="00:24">P4F – Mister X</a>
       <li><a href="" data-offset="02:55">T-Coy – Carino</a>
       <li><a href="" data-offset="04:55">RG-11-03</a>
@@ -388,7 +381,7 @@ body {
   </p>
 
   <h2>Ссылки:</h2>
-  <a href="https://klem.ru/forum/showthread.php?p=244072">Форум KLEM</a> /
+  <a href="https://klem.ru/forum/showthread.php?p=328764&goto=newpost">Форум KLEM</a> /
   <a href="http://tv-80.ru/muzykalnye/ritmicheskaya-gimnastika/">tv-80.ru</a> /
   <a href="http://rhytmicaerobic.blogspot.ru/">rhytmicaerobic.blogspot.ru</a>
 
@@ -427,12 +420,12 @@ body {
 
 </div>
 
+<!-- audio player -->
 <div id="video-player" style="display: none;"></div>
 <div id="player-bar" class="player-bar" style="display: none;"
      data-button-play="images/play.svg"
      data-button-pause="images/pause.svg"
-     data-button-loader="images/loader.svg"
->
+     data-button-loader="images/loader.svg">
   <div class="player-bar-seek">
     <div class="player-bar-progress">
     </div>

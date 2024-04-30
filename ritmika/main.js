@@ -1,5 +1,5 @@
-function youtubeLink(clipId, offset) {
-	return "https://www.youtube.com/watch?v=" + clipId + '&t=' + hmsToSeconds(offset);
+function youtubeLink(clipId, hms) {
+	return "https://www.youtube.com/watch?v=" + clipId + '&t=' + hmsToSeconds(hms) + 's';
 }
 
 function hmsToSeconds(str) {
@@ -11,35 +11,31 @@ function hmsToSeconds(str) {
     return s;
 }
 
-(function () {
-	const MAX_UPDATE_ITEMS = 3;
-	$('a[data-offset]').each(function(i, $a) {
+function prepareAudioLinks() {
+	document.querySelectorAll('a[data-offset]').forEach(function($a) {
 		const clipId = $a.parentNode.parentNode.getAttribute('data-clip');
-		const offset = $a.getAttribute('data-offset');
-		if (offset) {
-			$a.setAttribute("href", youtubeLink(clipId, offset));
-			$($a).addClass("audioPlayer");
-			var text = $($a).text();
+		const hms = $a.getAttribute('data-offset');
+		if (hms) {
+			$a.setAttribute("href", youtubeLink(clipId, hms));
+			$a.classList.add("audioPlayer");
+			var text = $a.innerText;
 			var unrec = text.indexOf("RG") >= 0 || text.indexOf("(?)") >= 0;
 			if (unrec) {
-				$($a).addClass("unrecognized");
+				$a.classList.add("unrecognized");
 			} else {
-				$($a).addClass("recognized");
+				$a.classList.add("recognized");
 			}
 		}
 	});
-	$('a[href=""]').each(function(i, $a) {
-		// prevent click on the anchors with missing audio
-		$a.addEventListener('click', function(e) {
-			e.preventDefault();
-		});
-	});
+}
+
+function actualizeListOfUpdates() {
+	const MAX_UPDATE_ITEMS = 3;
 	var $updateList = document.querySelector('#updateList');
 	var $shower = document.querySelector('#updateShower');
-	var $hidden = document.querySelector('#updateHiddenArea');
 	var $updateListAllChildren = $updateList.children;
 	var i = 0;
-	for (; i < $updateListAllChildren.length; i++) {
+	for ( ; i < $updateListAllChildren.length; i++) {
 		var $child = $updateListAllChildren[i];
 		if (i >= MAX_UPDATE_ITEMS && $child.getAttribute('id') !== 'updateShower') {
 			$child.style.display = 'none'
@@ -56,4 +52,9 @@ function hmsToSeconds(str) {
 		}
 		$shower.style.display = 'none'
 	});
+}
+
+(function () {
+	prepareAudioLinks();
+	actualizeListOfUpdates();
 })();

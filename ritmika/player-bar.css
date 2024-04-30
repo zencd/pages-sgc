@@ -2,7 +2,6 @@
   /* a div, then an iframe with video player */
   display: none;
 }
-
 .player-bar {
   height: 50px;
   width: 100%;
@@ -13,7 +12,6 @@
 }
 .player-bar-seek {
   flex:1;
-  /*background: #ddd;*/
 }
 .player-bar-seek:hover {
   background: #aaa;
@@ -26,7 +24,6 @@
 }
 .player-bar-controls {
   width: 100px;
-  /*background: #bbb;*/
   line-height: 50px;
 }
 .player-bar-controls img {
@@ -38,7 +35,7 @@
   background: #aaa;
 }
 .player-bar-title {
-  font-family: JournalSans, sans-serif;
+  font-family: "PT Serif", sans-serif;
   text-align: center;
   font-size: 24px;
   color: #222;
@@ -47,6 +44,4 @@
   line-height: 50px;
   padding-left: 20px;
   cursor: default;
-  /*width: 400px;*/
-  /*outline: 1px dotted red;*/
 }
