@@ -55,15 +55,14 @@ function actualizeListOfUpdates() {
 }
 
 (function () {
-	try {
+	// try {
 	prepareAudioLinks();
 	actualizeListOfUpdates();
-	} catch (e) {
-		console.log('' + e)
-		for (var prop in e)  {  
-			console.log("property: "+ prop+ "\n    value: ["+ e[prop]+ "]\n");
-		}
-		alert('' + e.stack)
-		// alert('' + e)
-	}
+	// } catch (e) {
+	// 	console.log('' + e)
+	// 	for (var prop in e)  {  
+	// 		console.log("property: "+ prop+ "\n    value: ["+ e[prop]+ "]\n");
+	// 	}
+	// 	alert('' + e.stack)
+	// }
 })();
