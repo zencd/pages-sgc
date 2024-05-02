@@ -18,8 +18,10 @@ function prepareAudioLinks() {
 		if (hms) {
 			$a.setAttribute("href", youtubeLink(clipId, hms));
 			$a.classList.add("audioPlayer");
-			var text = $a.innerText;
-			var unrec = text.indexOf("RG") >= 0 || text.indexOf("(?)") >= 0;
+			const text = $a.innerText;
+			const unrec1 = $a.getAttribute('data-unrecognized') !== null;
+			const unrec2 = text.indexOf("RG") >= 0 || text.indexOf("(?)") >= 0 || text.indexOf('⁇') >= 0;
+			const unrec = unrec1 || unrec2;
 			if (unrec) {
 				$a.classList.add("unrecognized");
 				var lowInterest = $a.getAttribute('data-low')
