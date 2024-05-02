@@ -123,6 +123,10 @@ body {
   .playlist a.unrecognized {
     color: orange;
   }
+  .playlist a.lowInterest {
+    xcolor: #EBD7B9;
+    color: #EDC88F;
+  }
 /*}*/
 
 </style>
@@ -144,7 +148,7 @@ body {
   <div class="issue">
     <h2>1. Наталья Линичук</h2>
     <ol class="playlist" data-clip="4iV4nempC_o">
-      <li><a href="#" data-offset="00:00">RG-01-01 Комп. А. Кирияк (?)</a>
+      <li><a href="#" data-offset="00:00" data-low>RG-01-01 Комп. А. Кирияк (?)</a>
       <li><a href="#" data-offset="00:50">Salsoul Orchestra – Somebody To Love</a>
       <li><a href="#" data-offset="02:26">Salsoul Orchestra – Burning Spear</a>
       <li><a href="#" data-offset="04:03">Orchestr Josef Vobruba — Veletrh (Ярмарка)</a>
@@ -251,17 +255,17 @@ body {
         <li><a href="" data-offset="00:14">RG-06-02</a>
         <li><a href="" data-offset="02:09">RG-06-03</a>
         <li><a href="" data-offset="03:18">RG-06-04</a>
-        <li><a href="" data-offset="05:25">RG-06-05 = RG-06-10</a>
-        <li><a href="" data-offset="06:31">Пепсикольный лев</a>
-        <li><a href="" data-offset="09:47">Кубик Рубика (?)</a>
-        <li><a href="" data-offset="11:31">RG-06-08</a>
-        <li><a href="" data-offset="13:33">Дед Мороз</a>
-        <li><a href="" data-offset="15:40">RG-06-10 = RG-06-05</a>
-        <li><a href="" data-offset="18:03">RG-06-11</a>
-        <li><a href="" data-offset="19:08">Свежий ветер</a>
-        <li><a href="" data-offset="23:17">Из м/ф Парадоксы в стиле рок (?)</a>
-        <li><a href="" data-offset="25:17">RG-06-14</a>
-        <li><a href="" data-offset="28:04">Замыкая круг</a>
+        <li><a href="" data-offset="05:25" data-low>RG-06-05</a>
+        <li><a href="" data-offset="06:31" data-low>Пепсикольный лев</a>
+        <li><a href="" data-offset="09:47" data-low>Кубик Рубика (?)</a>
+        <li><a href="" data-offset="11:31" data-low>RG-06-08</a>
+        <li><a href="" data-offset="13:33" data-low>Дед Мороз</a>
+        <li><a href="" data-offset="15:40" data-low>RG-06-10 = 05</a>
+        <li><a href="" data-offset="18:03" data-low>RG-06-11</a>
+        <li><a href="" data-offset="19:08" data-low>Свежий ветер</a>
+        <li><a href="" data-offset="23:17" data-low>Из м/ф Парадоксы в стиле рок (?)</a>
+        <li><a href="" data-offset="25:17" data-low>RG-06-14</a>
+        <li><a href="" data-offset="28:04" data-low>Замыкая круг</a>
       <p>Композитор: Крис Кельми.</p>
     </ol>
   </div>
@@ -272,16 +276,16 @@ body {
     <ol class="playlist" data-clip="j1EyrtAHIQs">
       <li><a href="#" data-offset="00:27">RG-07-01</a>
       <li><a href="#" data-offset="05:25">RG-07-02</a>
-      <li><a href="#" data-offset="06:33">RG-07-03 Взлёт(?)</a>
+      <li><a href="#" data-offset="06:33" data-low>RG-07-03 Взлёт(?)</a>
       <li><a href="#" data-offset="11:34">Распахни окно</a>
-      <li><a href="#" data-offset="13:34">RG-07-05 Не торопись (?)</a>
-      <li><a href="#" data-offset="15:45">RG-07-06 = RG-07-02</a>
-      <li><a href="#" data-offset="17:47">RG-07-07 Чтобы встретить тебя (?)</a>
-      <li><a href="#" data-offset="18:46">RG-07-08</a>
-      <li><a href="#" data-offset="22:39">RG-07-09</a>
-      <li><a href="#" data-offset="24:49">RG-07-10</a>
-      <li><a href="#" data-offset="27:06">RG-07-11</a>
-      <li><a href="#" data-offset="28:05">Спор</a>
+      <li><a href="#" data-offset="13:34" data-low>RG-07-05 Не торопись (?)</a>
+      <li><a href="#" data-offset="15:45" data-low>RG-07-06 = 02</a>
+      <li><a href="#" data-offset="17:47" data-low>RG-07-07 Чтобы встретить тебя (?)</a>
+      <li><a href="#" data-offset="18:46" data-low>RG-07-08</a>
+      <li><a href="#" data-offset="22:39" data-low>RG-07-09</a>
+      <li><a href="#" data-offset="24:49" data-low>RG-07-10</a>
+      <li><a href="#" data-offset="27:06" data-low>RG-07-11</a>
+      <li><a href="#" data-offset="28:05" data-low>Спор</a>
     </ol>
     <p>Композитор: Крис Кельми</p>
   </div>
@@ -289,17 +293,24 @@ body {
   <div class="issue">
     <h2>8. Наталья Ефремова</h2>
     <ol class="playlist" data-clip="PG3oLeB9PiI">
-      <li><a href="" data-offset="00:00">RG-08-01</a></li>
-      <li><a href="" data-offset="00:41">RG-08-02</a></li>
-      <li><a href="">RG-08-03</a></li>
-      <li><a href="">RG-08-04</a></li>
-      <li><a href="">RG-08-05</a></li>
-      <li><a href="">RG-08-06</a></li>
-      <li><a href="">RG-08-07</a></li>
-      <li><a href="">RG-08-08</a></li>
-      <li><a href="">RG-08-09</a></li>
-      <li><a href="">RG-08-10</a></li>
-      <li><a href="">RG-08-11</a></li>
+      <li><a href="" data-offset="00:00" data-low>RG-08-01</a>
+      + <a href="" data-offset="00:42" data-low>RG-08-02</a>
+      <li><a href="" data-offset="04:34" data-low>RG-08-03</a> +
+      <a href="" data-offset="05:08" data-low>RG-08-04</a>
+      <li><a href="" data-offset="06:03" data-low>RG-08-05 = 01</a>
+      <li><a href="" data-offset="07:26" data-low>RG-08-06</a>
+      <li><a href="" data-offset="08:00" data-low>RG-08-07</a>
+      <li><a href="" data-offset="09:24" data-low>RG-08-08</a>
+      <li><a href="" data-offset="13:07" data-low>RG-08-09 = 03</a>
+      <li><a href="" data-offset="13:12" data-low>RG-08-10</a>
+      <li><a href="" data-offset="15:18" data-low>RG-08-11 = 04</a>
+      <li><a href="" data-offset="17:25" data-low>RG-08-12</a>
+      <li><a href="" data-offset="18:08" data-low>RG-08-13</a>
+      + <a href="" data-offset="24:33" data-low>RG-08-14</a>
+      <li><a href="" data-offset="25:55" data-low>RG-08-15</a>
+      + <a href="" data-offset="27:09" data-low>RG-08-16</a>
+      <li><a href="" data-offset="27:40" data-low>RG-08-17</a>
+      + <a href="" data-offset="28:44" data-low>RG-08-18</a>
     </ol>
     Композитор: Ави Недзвецкий.
   </div>
@@ -373,12 +384,14 @@ body {
     KLEM, Diskotech, Sergey_D, Неизвестный друг, diomen36, farit, johny1964, toltux, Dalfonce, zencd и другие.
   </p>
 
+<!--
   <h2>Ссылки:</h2>
   <p>
     <a href="https://klem.ru/forum/showthread.php?p=328764&goto=newpost">Форум KLEM</a> /
     <a href="http://tv-80.ru/muzykalnye/ritmicheskaya-gimnastika/">tv-80.ru</a> /
     <a href="http://rhytmicaerobic.blogspot.ru/">rhytmicaerobic.blogspot.ru</a>
   </p>
+ -->
 
   <h2>Обновления:</h2>
 

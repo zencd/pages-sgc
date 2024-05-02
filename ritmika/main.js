@@ -22,6 +22,10 @@ function prepareAudioLinks() {
 			var unrec = text.indexOf("RG") >= 0 || text.indexOf("(?)") >= 0;
 			if (unrec) {
 				$a.classList.add("unrecognized");
+				var lowInterest = $a.getAttribute('data-low')
+				if (lowInterest !== null) {
+					$a.classList.add("lowInterest");
+				}
 			} else {
 				$a.classList.add("recognized");
 			}
