@@ -71,7 +71,7 @@ font-family: School, sans-serif;
 .wrap0 {
 -webkit-backdrop-filter: saturate(50%) sepia(0%) contrast(70%) brightness(0.3) blur(30px);
 backdrop-filter: saturate(50%) sepia(0%) contrast(70%) brightness(0.3) blur(30px);
-xbackground-image: url(/static/scanlines.png);
+xbackground-image: url(./scanlines.png);
 }
 
 .wrap1 {
@@ -83,7 +83,7 @@ box-sizing: border-box; min-height: 100vh; /*100% height*/
 
 .wrap2 {
   background: #222;
-  background-image: url(/static/images/bg222-noise.png);
+  background-image: url(./images/bg222-noise.png);
   padding: 5px;
 }
 

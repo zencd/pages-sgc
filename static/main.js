@@ -54,6 +54,7 @@
         const pageContent = findSubstring(text, '<!-- pageContent begin -->', '<!-- pageContent end -->')
         if (!pageContent) {
             console.error("Failed loading " + url)
+            window.location.replace(url)
             return
         }
         const title = findSubstring(text, '<title>', '</title>')
