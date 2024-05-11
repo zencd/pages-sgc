@@ -2,6 +2,8 @@
     const log = console.log
     const $pageContent = document.getElementById('pageContent')
     const $pageSpecificStyle = document.getElementById('pageSpecificStyle')
+    const isDevel = document.querySelector('body').getAttribute('data-devel') === 'true'
+    const isProd = !isDevel
     function setupYoutubeVideoPlayerLinks(root) {
         const aa = root.querySelectorAll('a.ytVideoPLayer1[href*="youtube.com"]');
         [].forEach.call(aa, function (a) {
@@ -25,16 +27,20 @@
     function setupInternalLinks(root) {
         const aa = root.querySelectorAll('a');
         [].forEach.call(aa, function (a) {
-            const matches = !a.classList.contains('audioPlayer') &&
+            const href = a.getAttribute('href');
+            let matches = !a.classList.contains('audioPlayer') &&
                 !a.classList.contains('ytVideoPLayer1') &&
-                a.getAttribute('target') != '_blank' &&
-                a.getAttribute('href').startsWith('/')
+                a.getAttribute('target') !== '_blank' &&
+                (href !== '/' || isProd) &&
+                href.startsWith('/') &&
+                (href.endsWith('.html') || href.endsWith('/')) &&
+                true
             if (matches) {
                 a.addEventListener('click', function (e) {
                     const anyMod = e.metaKey || e.shiftKey || e.ctrlKey || e.altKey;
                     if (!anyMod) {
                         e.preventDefault();
-                        loadPage(a.getAttribute('href'), true)
+                        loadPage(href, true)
                     }
                 }, false);
             }
